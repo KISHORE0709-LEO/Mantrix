@@ -995,6 +995,27 @@ export const useLearning = create<LearningState>()(
     }),
     {
       name: 'skillquest-learning',
+      version: 2,
+      migrate: (persistedState: any, version: number) => {
+        if (version < 2) {
+          console.log('Migrating from version', version, 'to version 2 - Resetting all level stages');
+          
+          if (persistedState.courses) {
+            persistedState.courses = persistedState.courses.map((course: any) => ({
+              ...course,
+              levels: course.levels.map((level: any) => ({
+                ...level,
+                currentStage: 'narrative'
+              }))
+            }));
+          }
+          
+          if (persistedState.userProgress) {
+            persistedState.userProgress.currentLevel = null;
+          }
+        }
+        return persistedState;
+      }
     }
   )
 );
