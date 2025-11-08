@@ -7,7 +7,7 @@ export interface Course {
   levels: Level[];
 }
 
-export type LevelStage = 'narrative' | 'teaching-game' | 'learn' | 'quiz' | 'ai-videos' | 'practice-game' | 'complete';
+export type LevelStage = 'narrative' | 'teaching-game' | 'ai-videos' | 'assessment' | 'practice-game' | 'resources' | 'complete';
 
 export interface GameConfig {
   id: string;
@@ -19,6 +19,43 @@ export interface GameConfig {
   timeLimit?: number;
   passingScore: number;
   importanceWhy?: string;
+}
+
+export interface CodingProblem {
+  id: string;
+  title: string;
+  description: string;
+  difficulty: 'easy' | 'medium' | 'hard';
+  starterCode: string;
+  solution: string;
+  testCases: CodingTestCase[];
+  hints: string[];
+  timeLimit?: number;
+  tags: string[];
+}
+
+export interface CodingTestCase {
+  id: string;
+  input: string;
+  expectedOutput: string;
+  isHidden?: boolean;
+}
+
+export interface ExternalResource {
+  title: string;
+  url: string;
+  type: 'leetcode' | 'neetcode' | 'hackerrank' | 'codeforces' | 'youtube' | 'article' | 'documentation';
+  difficulty?: 'easy' | 'medium' | 'hard';
+  description?: string;
+}
+
+export interface QuizQuestion {
+  id: string;
+  question: string;
+  options?: string[];
+  correctAnswer: string;
+  explanation: string;
+  type: 'multiple-choice' | 'short-answer' | 'code-snippet';
 }
 
 export interface Level {
@@ -37,6 +74,10 @@ export interface Level {
   gameConfig?: GameConfig;
   quizPassScore?: number;
   teachingContent?: string;
+  quizQuestions?: QuizQuestion[];
+  codingProblems?: CodingProblem[];
+  externalResources?: ExternalResource[];
+  videoTopic?: string;
 }
 
 export interface GameProgress {

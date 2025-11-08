@@ -40,26 +40,26 @@ const initialCourses: Course[] = [
     icon: '🧠',
     color: '#6366f1',
     levels: [
-      { id: 'dsa-1', courseId: 'dsa', title: 'Introduction to Programming', description: 'Learn loops, variables, and conditionals', story: 'Welcome to the Valley of Variables! Master loops and conditionals to begin your journey.', xpReward: 100, challengeType: 'interactive', difficulty: 'beginner', unlocked: true, completed: false, currentStage: 'teaching-game', gameConfig: { id: 'loop-arena-1', type: 'loop-arena', title: 'Loop Arena: Valley of Variables', description: 'Learn loops by collecting items', objective: 'Collect all items using loop patterns', controls: 'WASD or Arrow Keys', passingScore: 90 } },
-      { id: 'dsa-2', courseId: 'dsa', title: 'Arrays & Lists', description: 'Understanding indexed collections', story: 'Enter the Array Temple where data is stored in ordered sequences.', xpReward: 120, challengeType: 'interactive', difficulty: 'beginner', unlocked: false, completed: false, currentStage: 'learn', gameConfig: { id: 'sorting-conveyor-2', type: 'sorting-conveyor', title: 'Array Organizer', description: 'Learn arrays by organizing items', objective: 'Sort items by value', controls: 'Click to swap items', passingScore: 100 } },
-      { id: 'dsa-3', courseId: 'dsa', title: 'Searching Algorithms', description: 'Linear and binary search', story: 'In the Forest of Search, find treasures using efficient search strategies.', xpReward: 130, challengeType: 'interactive', difficulty: 'beginner', unlocked: false, completed: false, currentStage: 'learn' },
-      { id: 'dsa-4', courseId: 'dsa', title: 'Linked Lists', description: 'Understanding node-based data structures', story: 'Navigate the Chain Bridge where each node points to the next.', xpReward: 140, challengeType: 'interactive', difficulty: 'beginner', unlocked: false, completed: false, currentStage: 'learn' },
-      { id: 'dsa-5', courseId: 'dsa', title: 'Stacks', description: 'Last-In-First-Out (LIFO) operations', story: 'Climb the Tower of Stacks where the last item added is first removed.', xpReward: 150, challengeType: 'interactive', difficulty: 'beginner', unlocked: false, completed: false, currentStage: 'learn' },
-      { id: 'dsa-6', courseId: 'dsa', title: 'Queues', description: 'First-In-First-Out (FIFO) operations', story: 'Join the Queue Kingdom where fairness rules - first come, first served!', xpReward: 150, challengeType: 'interactive', difficulty: 'beginner', unlocked: false, completed: false, currentStage: 'learn' },
-      { id: 'dsa-7', courseId: 'dsa', title: 'Hash Tables', description: 'Key-value pairs and hashing', story: 'Unlock the Hash Vault where keys open instant access to treasures.', xpReward: 160, challengeType: 'interactive', difficulty: 'intermediate', unlocked: false, completed: false, currentStage: 'learn' },
-      { id: 'dsa-8', courseId: 'dsa', title: 'Binary Trees', description: 'Hierarchical tree structures', story: 'Explore the Binary Forest where each node has at most two children.', xpReward: 170, challengeType: 'interactive', difficulty: 'intermediate', unlocked: false, completed: false, currentStage: 'learn' },
-      { id: 'dsa-9', courseId: 'dsa', title: 'Binary Search Trees', description: 'Ordered binary trees for fast lookup', story: 'Master the BST Cathedral where left is less, right is more.', xpReward: 180, challengeType: 'interactive', difficulty: 'intermediate', unlocked: false, completed: false, currentStage: 'learn' },
-      { id: 'dsa-10', courseId: 'dsa', title: 'Tree Traversals', description: 'Inorder, preorder, postorder, and level-order', story: 'Navigate the Traversal Maze using different paths through the trees.', xpReward: 190, challengeType: 'interactive', difficulty: 'intermediate', unlocked: false, completed: false, currentStage: 'learn', gameConfig: { id: 'recursion-maze-10', type: 'recursion-maze', title: 'Traversal Maze', description: 'Navigate using tree traversal patterns', objective: 'Reach all checkpoints in order', controls: 'Arrow Keys', passingScore: 90 } },
-      { id: 'dsa-11', courseId: 'dsa', title: 'Heaps & Priority Queues', description: 'Min-heap and max-heap structures', story: 'Scale the Heap Mountain where priority determines position.', xpReward: 200, challengeType: 'interactive', difficulty: 'intermediate', unlocked: false, completed: false, currentStage: 'learn' },
-      { id: 'dsa-12', courseId: 'dsa', title: 'Graphs - Basics', description: 'Vertices, edges, and representations', story: 'Map the Graph Galaxy where everything connects to everything.', xpReward: 210, challengeType: 'interactive', difficulty: 'intermediate', unlocked: false, completed: false, currentStage: 'learn' },
-      { id: 'dsa-13', courseId: 'dsa', title: 'Graph Traversals (DFS/BFS)', description: 'Depth-first and breadth-first search', story: 'Explore the Network Nexus using systematic traversal strategies.', xpReward: 220, challengeType: 'interactive', difficulty: 'advanced', unlocked: false, completed: false, currentStage: 'learn' },
-      { id: 'dsa-14', courseId: 'dsa', title: 'Sorting - Bubble & Selection', description: 'Simple comparison-based sorting', story: 'Start at the Sorting Academy with fundamental techniques.', xpReward: 230, challengeType: 'interactive', difficulty: 'intermediate', unlocked: false, completed: false, currentStage: 'learn' },
-      { id: 'dsa-15', courseId: 'dsa', title: 'Sorting - Merge & Quick', description: 'Divide-and-conquer sorting algorithms', story: 'Master advanced sorting in the Algorithm Arena.', xpReward: 240, challengeType: 'interactive', difficulty: 'advanced', unlocked: false, completed: false, currentStage: 'learn' },
-      { id: 'dsa-16', courseId: 'dsa', title: 'Recursion', description: 'Functions calling themselves', story: 'Descend into the Recursive Abyss where functions call themselves infinitely.', xpReward: 250, challengeType: 'interactive', difficulty: 'advanced', unlocked: false, completed: false, currentStage: 'learn' },
-      { id: 'dsa-17', courseId: 'dsa', title: 'Backtracking', description: 'Exploring all possibilities', story: 'Navigate the Backtracking Labyrinth by trying all paths.', xpReward: 260, challengeType: 'interactive', difficulty: 'advanced', unlocked: false, completed: false, currentStage: 'learn' },
-      { id: 'dsa-18', courseId: 'dsa', title: 'Dynamic Programming - Basics', description: 'Optimization using memoization', story: 'Unlock the DP Dimension where remembering saves time.', xpReward: 270, challengeType: 'interactive', difficulty: 'advanced', unlocked: false, completed: false, currentStage: 'learn' },
-      { id: 'dsa-19', courseId: 'dsa', title: 'Greedy Algorithms', description: 'Making locally optimal choices', story: 'Join the Greedy Guild where best now means best overall.', xpReward: 280, challengeType: 'interactive', difficulty: 'advanced', unlocked: false, completed: false, currentStage: 'learn' },
-      { id: 'dsa-20', courseId: 'dsa', title: 'Advanced Topics', description: 'Tries, segment trees, and beyond', story: 'Reach the Masters Summit with the most complex structures.', xpReward: 300, challengeType: 'interactive', difficulty: 'expert', unlocked: false, completed: false, currentStage: 'learn' },
+      { id: 'dsa-1', courseId: 'dsa', title: 'Introduction to Programming', description: 'Learn loops, variables, and conditionals', story: 'Welcome to the Valley of Variables! Master loops and conditionals to begin your journey.', xpReward: 100, challengeType: 'interactive', difficulty: 'beginner', unlocked: true, completed: false, currentStage: 'narrative', gameConfig: { id: 'loop-arena-1', type: 'loop-arena', title: 'Loop Arena: Valley of Variables', description: 'Learn loops by collecting items', objective: 'Collect all items using loop patterns', controls: 'WASD or Arrow Keys', passingScore: 90 } },
+      { id: 'dsa-2', courseId: 'dsa', title: 'Arrays & Lists', description: 'Understanding indexed collections', story: 'Enter the Array Temple where data is stored in ordered sequences.', xpReward: 120, challengeType: 'interactive', difficulty: 'beginner', unlocked: false, completed: false, currentStage: 'narrative', gameConfig: { id: 'sorting-conveyor-2', type: 'sorting-conveyor', title: 'Array Organizer', description: 'Learn arrays by organizing items', objective: 'Sort items by value', controls: 'Click to swap items', passingScore: 100 } },
+      { id: 'dsa-3', courseId: 'dsa', title: 'Searching Algorithms', description: 'Linear and binary search', story: 'In the Forest of Search, find treasures using efficient search strategies.', xpReward: 130, challengeType: 'interactive', difficulty: 'beginner', unlocked: false, completed: false, currentStage: 'narrative' },
+      { id: 'dsa-4', courseId: 'dsa', title: 'Linked Lists', description: 'Understanding node-based data structures', story: 'Navigate the Chain Bridge where each node points to the next.', xpReward: 140, challengeType: 'interactive', difficulty: 'beginner', unlocked: false, completed: false, currentStage: 'narrative' },
+      { id: 'dsa-5', courseId: 'dsa', title: 'Stacks', description: 'Last-In-First-Out (LIFO) operations', story: 'Climb the Tower of Stacks where the last item added is first removed.', xpReward: 150, challengeType: 'interactive', difficulty: 'beginner', unlocked: false, completed: false, currentStage: 'narrative' },
+      { id: 'dsa-6', courseId: 'dsa', title: 'Queues', description: 'First-In-First-Out (FIFO) operations', story: 'Join the Queue Kingdom where fairness rules - first come, first served!', xpReward: 150, challengeType: 'interactive', difficulty: 'beginner', unlocked: false, completed: false, currentStage: 'narrative' },
+      { id: 'dsa-7', courseId: 'dsa', title: 'Hash Tables', description: 'Key-value pairs and hashing', story: 'Unlock the Hash Vault where keys open instant access to treasures.', xpReward: 160, challengeType: 'interactive', difficulty: 'intermediate', unlocked: false, completed: false, currentStage: 'narrative' },
+      { id: 'dsa-8', courseId: 'dsa', title: 'Binary Trees', description: 'Hierarchical tree structures', story: 'Explore the Binary Forest where each node has at most two children.', xpReward: 170, challengeType: 'interactive', difficulty: 'intermediate', unlocked: false, completed: false, currentStage: 'narrative' },
+      { id: 'dsa-9', courseId: 'dsa', title: 'Binary Search Trees', description: 'Ordered binary trees for fast lookup', story: 'Master the BST Cathedral where left is less, right is more.', xpReward: 180, challengeType: 'interactive', difficulty: 'intermediate', unlocked: false, completed: false, currentStage: 'narrative' },
+      { id: 'dsa-10', courseId: 'dsa', title: 'Tree Traversals', description: 'Inorder, preorder, postorder, and level-order', story: 'Navigate the Traversal Maze using different paths through the trees.', xpReward: 190, challengeType: 'interactive', difficulty: 'intermediate', unlocked: false, completed: false, currentStage: 'narrative', gameConfig: { id: 'recursion-maze-10', type: 'recursion-maze', title: 'Traversal Maze', description: 'Navigate using tree traversal patterns', objective: 'Reach all checkpoints in order', controls: 'Arrow Keys', passingScore: 90 } },
+      { id: 'dsa-11', courseId: 'dsa', title: 'Heaps & Priority Queues', description: 'Min-heap and max-heap structures', story: 'Scale the Heap Mountain where priority determines position.', xpReward: 200, challengeType: 'interactive', difficulty: 'intermediate', unlocked: false, completed: false, currentStage: 'narrative' },
+      { id: 'dsa-12', courseId: 'dsa', title: 'Graphs - Basics', description: 'Vertices, edges, and representations', story: 'Map the Graph Galaxy where everything connects to everything.', xpReward: 210, challengeType: 'interactive', difficulty: 'intermediate', unlocked: false, completed: false, currentStage: 'narrative' },
+      { id: 'dsa-13', courseId: 'dsa', title: 'Graph Traversals (DFS/BFS)', description: 'Depth-first and breadth-first search', story: 'Explore the Network Nexus using systematic traversal strategies.', xpReward: 220, challengeType: 'interactive', difficulty: 'advanced', unlocked: false, completed: false, currentStage: 'narrative' },
+      { id: 'dsa-14', courseId: 'dsa', title: 'Sorting - Bubble & Selection', description: 'Simple comparison-based sorting', story: 'Start at the Sorting Academy with fundamental techniques.', xpReward: 230, challengeType: 'interactive', difficulty: 'intermediate', unlocked: false, completed: false, currentStage: 'narrative' },
+      { id: 'dsa-15', courseId: 'dsa', title: 'Sorting - Merge & Quick', description: 'Divide-and-conquer sorting algorithms', story: 'Master advanced sorting in the Algorithm Arena.', xpReward: 240, challengeType: 'interactive', difficulty: 'advanced', unlocked: false, completed: false, currentStage: 'narrative' },
+      { id: 'dsa-16', courseId: 'dsa', title: 'Recursion', description: 'Functions calling themselves', story: 'Descend into the Recursive Abyss where functions call themselves infinitely.', xpReward: 250, challengeType: 'interactive', difficulty: 'advanced', unlocked: false, completed: false, currentStage: 'narrative' },
+      { id: 'dsa-17', courseId: 'dsa', title: 'Backtracking', description: 'Exploring all possibilities', story: 'Navigate the Backtracking Labyrinth by trying all paths.', xpReward: 260, challengeType: 'interactive', difficulty: 'advanced', unlocked: false, completed: false, currentStage: 'narrative' },
+      { id: 'dsa-18', courseId: 'dsa', title: 'Dynamic Programming - Basics', description: 'Optimization using memoization', story: 'Unlock the DP Dimension where remembering saves time.', xpReward: 270, challengeType: 'interactive', difficulty: 'advanced', unlocked: false, completed: false, currentStage: 'narrative' },
+      { id: 'dsa-19', courseId: 'dsa', title: 'Greedy Algorithms', description: 'Making locally optimal choices', story: 'Join the Greedy Guild where best now means best overall.', xpReward: 280, challengeType: 'interactive', difficulty: 'advanced', unlocked: false, completed: false, currentStage: 'narrative' },
+      { id: 'dsa-20', courseId: 'dsa', title: 'Advanced Topics', description: 'Tries, segment trees, and beyond', story: 'Reach the Masters Summit with the most complex structures.', xpReward: 300, challengeType: 'interactive', difficulty: 'expert', unlocked: false, completed: false, currentStage: 'narrative' },
     ]
   },
   {
@@ -451,7 +451,7 @@ export const useLearning = create<LearningState>()(
       })),
       
       advanceStage: (levelId, newStage) => {
-        const stageOrder: LevelStage[] = ['narrative', 'teaching-game', 'learn', 'quiz', 'ai-videos', 'practice-game', 'complete'];
+        const stageOrder: LevelStage[] = ['narrative', 'teaching-game', 'ai-videos', 'assessment', 'practice-game', 'resources', 'complete'];
         
         const state = get();
         const level = state.courses
@@ -463,7 +463,7 @@ export const useLearning = create<LearningState>()(
           return false;
         }
         
-        const currentStage = level.currentStage || 'teaching-game';
+        const currentStage = level.currentStage || 'narrative';
         
         if (currentStage === newStage) {
           console.warn(`Level already on stage ${newStage}`);
@@ -474,10 +474,11 @@ export const useLearning = create<LearningState>()(
         const newIndex = stageOrder.indexOf(newStage);
         
         const hasGame = !!level.gameConfig;
+        const hasResources = !!level.externalResources && level.externalResources.length > 0;
         
         const isValidTransition = 
           newIndex > currentIndex ||
-          (newIndex === stageOrder.indexOf('complete') && !hasGame && currentStage === 'quiz') ||
+          (newIndex === stageOrder.indexOf('complete') && !hasResources && currentStage === 'practice-game') ||
           (newIndex === 0 && currentStage !== 'teaching-game');
         
         if (!isValidTransition) {
@@ -510,9 +511,9 @@ export const useLearning = create<LearningState>()(
           return false;
         }
         
-        const currentStage = level.currentStage || 'learn';
-        if (currentStage !== 'practice-game') {
-          console.error(`Cannot start game from stage ${currentStage}. Must be in practice-game stage.`);
+        const currentStage = level.currentStage || 'narrative';
+        if (currentStage !== 'practice-game' && currentStage !== 'teaching-game') {
+          console.error(`Cannot start game from stage ${currentStage}. Must be in practice-game or teaching-game stage.`);
           return false;
         }
         

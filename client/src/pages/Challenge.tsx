@@ -41,7 +41,7 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
   };
 
   const handleTeachingGameComplete = () => {
-    advanceStage(currentLevel.id, 'learn');
+    advanceStage(currentLevel.id, 'ai-videos');
   };
 
   const handleSubmit = () => {
@@ -54,37 +54,24 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
     if (correct) {
       playSuccess();
       
-      if (currentStage === 'learn') {
+      if (currentStage === 'assessment' && !hasGame) {
         setTimeout(() => {
-          advanceStage(currentLevel.id, 'quiz');
-        }, 1000);
-      } else if (currentStage === 'quiz') {
-        const passScore = currentLevel.quizPassScore || 70;
-        if (correct) {
-          setTimeout(() => {
-            advanceStage(currentLevel.id, 'ai-videos');
-          }, 1500);
-        }
+          if (currentLevel.externalResources && currentLevel.externalResources.length > 0) {
+            advanceStage(currentLevel.id, 'resources');
+          } else {
+            advanceStage(currentLevel.id, 'complete');
+          }
+        }, 1500);
       }
     }
   };
 
   const handleVideosComplete = () => {
-    if (hasGame) {
-      advanceStage(currentLevel.id, 'practice-game');
-      const success = startGame(currentLevel.id);
-      if (success) {
-        onNavigate('game-arena');
-      } else {
-        console.error('Failed to start game after videos');
-      }
-    } else {
-      advanceStage(currentLevel.id, 'complete');
-      onNavigate('courses');
-    }
+    advanceStage(currentLevel.id, 'assessment');
   };
 
   const handleStartGame = () => {
+    advanceStage(currentLevel.id, 'practice-game');
     const success = startGame(currentLevel.id);
     if (success) {
       onNavigate('game-arena');
@@ -212,7 +199,7 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
     );
   }
 
-  const isQuizStage = currentStage === 'quiz' || currentStage === 'learn';
+  const isAssessmentStage = currentStage === 'assessment';
 
   const renderChallenge = () => {
     switch (currentLevel.id) {
@@ -368,7 +355,7 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
                     )}
                   </div>
                   
-                  {isCorrect && hasGame && currentStage === 'quiz' && (
+                  {isCorrect && hasGame && currentStage === 'assessment' && (
                     <button
                       onClick={handleStartGame}
                       className="w-full px-6 py-3 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 font-game text-sm text-white transition-all duration-300 glow"
