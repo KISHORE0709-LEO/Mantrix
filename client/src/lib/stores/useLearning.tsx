@@ -40,7 +40,7 @@ const initialCourses: Course[] = [
     icon: '🧠',
     color: '#6366f1',
     levels: [
-      { id: 'dsa-1', courseId: 'dsa', title: 'Introduction to Programming', description: 'Learn loops, variables, and conditionals', story: 'Welcome to the Valley of Variables! Master loops and conditionals to begin your journey.', xpReward: 100, challengeType: 'interactive', difficulty: 'beginner', unlocked: true, completed: false, currentStage: 'learn', gameConfig: { id: 'loop-arena-1', type: 'loop-arena', title: 'Loop Arena: Valley of Variables', description: 'Learn loops by collecting items', objective: 'Collect all items using loop patterns', controls: 'WASD or Arrow Keys', passingScore: 90 } },
+      { id: 'dsa-1', courseId: 'dsa', title: 'Introduction to Programming', description: 'Learn loops, variables, and conditionals', story: 'Welcome to the Valley of Variables! Master loops and conditionals to begin your journey.', xpReward: 100, challengeType: 'interactive', difficulty: 'beginner', unlocked: true, completed: false, currentStage: 'teaching-game', gameConfig: { id: 'loop-arena-1', type: 'loop-arena', title: 'Loop Arena: Valley of Variables', description: 'Learn loops by collecting items', objective: 'Collect all items using loop patterns', controls: 'WASD or Arrow Keys', passingScore: 90 } },
       { id: 'dsa-2', courseId: 'dsa', title: 'Arrays & Lists', description: 'Understanding indexed collections', story: 'Enter the Array Temple where data is stored in ordered sequences.', xpReward: 120, challengeType: 'interactive', difficulty: 'beginner', unlocked: false, completed: false, currentStage: 'learn', gameConfig: { id: 'sorting-conveyor-2', type: 'sorting-conveyor', title: 'Array Organizer', description: 'Learn arrays by organizing items', objective: 'Sort items by value', controls: 'Click to swap items', passingScore: 100 } },
       { id: 'dsa-3', courseId: 'dsa', title: 'Searching Algorithms', description: 'Linear and binary search', story: 'In the Forest of Search, find treasures using efficient search strategies.', xpReward: 130, challengeType: 'interactive', difficulty: 'beginner', unlocked: false, completed: false, currentStage: 'learn' },
       { id: 'dsa-4', courseId: 'dsa', title: 'Linked Lists', description: 'Understanding node-based data structures', story: 'Navigate the Chain Bridge where each node points to the next.', xpReward: 140, challengeType: 'interactive', difficulty: 'beginner', unlocked: false, completed: false, currentStage: 'learn' },
@@ -305,7 +305,7 @@ export const useLearning = create<LearningState>()(
       })),
       
       advanceStage: (levelId, newStage) => {
-        const stageOrder: LevelStage[] = ['learn', 'quiz', 'game', 'complete'];
+        const stageOrder: LevelStage[] = ['teaching-game', 'learn', 'videos', 'quiz', 'practice-game', 'complete'];
         
         const state = get();
         const level = state.courses
@@ -317,7 +317,7 @@ export const useLearning = create<LearningState>()(
           return false;
         }
         
-        const currentStage = level.currentStage || 'learn';
+        const currentStage = level.currentStage || 'teaching-game';
         
         if (currentStage === newStage) {
           console.warn(`Level already on stage ${newStage}`);
@@ -327,13 +327,15 @@ export const useLearning = create<LearningState>()(
         const currentIndex = stageOrder.indexOf(currentStage);
         const newIndex = stageOrder.indexOf(newStage);
         
+        const hasGame = !!level.gameConfig;
+        
         const isValidTransition = 
-          newIndex === currentIndex + 1 ||
-          (newIndex === 0 && currentStage !== 'learn');
+          newIndex > currentIndex ||
+          (newIndex === stageOrder.indexOf('complete') && !hasGame && currentStage === 'quiz') ||
+          (newIndex === 0 && currentStage !== 'teaching-game');
         
         if (!isValidTransition) {
-          const expected = stageOrder[currentIndex + 1];
-          console.error(`Invalid stage transition from ${currentStage} to ${newStage}. Expected ${expected || 'complete'}`);
+          console.error(`Invalid stage transition from ${currentStage} to ${newStage}`);
           return false;
         }
         
@@ -385,7 +387,7 @@ export const useLearning = create<LearningState>()(
           }
         }));
         
-        const advanced = get().advanceStage(levelId, 'game');
+        const advanced = get().advanceStage(levelId, 'practice-game');
         return advanced;
       },
       

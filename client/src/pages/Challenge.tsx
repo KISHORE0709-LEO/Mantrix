@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { ArrowLeft, Lightbulb, Send, CheckCircle } from "lucide-react";
 import { useAudio } from "@/lib/stores/useAudio";
 import VideoRecommendations from "@/components/VideoRecommendations";
+import TeachingGame from "@/components/TeachingGame";
 
 interface ChallengeProps {
   onNavigate: (page: string) => void;
@@ -32,8 +33,12 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
     return null;
   }
 
-  const currentStage = currentLevel.currentStage || 'learn';
+  const currentStage = currentLevel.currentStage || 'teaching-game';
   const hasGame = !!currentLevel.gameConfig;
+
+  const handleTeachingGameComplete = () => {
+    advanceStage(currentLevel.id, 'learn');
+  };
 
   const handleSubmit = () => {
     const correctAnswer = getCorrectAnswer(currentLevel.id);
@@ -44,19 +49,29 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
 
     if (correct) {
       playSuccess();
-      setTimeout(() => {
-        advanceStage(currentLevel.id, 'videos');
-      }, 1000);
+      
+      if (currentStage === 'learn') {
+        setTimeout(() => {
+          advanceStage(currentLevel.id, 'videos');
+        }, 1000);
+      } else if (currentStage === 'quiz') {
+        if (hasGame) {
+          setTimeout(() => {
+            advanceStage(currentLevel.id, 'complete');
+            onNavigate('courses');
+          }, 2000);
+        } else {
+          setTimeout(() => {
+            advanceStage(currentLevel.id, 'complete');
+            onNavigate('courses');
+          }, 2000);
+        }
+      }
     }
   };
 
   const handleVideosComplete = () => {
-    if (hasGame) {
-      advanceStage(currentLevel.id, 'quiz');
-    } else {
-      advanceStage(currentLevel.id, 'complete');
-      onNavigate('courses');
-    }
+    advanceStage(currentLevel.id, 'quiz');
   };
 
   const handleStartGame = () => {
@@ -113,6 +128,22 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
     return hints[levelId] || 'Keep thinking! You can do this!';
   };
 
+  if (currentStage === 'teaching-game') {
+    return (
+      <TeachingGame
+        topic={currentLevel.title}
+        concept={currentLevel.description}
+        interactive={{
+          title: `Understanding ${currentLevel.title}`,
+          description: currentLevel.story,
+          demoCode: currentLevel.title.includes('Loop') ? 'for (let i = 0; i < 10; i++) {\n  console.log(i);\n}' : undefined,
+          visualDemo: `This concept helps you ${currentLevel.description.toLowerCase()}`,
+        }}
+        onComplete={handleTeachingGameComplete}
+      />
+    );
+  }
+
   if (currentStage === 'videos') {
     return (
       <VideoRecommendations
@@ -122,6 +153,8 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
       />
     );
   }
+
+  const isQuizStage = currentStage === 'quiz' || currentStage === 'learn';
 
   const renderChallenge = () => {
     switch (currentLevel.id) {
