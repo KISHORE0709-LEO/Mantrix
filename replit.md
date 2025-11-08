@@ -39,7 +39,13 @@ Preferred communication style: Simple, everyday language.
 **Component Architecture:**
 - Presentational components separated from container components
 - Shared UI component library under `client/src/components/ui/`
-- Custom components: CodeEditor, Navigation, GameArena
+- Custom components:
+  - **AssessmentHub**: Combined quiz and coding challenge interface with test runner and AI hints
+  - **VideoRecommendations**: AI-powered video suggestions before assessments
+  - **ResourcesPanel**: External practice resources (LeetCode, NeetCode, W3Schools, MDN)
+  - **TeachingGame**: Interactive 3D mini-games for learning concepts
+  - **GameArena**: Full game experience with briefing and results
+  - **Navigation**: Responsive navbar with XP/level display
 - Atomic design pattern with reusable button, card, dialog, and form components
 
 **Game System:**
@@ -49,7 +55,8 @@ Preferred communication style: Simple, everyday language.
   - **Loop Arena**: Collect items in a 3D arena using WASD/Arrow keys, teaches loops and iteration
   - **Recursion Maze**: Navigate through maze with wall collision detection, teaches recursive thinking
   - **Sorting Conveyor**: Interactive click-to-swap sorting game, teaches sorting algorithms
-- Game progression: Learn → Quiz → Play Game → Earn XP
+- **MATRIX Learning Flow**: Narrative → Teaching Game → AI Video Recommendations → Assessment (Quiz + Coding) → Practice Game → External Resources → Level Complete
+- Complete integration with XP rewards and progress tracking
 - GameArena component manages briefing, gameplay, and results screens
 - Game registry system for easy addition of new games
 
@@ -70,7 +77,13 @@ Preferred communication style: Simple, everyday language.
 
 **AI Integration:**
 - OpenAI GPT-5 integration for AI learning companion features
-- Graceful degradation when API key is unavailable
+- **Contextual Hint System**: AI provides stage-aware hints based on:
+  - Current learning stage (narrative, teaching, assessment, etc.)
+  - Problem type (quiz questions vs coding challenges)
+  - User's code and test results for coding problems
+  - Number of attempts to guide difficulty
+- UI integration: Hint buttons in both quiz questions and coding challenges
+- Graceful degradation when API key is unavailable (fallback messages)
 - AI functions designed to be encouraging, educational, and non-spoiling
 
 **Development vs Production:**
@@ -92,6 +105,7 @@ Preferred communication style: Simple, everyday language.
 - `badges` table storing earned achievements
 - `certificates` table for course completion certificates
 - `gameSessions` table tracking individual game plays with score, time, and XP
+- `codingAttempts` table for tracking code submissions and test results
 - Insert schemas with Zod validation for type safety
 
 **In-Memory Storage:**
