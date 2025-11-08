@@ -3,6 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { generateHint, generateChallenge, provideExplanation, getMotivationalMessage } from "./ai";
 import { getRecommendedVideos } from "./services/youtube";
+import { analyzeUserPerformance, getAdaptiveHint } from "./services/aiTutor";
 import bcrypt from "bcrypt";
 import { nanoid } from "nanoid";
 import "./types";
@@ -261,6 +262,70 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error('Error fetching video recommendations:', error);
       res.status(500).json({ error: 'Failed to fetch recommendations' });
+    }
+  });
+
+  app.post("/api/ai/analyze-performance", requireAuth, async (req, res) => {
+    try {
+      const { topic, levelId } = req.body;
+      const userId = req.session.userId!;
+      
+      if (!topic) {
+        return res.status(400).json({ error: 'Topic is required' });
+      }
+      
+      const metrics = await storage.getBehavioralMetrics(userId, levelId);
+      
+      if (metrics.length === 0) {
+        return res.json({
+          strengths: ['Just getting started!'],
+          weaknesses: [],
+          recommendedDifficulty: 'beginner',
+          suggestedTopics: [],
+          encouragement: 'Ready to begin your learning journey!',
+        });
+      }
+      
+      const analysis = await analyzeUserPerformance(userId, topic, metrics);
+      res.json(analysis);
+    } catch (error) {
+      console.error('Error analyzing performance:', error);
+      res.status(500).json({ error: 'Failed to analyze performance' });
+    }
+  });
+
+  app.post("/api/ai/adaptive-hint", requireAuth, async (req, res) => {
+    try {
+      const { topic, userCode, mistakesMade } = req.body;
+      
+      const hint = await getAdaptiveHint(topic, userCode || '', mistakesMade || 0);
+      res.json({ hint });
+    } catch (error) {
+      console.error('Error getting adaptive hint:', error);
+      res.status(500).json({ error: 'Failed to get hint' });
+    }
+  });
+
+  app.post("/api/behavioral/track", requireAuth, async (req, res) => {
+    try {
+      const { levelId, activityType, timeToSolve, hintsUsed, mistakeCount, successRate } = req.body;
+      const userId = req.session.userId!;
+      
+      await storage.trackBehavior({
+        userId,
+        levelId,
+        activityType,
+        timeToSolve: timeToSolve || null,
+        hintsUsed: hintsUsed || 0,
+        mistakeCount: mistakeCount || 0,
+        attemptsCount: 1,
+        successRate: successRate || 0,
+      });
+      
+      res.json({ success: true });
+    } catch (error) {
+      console.error('Error tracking behavior:', error);
+      res.status(500).json({ error: 'Failed to track behavior' });
     }
   });
 

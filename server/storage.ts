@@ -6,6 +6,7 @@ import {
   completedLevels, 
   badges, 
   certificates,
+  behavioralMetrics,
   type User, 
   type InsertUser,
   type UserProgress,
@@ -40,6 +41,20 @@ export interface IStorage {
   
   // Leaderboard
   getTopUsers(limit: number): Promise<Array<User & { totalXP: number; level: number }>>;
+  
+  // Behavioral tracking
+  trackBehavior(data: {
+    userId: number;
+    levelId: string;
+    activityType: string;
+    timeToSolve: number | null;
+    hintsUsed: number;
+    mistakeCount: number;
+    attemptsCount: number;
+    successRate: number;
+  }): Promise<void>;
+  
+  getBehavioralMetrics(userId: number, levelId?: string): Promise<any[]>;
 }
 
 export class DBStorage implements IStorage {
@@ -150,6 +165,62 @@ export class DBStorage implements IStorage {
     
     return result as Array<User & { totalXP: number; level: number }>;
   }
+
+  async trackBehavior(data: {
+    userId: number;
+    levelId: string;
+    activityType: string;
+    timeToSolve: number | null;
+    hintsUsed: number;
+    mistakeCount: number;
+    attemptsCount: number;
+    successRate: number;
+  }): Promise<void> {
+    await db.insert(behavioralMetrics).values({
+      userId: data.userId,
+      levelId: data.levelId,
+      activityType: data.activityType,
+      timeToSolve: data.timeToSolve,
+      hintsUsed: data.hintsUsed,
+      mistakeCount: data.mistakeCount,
+      attemptsCount: data.attemptsCount,
+      successRate: data.successRate,
+      performanceScore: calculatePerformanceScore(data),
+    });
+  }
+
+  async getBehavioralMetrics(userId: number, levelId?: string): Promise<any[]> {
+    if (levelId) {
+      const { and } = await import("drizzle-orm");
+      return await db
+        .select()
+        .from(behavioralMetrics)
+        .where(and(
+          eq(behavioralMetrics.userId, userId),
+          eq(behavioralMetrics.levelId, levelId)
+        ));
+    }
+    
+    return await db
+      .select()
+      .from(behavioralMetrics)
+      .where(eq(behavioralMetrics.userId, userId));
+  }
+}
+
+function calculatePerformanceScore(data: {
+  timeToSolve: number | null;
+  hintsUsed: number;
+  mistakeCount: number;
+  successRate: number;
+}): number {
+  let score = data.successRate;
+  score -= data.hintsUsed * 5;
+  score -= data.mistakeCount * 3;
+  if (data.timeToSolve && data.timeToSolve < 60) {
+    score += 10;
+  }
+  return Math.max(0, Math.min(100, score));
 }
 
 export const storage = new DBStorage();

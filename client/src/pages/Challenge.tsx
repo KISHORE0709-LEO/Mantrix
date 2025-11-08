@@ -2,6 +2,7 @@ import { useLearning } from "@/lib/stores/useLearning";
 import { useState, useEffect } from "react";
 import { ArrowLeft, Lightbulb, Send, CheckCircle } from "lucide-react";
 import { useAudio } from "@/lib/stores/useAudio";
+import VideoRecommendations from "@/components/VideoRecommendations";
 
 interface ChallengeProps {
   onNavigate: (page: string) => void;
@@ -43,16 +44,18 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
 
     if (correct) {
       playSuccess();
-      if (hasGame) {
-        setTimeout(() => {
-          advanceStage(currentLevel.id, 'quiz');
-        }, 1000);
-      } else {
-        setTimeout(() => {
-          advanceStage(currentLevel.id, 'complete');
-          onNavigate('courses');
-        }, 2000);
-      }
+      setTimeout(() => {
+        advanceStage(currentLevel.id, 'videos');
+      }, 1000);
+    }
+  };
+
+  const handleVideosComplete = () => {
+    if (hasGame) {
+      advanceStage(currentLevel.id, 'quiz');
+    } else {
+      advanceStage(currentLevel.id, 'complete');
+      onNavigate('courses');
     }
   };
 
@@ -109,6 +112,16 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
     };
     return hints[levelId] || 'Keep thinking! You can do this!';
   };
+
+  if (currentStage === 'videos') {
+    return (
+      <VideoRecommendations
+        topic={currentLevel.title}
+        difficulty={currentLevel.difficulty}
+        onComplete={handleVideosComplete}
+      />
+    );
+  }
 
   const renderChallenge = () => {
     switch (currentLevel.id) {

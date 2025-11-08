@@ -7,7 +7,7 @@ export interface Course {
   levels: Level[];
 }
 
-export type LevelStage = 'learn' | 'quiz' | 'game' | 'complete';
+export type LevelStage = 'teaching-game' | 'learn' | 'videos' | 'quiz' | 'practice-game' | 'complete';
 
 export interface GameConfig {
   id: string;
