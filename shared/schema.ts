@@ -49,6 +49,19 @@ export const certificates = pgTable("certificates", {
   issuedAt: timestamp("issued_at").defaultNow().notNull(),
 });
 
+export const gameSessions = pgTable("game_sessions", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull().references(() => users.id),
+  levelId: text("level_id").notNull(),
+  courseId: text("course_id").notNull(),
+  gameType: text("game_type").notNull(),
+  score: integer("score").notNull(),
+  timeSpent: integer("time_spent").notNull(),
+  success: boolean("success").notNull(),
+  xpEarned: integer("xp_earned").notNull(),
+  playedAt: timestamp("played_at").defaultNow().notNull(),
+});
+
 export const insertUserSchema = createInsertSchema(users).pick({
   username: true,
   password: true,
@@ -59,6 +72,7 @@ export const insertProgressSchema = createInsertSchema(userProgress);
 export const insertCompletedLevelSchema = createInsertSchema(completedLevels);
 export const insertBadgeSchema = createInsertSchema(badges);
 export const insertCertificateSchema = createInsertSchema(certificates);
+export const insertGameSessionSchema = createInsertSchema(gameSessions);
 
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
@@ -66,3 +80,4 @@ export type UserProgress = typeof userProgress.$inferSelect;
 export type CompletedLevel = typeof completedLevels.$inferSelect;
 export type Badge = typeof badges.$inferSelect;
 export type Certificate = typeof certificates.$inferSelect;
+export type GameSession = typeof gameSessions.$inferSelect;
