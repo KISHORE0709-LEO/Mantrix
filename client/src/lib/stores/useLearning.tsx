@@ -726,12 +726,26 @@ export const useLearning = create<LearningState>()(
         }
       })),
       
-      selectLevel: (levelId) => set((state) => ({
-        userProgress: {
-          ...state.userProgress,
-          currentLevel: levelId,
-        }
-      })),
+      selectLevel: (levelId) => {
+        set((state) => {
+          const updatedCourses = state.courses.map(course => ({
+            ...course,
+            levels: course.levels.map(level => 
+              level.id === levelId 
+                ? { ...level, currentStage: 'narrative' as LevelStage }
+                : level
+            )
+          }));
+          
+          return {
+            courses: updatedCourses,
+            userProgress: {
+              ...state.userProgress,
+              currentLevel: levelId,
+            }
+          };
+        });
+      },
       
       advanceStage: (levelId, newStage) => {
         const stageOrder: LevelStage[] = ['narrative', 'teaching-game', 'ai-videos', 'assessment', 'practice-game', 'resources', 'complete'];
