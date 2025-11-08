@@ -39,8 +39,19 @@ Preferred communication style: Simple, everyday language.
 **Component Architecture:**
 - Presentational components separated from container components
 - Shared UI component library under `client/src/components/ui/`
-- Custom components: CodeEditor, Navigation
+- Custom components: CodeEditor, Navigation, GameArena
 - Atomic design pattern with reusable button, card, dialog, and form components
+
+**Game System:**
+- React Three Fiber (R3F) for 3D game rendering
+- KeyboardControls from @react-three/drei for player input
+- Three playable mini-games integrated into learning flow:
+  - **Loop Arena**: Collect items in a 3D arena using WASD/Arrow keys, teaches loops and iteration
+  - **Recursion Maze**: Navigate through maze with wall collision detection, teaches recursive thinking
+  - **Sorting Conveyor**: Interactive click-to-swap sorting game, teaches sorting algorithms
+- Game progression: Learn → Quiz → Play Game → Earn XP
+- GameArena component manages briefing, gameplay, and results screens
+- Game registry system for easy addition of new games
 
 ### Backend Architecture
 
@@ -75,19 +86,18 @@ Preferred communication style: Simple, everyday language.
 - Schema-first approach with Zod validation
 
 **Current Schema:**
-- `users` table with username/password authentication (basic implementation)
+- `users` table with username/password authentication
+- `userProgress` table tracking XP, level, current course/level
+- `completedLevels` table recording level completion and XP earned
+- `badges` table storing earned achievements
+- `certificates` table for course completion certificates
+- `gameSessions` table tracking individual game plays with score, time, and XP
 - Insert schemas with Zod validation for type safety
 
 **In-Memory Storage:**
 - `MemStorage` class provides in-memory implementation of IStorage interface
 - Used for development and testing without database dependency
 - Supports user CRUD operations with auto-incrementing IDs
-
-**Future Schema Considerations:**
-- User progress tracking (XP, level, completed challenges)
-- Course and level completion records
-- Badge and achievement storage
-- AI conversation history for personalized learning paths
 
 ### External Dependencies
 
