@@ -71,10 +71,10 @@ app.use((req, res, next) => {
     serveStatic(app);
   }
 
-  // ALWAYS serve the app on port 3001
+  // Serve the app on port 5000 for Replit environment
   // this serves both the API and the client
-  const port = 3001;
-  server.listen(port, () => {
+  const port = 5000;
+  server.listen(port, "0.0.0.0", () => {
     log(`serving on port ${port}`);
   });
 })();
