@@ -28,7 +28,7 @@ export interface Level {
   story: string;
   xpReward: number;
   challengeType: 'coding' | 'quiz' | 'interactive';
-  difficulty: 'beginner' | 'intermediate' | 'advanced';
+  difficulty: 'beginner' | 'intermediate' | 'advanced' | 'expert';
   unlocked: boolean;
   completed: boolean;
   currentStage?: LevelStage;
