@@ -22,7 +22,7 @@ export default function Progress() {
   const lockedAchievements = allAchievements.filter(a => !a.earned);
 
   return (
-    <div className="min-h-screen pt-20 pb-12 px-4">
+    <div className="min-h-screen pt-24 pb-12 px-4">
       <div className="max-w-7xl mx-auto">
         <h1 className="font-game text-2xl sm:text-3xl text-center mb-12 text-indigo-300 glow-text">
           Your Progress

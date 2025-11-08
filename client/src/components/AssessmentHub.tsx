@@ -60,12 +60,13 @@ export function AssessmentHub({ level, onComplete, onAIHelp }: AssessmentHubProp
 
   const handleRequestCodingHint = () => {
     if (onAIHelp && currentProblem) {
+      // Always provide the direct answer for coding problems
       onAIHelp({
         type: 'coding',
         title: currentProblem.title,
-        description: currentProblem.description,
+        description: `Here's the complete solution for "${currentProblem.title}":\n\n${currentProblem.solution}\n\nThis solution passes all test cases. Study it carefully and try to understand each part before using it.`,
         userCode: currentCode,
-        testResults: testResults 
+        testResults: testResults
           ? `Passed ${testResults.passed}/${testResults.total} tests. Output: ${codeOutput.join('; ')}`
           : undefined,
         attempts: codingAttempts
@@ -124,6 +125,51 @@ export function AssessmentHub({ level, onComplete, onAIHelp }: AssessmentHubProp
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 pt-24 p-8">
       <div className="max-w-6xl mx-auto">
         <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl border-2 border-purple-500 p-8">
+          {/* AI Help Button */}
+          <div className="flex justify-end mb-4">
+            <button
+              onClick={() => {
+                if (onAIHelp) {
+                  const quizAnswers = level.quizQuestions?.map((q, idx) => 
+                    `${idx + 1}. ${q.question} - ${q.correctAnswer}`
+                  ) || [];
+                  
+                  const codingAnswers = level.codingProblems?.map((p, idx) => 
+                    `Problem ${idx + 1}: ${p.title}\n${p.solution}`
+                  ) || [];
+
+                  let content = `Here's the complete solution for "${level.title}":\n\n`;
+
+                  if (quizAnswers.length > 0) {
+                    content += `📝 QUIZ ANSWERS:\n`;
+                    quizAnswers.forEach((answer) => {
+                      content += `${answer}\n`;
+                    });
+                    content += `\n`;
+                  }
+
+                  if (codingAnswers.length > 0) {
+                    content += `💻 CODING SOLUTIONS:\n`;
+                    codingAnswers.forEach((solution) => {
+                      content += `${solution}\n\n`;
+                    });
+                  }
+
+                  content += `Study these solutions carefully and try to understand each part before using them.`;
+
+                  onAIHelp({
+                    type: 'quiz',
+                    description: content
+                  });
+                }
+              }}
+              className="px-6 py-3 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 font-orbitron text-sm text-white transition-all flex items-center gap-2"
+            >
+              <Lightbulb className="w-4 h-4" />
+              AI HELP
+            </button>
+          </div>
+
           <h1 className="font-game text-3xl text-purple-300 mb-6 flex items-center gap-3">
             <span>⚡</span>
             Assessment: {level.title}
@@ -193,15 +239,7 @@ export function AssessmentHub({ level, onComplete, onAIHelp }: AssessmentHubProp
                     </div>
                   )}
                   
-                  {!quizSubmitted && (
-                    <button
-                      onClick={() => handleRequestQuizHint(question)}
-                      className="mt-3 px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-500 font-orbitron text-xs text-white transition-colors flex items-center gap-2"
-                    >
-                      <Lightbulb className="w-3 h-3" />
-                      Get AI Hint
-                    </button>
-                  )}
+
 
                   {quizSubmitted && (
                     <div className={`mt-4 p-4 rounded-lg ${
@@ -275,22 +313,13 @@ export function AssessmentHub({ level, onComplete, onAIHelp }: AssessmentHubProp
                 placeholder="Write your solution here..."
               />
 
-              <div className="flex gap-4">
-                <button
-                  onClick={handleRunCode}
-                  className="flex-1 px-6 py-3 rounded-lg bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 font-game text-white transition-all flex items-center justify-center gap-2"
-                >
-                  <Play className="w-4 h-4" />
-                  Run Tests
-                </button>
-                <button
-                  onClick={handleRequestCodingHint}
-                  className="px-6 py-3 rounded-lg bg-purple-600 hover:bg-purple-500 font-orbitron text-sm text-white transition-colors flex items-center gap-2"
-                >
-                  <Lightbulb className="w-4 h-4" />
-                  AI Hint
-                </button>
-              </div>
+              <button
+                onClick={handleRunCode}
+                className="w-full px-6 py-3 rounded-lg bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 font-game text-white transition-all flex items-center justify-center gap-2"
+              >
+                <Play className="w-4 h-4" />
+                Run Tests
+              </button>
 
               {codeOutput.length > 0 && (
                 <div className="bg-slate-900 rounded-lg p-6 border border-slate-700">

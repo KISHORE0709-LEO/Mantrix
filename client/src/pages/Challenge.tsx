@@ -6,13 +6,14 @@ import VideoRecommendations from "@/components/VideoRecommendations";
 import TeachingGame from "@/components/TeachingGame";
 import { AssessmentHub } from "@/components/AssessmentHub";
 import { ResourcesPanel } from "@/components/ResourcesPanel";
+import { MarkupForge } from "@/games/MarkupForge";
 
 interface ChallengeProps {
   onNavigate: (page: string) => void;
 }
 
 export default function Challenge({ onNavigate }: ChallengeProps) {
-  const { courses, userProgress, advanceStage, startGame, updateAIMessages, aiCompanion, toggleAICompanion } = useLearning();
+  const { courses, userProgress, advanceStage, goBackStage, startGame, updateAIMessages, aiCompanion, toggleAICompanion } = useLearning();
   const { playSuccess } = useAudio();
   const [userAnswer, setUserAnswer] = useState('');
   const [showResult, setShowResult] = useState(false);
@@ -39,11 +40,18 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
   const hasGame = !!currentLevel.gameConfig;
 
   const handleNarrativeComplete = () => {
-    advanceStage(currentLevel.id, 'teaching-game');
+    advanceStage(currentLevel.id, 'ai-videos');
   };
 
-  const handleTeachingGameComplete = () => {
-    advanceStage(currentLevel.id, 'ai-videos');
+  const handleTeachingGameComplete = (gameResult?: any) => {
+    // Show game completion screen first
+    setTimeout(() => {
+      advanceStage(currentLevel.id, 'assessment');
+    }, 3000); // 3 second delay to show completion
+  };
+
+  const handleGoBack = () => {
+    goBackStage(currentLevel.id);
   };
 
   const handleSubmit = () => {
@@ -69,13 +77,15 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
   };
 
   const handleVideosComplete = () => {
-    advanceStage(currentLevel.id, 'assessment');
+    if (hasGame) {
+      advanceStage(currentLevel.id, 'teaching-game');
+    } else {
+      advanceStage(currentLevel.id, 'assessment');
+    }
   };
 
   const handleAssessmentComplete = () => {
-    if (hasGame) {
-      advanceStage(currentLevel.id, 'practice-game');
-    } else if (currentLevel.externalResources && currentLevel.externalResources.length > 0) {
+    if (currentLevel.externalResources && currentLevel.externalResources.length > 0) {
       advanceStage(currentLevel.id, 'resources');
     } else {
       advanceStage(currentLevel.id, 'complete');
@@ -84,7 +94,6 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
   };
 
   const handleStartGame = () => {
-    advanceStage(currentLevel.id, 'practice-game');
     const success = startGame(currentLevel.id);
     if (success) {
       onNavigate('game-arena');
@@ -98,42 +107,79 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
     onNavigate('courses');
   };
 
-  const handleAIHelp = async (context?: { type: 'quiz' | 'coding'; title?: string; description?: string; userCode?: string; testResults?: string; attempts?: number; }) => {
-    try {
-      const response = await fetch('/api/ai/hint', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          levelId: currentLevel.id,
-          courseId: currentCourse.id,
-          userProgress: `XP: ${userProgress.totalXP}, Level: ${userProgress.level}`,
-          difficulty: currentLevel.difficulty,
-          currentStage: currentStage,
-          problemContext: context
-        })
+  const handleAIHelp = (context?: { type: 'quiz' | 'coding'; title?: string; description?: string; userCode?: string; testResults?: string; attempts?: number; }) => {
+    const quizAnswers = getQuizAnswers(currentLevel.id);
+    const codingAnswers = getCodingAnswers(currentLevel.id);
+
+    let content = `Here's the complete solution for "${currentLevel.title}":\n\n`;
+
+    if (quizAnswers.length > 0) {
+      content += `📝 QUIZ ANSWERS:\n`;
+      quizAnswers.forEach((answer: string) => {
+        content += `${answer}\n`;
       });
-      
-      const data = await response.json();
-      updateAIMessages({ role: 'assistant', content: data.hint || 'Keep going! You can do this!' });
-      toggleAICompanion();
-    } catch (error) {
-      console.error('Error getting AI hint:', error);
-      updateAIMessages({ role: 'assistant', content: 'I\'m here to help! Try breaking the problem into smaller steps.' });
-      toggleAICompanion();
+      content += `\n`;
     }
+
+    if (codingAnswers.length > 0) {
+      content += `💻 CODING SOLUTIONS:\n`;
+      codingAnswers.forEach((solution: string, idx: number) => {
+        content += `Problem ${idx + 1}:\n${solution}\n\n`;
+      });
+    }
+
+    content += `Study these solutions carefully and try to understand each part before using them.`;
+
+    // Add practice resources
+    if (currentLevel.externalResources && currentLevel.externalResources.length > 0) {
+      content += `\n\n🧩 PRACTICE RESOURCES:\n`;
+      currentLevel.externalResources.forEach((resource, idx) => {
+        content += `${idx + 1}. ${resource.title}\n   ${resource.url}\n   ${resource.description}\n\n`;
+      });
+    }
+
+    alert(content);
   };
 
   const handleAIChat = () => {
     if (!chatInput.trim()) return;
-    
+
     updateAIMessages({ role: 'user', content: chatInput });
-    
+
     setTimeout(() => {
       const aiResponse = getAIHint(currentLevel.id);
       updateAIMessages({ role: 'assistant', content: aiResponse });
     }, 500);
-    
+
     setChatInput('');
+  };
+
+  const handleAIHelpInGame = () => {
+    // Provide complete answers for both quiz and coding
+    const quizAnswers = getQuizAnswers(currentLevel.id);
+    const codingAnswers = getCodingAnswers(currentLevel.id);
+
+    let content = `Here's the complete solution for "${currentLevel.title}":\n\n`;
+
+    if (quizAnswers.length > 0) {
+      content += `📝 QUIZ ANSWERS:\n`;
+      quizAnswers.forEach((answer: string, idx: number) => {
+        content += `${idx + 1}. ${answer}\n`;
+      });
+      content += `\n`;
+    }
+
+    if (codingAnswers.length > 0) {
+      content += `💻 CODING SOLUTIONS:\n`;
+      codingAnswers.forEach((solution: string, idx: number) => {
+        content += `Problem ${idx + 1}:\n${solution}\n\n`;
+      });
+    }
+
+    content += `Study these solutions carefully and try to understand each part before using them.`;
+
+    updateAIMessages({ role: 'assistant', content });
+    toggleAICompanion();
   };
 
   const getCorrectAnswer = (levelId: string): string => {
@@ -157,7 +203,7 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
       'dsa-1': 'Think about how many times the loop runs. Count from 1 to 10!',
       'dsa-2': 'Arrays are created using square brackets [ ] and items are separated by commas.',
       'dsa-3': 'Binary search divides the array in half each time. How many steps for 8 elements?',
-      'web-1': 'HTML headings start with an h followed by a number. The biggest heading is h1!',
+      'web-1': 'The game shows you need to place blocks in the correct order: div (blue), h1 (purple), p (pink), img (yellow), button (green). Click on a colored block first, then click on the grid slot where it belongs. The purple block (h1) goes in the middle slot of the first row.',
       'web-2': 'CSS uses the property name, then a colon, then the value, and ends with a semicolon.',
       'web-3': 'Functions in JavaScript are declared with the "function" keyword.',
       'ai-1': 'AI systems improve through experience. This is called machine learning!',
@@ -168,17 +214,271 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
     return hints[levelId] || 'Keep thinking! You can do this!';
   };
 
+  const getQuizAnswers = (levelId: string): string[] => {
+    const quizAnswers: Record<string, string[]> = {
+      'web-1': [
+        '1. What does HTML stand for? - Hyper Text Markup Language',
+        '2. Which tag is used to create a hyperlink? - <a>',
+        '3. What is the purpose of semantic HTML? - To give meaning to the structure'
+      ],
+      'web-2': [
+        'The CSS code to make text blue is: color: blue;'
+      ],
+      'web-3': [
+        'Functions in JavaScript are declared with the "function" keyword'
+      ],
+      'dsa-1': [
+        'The loop will print 10 numbers (1 through 10)'
+      ],
+      'dsa-2': [
+        'The array containing numbers 1 through 5 is: [1, 2, 3, 4, 5]'
+      ],
+      'dsa-3': [
+        'Binary search takes 3 steps for 8 elements'
+      ],
+      'ai-1': [
+        'Machine learning is how AI systems improve through experience'
+      ],
+      'ai-2': [
+        'Neural network is the type of AI inspired by the human brain'
+      ],
+      'cloud-1': [
+        'Scalability is the ability to handle more users by adding resources'
+      ],
+      'cloud-2': [
+        'Container is what Docker packages applications in'
+      ]
+    };
+    return quizAnswers[levelId] || [];
+  };
+
+  const getCodingAnswers = (levelId: string): string[] => {
+    const codingAnswers: Record<string, string[]> = {
+      'web-1': [
+        `function createProfile(name, bio, imageUrl) {
+  return \`<div class="profile">
+    <img src="\${imageUrl}" alt="\${name}">
+    <h2>\${name}</h2>
+    <p>\${bio}</p>
+  </div>\`;
+}`,
+        `<div class="container">
+  <h1>Welcome</h1>
+  <p>This is a paragraph</p>
+  <img src="image.jpg" alt="description">
+  <button>Click me</button>
+</div>`
+      ],
+      'web-2': [
+        `.text { color: blue; }`,
+        `body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 20px;
+}`
+      ],
+      'web-3': [
+        `function greet(name) {
+  return "Hello, " + name + "!";
+}`,
+        `function calculateSum(a, b) {
+  return a + b;
+}`
+      ],
+      'dsa-1': [
+        `for (let i = 1; i <= 10; i++) {
+  console.log(i);
+}`,
+        `let count = 0;
+for (let i = 1; i <= 10; i++) {
+  count++;
+}
+console.log(count);`
+      ],
+      'dsa-2': [
+        `const numbers = [1, 2, 3, 4, 5];`,
+        `function createArray() {
+  return [1, 2, 3, 4, 5];
+}`
+      ],
+      'dsa-3': [
+        `function binarySearch(arr, target) {
+  let left = 0;
+  let right = arr.length - 1;
+  let steps = 0;
+  
+  while (left <= right) {
+    steps++;
+    const mid = Math.floor((left + right) / 2);
+    if (arr[mid] === target) return steps;
+    if (arr[mid] < target) left = mid + 1;
+    else right = mid - 1;
+  }
+  return steps;
+}`
+      ],
+      'ai-1': [
+        `const machineLearning = {
+  definition: "AI systems that improve through experience",
+  examples: ["recommendation systems", "image recognition"]
+};`
+      ],
+      'ai-2': [
+        `class NeuralNetwork {
+  constructor(layers) {
+    this.layers = layers;
+    this.weights = this.initializeWeights();
+  }
+  
+  initializeWeights() {
+    return this.layers.map(() => Math.random());
+  }
+}`
+      ],
+      'cloud-1': [
+        `const cloudBenefits = {
+  scalability: "Handle more users by adding resources",
+  flexibility: "Scale up or down as needed",
+  costEffective: "Pay only for what you use"
+};`
+      ],
+      'cloud-2': [
+        `// Dockerfile
+FROM node:16
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 3000
+CMD ["npm", "start"]`
+      ]
+    };
+    return codingAnswers[levelId] || [];
+  };{
+  return \`<div class="profile">
+    <img src="\${imageUrl}" alt="\${name}">
+    <h2>\${name}</h2>
+    <p>\${bio}</p>
+  </div>\`;
+}`,
+        `<div class="container">
+  <h1>Welcome</h1>
+  <p>This is a paragraph</p>
+  <img src="image.jpg" alt="description">
+  <button>Click me</button>
+</div>`
+      ],
+      'web-2': [
+        `.text { color: blue; }`,
+        `body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 20px;
+}`
+      ],
+      'web-3': [
+        `function greet(name) {
+  return "Hello, " + name + "!";
+}`,
+        `function calculateSum(a, b) {
+  return a + b;
+}`
+      ],
+      'dsa-1': [
+        `for (let i = 1; i <= 10; i++) {
+  console.log(i);
+}`,
+        `let count = 0;
+for (let i = 1; i <= 10; i++) {
+  count++;
+}
+console.log(count);`
+      ],
+      'dsa-2': [
+        `const numbers = [1, 2, 3, 4, 5];`,
+        `function createArray() {
+  return [1, 2, 3, 4, 5];
+}`
+      ],
+      'dsa-3': [
+        `function binarySearch(arr, target) {
+  let left = 0;
+  let right = arr.length - 1;
+  let steps = 0;
+  
+  while (left <= right) {
+    steps++;
+    const mid = Math.floor((left + right) / 2);
+    if (arr[mid] === target) return steps;
+    if (arr[mid] < target) left = mid + 1;
+    else right = mid - 1;
+  }
+  return steps;
+}`
+      ],
+      'ai-1': [
+        `const machineLearning = {
+  definition: "AI systems that improve through experience",
+  examples: ["recommendation systems", "image recognition"]
+};`
+      ],
+      'ai-2': [
+        `class NeuralNetwork {
+  constructor(layers) {
+    this.layers = layers;
+    this.weights = this.initializeWeights();
+  }
+  
+  initializeWeights() {
+    return this.layers.map(() => Math.random());
+  }
+}`
+      ],
+      'cloud-1': [
+        `const cloudBenefits = {
+  scalability: "Handle more users by adding resources",
+  flexibility: "Scale up or down as needed",
+  costEffective: "Pay only for what you use"
+};`
+      ],
+      'cloud-2': [
+        `// Dockerfile
+FROM node:16
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 3000
+CMD ["npm", "start"]`
+      ]
+    };
+    return codingAnswers[levelId] || [];
+  };
+
   if (currentStage === 'narrative') {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900 pt-24 pb-12 px-4">
         <div className="max-w-4xl mx-auto">
-          <button
-            onClick={() => onNavigate('courses')}
-            className="mb-6 flex items-center gap-2 text-indigo-300 hover:text-indigo-200 transition-colors"
-          >
-            <ArrowLeft size={20} />
-            Back to Courses
-          </button>
+          <div className="flex items-center gap-4 mb-6">
+            <button
+              onClick={() => onNavigate('courses')}
+              className="flex items-center gap-2 text-indigo-300 hover:text-indigo-200 transition-colors"
+            >
+              <ArrowLeft size={20} />
+              Back to Courses
+            </button>
+            {currentStage !== 'narrative' && (
+              <button
+                onClick={handleGoBack}
+                className="flex items-center gap-2 text-purple-300 hover:text-purple-200 transition-colors"
+              >
+                <ArrowLeft size={20} />
+                Back
+              </button>
+            )}
+          </div>
 
           <div className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 rounded-2xl p-8 border-4 border-indigo-500/30 mb-8">
             <h1 className="font-game text-3xl text-indigo-300 glow-text mb-6">{currentLevel.title}</h1>
@@ -217,19 +517,98 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
   }
 
   if (currentStage === 'teaching-game') {
-    return (
-      <TeachingGame
-        topic={currentLevel.title}
-        concept={currentLevel.description}
-        interactive={{
-          title: `Understanding ${currentLevel.title}`,
-          description: currentLevel.story,
-          demoCode: currentLevel.title.includes('Loop') ? 'for (let i = 0; i < 10; i++) {\n  console.log(i);\n}' : undefined,
-          visualDemo: `This concept helps you ${currentLevel.description.toLowerCase()}`,
-        }}
-        onComplete={handleTeachingGameComplete}
-      />
-    );
+    // Check if this is the HTML level that should use MarkupForge
+    if (currentLevel.id === 'web-1' || currentLevel.title.toLowerCase().includes('html') || currentLevel.title.toLowerCase().includes('markup')) {
+      return (
+        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900 pt-24 pb-12 px-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="flex items-center gap-4 mb-6">
+              <button
+                onClick={() => onNavigate('courses')}
+                className="flex items-center gap-2 text-indigo-300 hover:text-indigo-200 transition-colors"
+              >
+                <ArrowLeft size={20} />
+                Back to Courses
+              </button>
+              <button
+                onClick={handleGoBack}
+                className="flex items-center gap-2 text-purple-300 hover:text-purple-200 transition-colors"
+              >
+                <ArrowLeft size={20} />
+                Back
+              </button>
+            </div>
+            <div className="relative">
+              <MarkupForge
+                config={{
+                  id: 'markup-forge',
+                  type: 'markup-forge',
+                  title: 'HTML Structure Builder',
+                  description: 'Build proper HTML structure by placing elements in the correct order',
+                  objective: 'Place 5 HTML blocks in the correct hierarchical order',
+                  controls: 'Click blocks then grid slots',
+                  timeLimit: 90,
+                  passingScore: 80,
+                  importanceWhy: 'Understanding HTML structure is fundamental to web development'
+                }}
+                onComplete={handleTeachingGameComplete}
+                onExit={() => onNavigate('courses')}
+              />
+              <button
+                onClick={handleAIHelpInGame}
+                className="absolute top-4 right-4 px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-500 font-orbitron text-sm text-white transition-colors flex items-center gap-2 z-10"
+              >
+                <Lightbulb className="w-4 h-4" />
+                AI Help
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900 pt-24 pb-12 px-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="flex items-center gap-4 mb-6">
+              <button
+                onClick={() => onNavigate('courses')}
+                className="flex items-center gap-2 text-indigo-300 hover:text-indigo-200 transition-colors"
+              >
+                <ArrowLeft size={20} />
+                Back to Courses
+              </button>
+              <button
+                onClick={handleGoBack}
+                className="flex items-center gap-2 text-purple-300 hover:text-purple-200 transition-colors"
+              >
+                <ArrowLeft size={20} />
+                Back
+              </button>
+            </div>
+            <div className="relative">
+              <TeachingGame
+                topic={currentLevel.title}
+                concept={currentLevel.description}
+                interactive={{
+                  title: `Understanding ${currentLevel.title}`,
+                  description: currentLevel.story,
+                  demoCode: currentLevel.title.includes('Loop') ? 'for (let i = 0; i < 10; i++) {\n  console.log(i);\n}' : undefined,
+                  visualDemo: `This concept helps you ${currentLevel.description.toLowerCase()}`,
+                }}
+                onComplete={handleTeachingGameComplete}
+              />
+              <button
+                onClick={handleAIHelpInGame}
+                className="absolute top-4 right-4 px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-500 font-orbitron text-sm text-white transition-colors flex items-center gap-2 z-10"
+              >
+                <Lightbulb className="w-4 h-4" />
+                AI Help
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    }
   }
 
   if (currentStage === 'ai-videos') {
@@ -237,6 +616,8 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
       <VideoRecommendations
         topic={currentLevel.videoTopic || currentLevel.title}
         difficulty={currentLevel.difficulty}
+        aiSuggestedVideos={currentLevel.aiSuggestedVideos}
+        hasGame={hasGame}
         onComplete={handleVideosComplete}
       />
     );
@@ -244,28 +625,80 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
 
   if (currentStage === 'assessment') {
     return (
-      <AssessmentHub
-        level={currentLevel}
-        onComplete={handleAssessmentComplete}
-        onAIHelp={handleAIHelp}
-      />
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900 pt-24 pb-12 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex items-center gap-4 mb-6">
+            <button
+              onClick={() => onNavigate('courses')}
+              className="flex items-center gap-2 text-indigo-300 hover:text-indigo-200 transition-colors"
+            >
+              <ArrowLeft size={20} />
+              Back to Courses
+            </button>
+            <button
+              onClick={handleGoBack}
+              className="flex items-center gap-2 text-purple-300 hover:text-purple-200 transition-colors"
+            >
+              <ArrowLeft size={20} />
+              Back
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            <div className="lg:col-span-4">
+              <AssessmentHub
+                level={currentLevel}
+                onComplete={handleAssessmentComplete}
+                onAIHelp={handleAIHelp}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
     );
   }
 
   if (currentStage === 'practice-game' && hasGame) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-8">
-        <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl border-2 border-purple-500 p-12 text-center max-w-2xl">
-          <h1 className="font-game text-4xl text-purple-300 mb-6">Ready to Play?</h1>
-          <p className="font-orbitron text-gray-300 mb-8">
-            You've completed the assessment! Now put your skills to the test in the practice game.
-          </p>
-          <button
-            onClick={handleStartGame}
-            className="px-8 py-4 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 font-game text-xl text-white transition-all glow"
-          >
-            🎮 Launch Game
-          </button>
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 pt-24 pb-12 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex items-center gap-4 mb-6">
+            <button
+              onClick={() => onNavigate('courses')}
+              className="flex items-center gap-2 text-indigo-300 hover:text-indigo-200 transition-colors"
+            >
+              <ArrowLeft size={20} />
+              Back to Courses
+            </button>
+            <button
+              onClick={handleGoBack}
+              className="flex items-center gap-2 text-purple-300 hover:text-purple-200 transition-colors"
+            >
+              <ArrowLeft size={20} />
+              Back
+            </button>
+          </div>
+          <div className="relative">
+            <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl border-2 border-purple-500 p-12 text-center max-w-2xl mx-auto">
+              <h1 className="font-game text-4xl text-purple-300 mb-6">Ready to Play?</h1>
+              <p className="font-orbitron text-gray-300 mb-8">
+                You've completed the assessment! Now put your skills to the test in the practice game.
+              </p>
+              <button
+                onClick={handleStartGame}
+                className="px-8 py-4 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 font-game text-xl text-white transition-all glow"
+              >
+                🎮 Launch Game
+              </button>
+            </div>
+            <button
+              onClick={handleAIHelpInGame}
+              className="absolute top-4 right-4 px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-500 font-orbitron text-sm text-white transition-colors flex items-center gap-2 z-10"
+            >
+              <Lightbulb className="w-4 h-4" />
+              AI Help
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -273,10 +706,39 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
 
   if (currentStage === 'resources') {
     return (
-      <ResourcesPanel
-        resources={currentLevel.externalResources || []}
-        onComplete={handleResourcesComplete}
-      />
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900 pt-24 pb-12 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex items-center gap-4 mb-6">
+            <button
+              onClick={() => onNavigate('courses')}
+              className="flex items-center gap-2 text-indigo-300 hover:text-indigo-200 transition-colors"
+            >
+              <ArrowLeft size={20} />
+              Back to Courses
+            </button>
+            <button
+              onClick={handleGoBack}
+              className="flex items-center gap-2 text-purple-300 hover:text-purple-200 transition-colors"
+            >
+              <ArrowLeft size={20} />
+              Back
+            </button>
+          </div>
+          <div className="relative">
+            <ResourcesPanel
+              resources={currentLevel.externalResources || []}
+              onComplete={handleResourcesComplete}
+            />
+            <button
+              onClick={handleAIHelpInGame}
+              className="absolute top-4 right-4 px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-500 font-orbitron text-sm text-white transition-colors flex items-center gap-2 z-10"
+            >
+              <Lightbulb className="w-4 h-4" />
+              AI Help
+            </button>
+          </div>
+        </div>
+      </div>
     );
   }
 
@@ -360,13 +822,22 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
   return (
     <div className="min-h-screen pt-24 pb-12 px-4">
       <div className="max-w-5xl mx-auto">
-        <button
-          onClick={() => onNavigate('courses')}
-          className="flex items-center gap-2 mb-6 px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 transition-colors font-orbitron text-sm text-white"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to Course
-        </button>
+        <div className="flex items-center gap-4 mb-6">
+          <button
+            onClick={() => onNavigate('courses')}
+            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 transition-colors font-orbitron text-sm text-white"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back to Course
+          </button>
+          <button
+            onClick={handleGoBack}
+            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-800 hover:bg-purple-700 transition-colors font-orbitron text-sm text-white"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back
+          </button>
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2">

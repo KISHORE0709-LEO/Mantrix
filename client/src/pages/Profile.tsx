@@ -8,7 +8,7 @@ export default function Profile() {
   const completedLevels = userProgress.completedLevels.length;
 
   return (
-    <div className="min-h-screen pt-20 pb-12 px-4">
+    <div className="min-h-screen pt-24 pb-12 px-4">
       <div className="max-w-4xl mx-auto">
         <h1 className="font-game text-2xl sm:text-3xl text-center mb-12 text-indigo-300 glow-text">
           Player Profile

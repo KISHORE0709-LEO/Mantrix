@@ -50,6 +50,14 @@ export interface ExternalResource {
   description?: string;
 }
 
+export interface YouTubeVideo {
+  id: string;
+  title: string;
+  channelTitle: string;
+  thumbnailUrl: string;
+  videoUrl: string;
+}
+
 export interface QuizQuestion {
   id: string;
   question: string;
@@ -79,6 +87,7 @@ export interface Level {
   codingProblems?: CodingProblem[];
   externalResources?: ExternalResource[];
   videoTopic?: string;
+  aiSuggestedVideos?: YouTubeVideo[];
 }
 
 export interface GameProgress {

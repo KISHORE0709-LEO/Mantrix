@@ -14,7 +14,7 @@ export default function Home({ onNavigate }: HomeProps) {
   };
 
   return (
-    <div className="min-h-screen pt-20 pb-12 px-4">
+    <div className="min-h-screen pt-24 pb-12 px-4">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16 mt-12">
           <div className="inline-block mb-6 animate-float">

@@ -4,14 +4,14 @@ import { getGameComponent } from '@/games/registry';
 import type { GameResult } from '@shared/types';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Trophy, XCircle } from 'lucide-react';
+import { Trophy, XCircle, Lightbulb } from 'lucide-react';
 
 interface GameArenaProps {
   onNavigate: (page: string) => void;
 }
 
 export function GameArena({ onNavigate }: GameArenaProps) {
-  const { userProgress, courses, completeGame } = useLearning();
+  const { userProgress, courses, completeGame, updateAIMessages, toggleAICompanion } = useLearning();
   const [startTime, setStartTime] = useState<number>(0);
   const [showBriefing, setShowBriefing] = useState(true);
   const [gameResult, setGameResult] = useState<GameResult | null>(null);
@@ -48,6 +48,28 @@ export function GameArena({ onNavigate }: GameArenaProps) {
 
   const handleExit = () => {
     onNavigate('challenge');
+  };
+
+  const handleAIHelpInGame = () => {
+    const hint = getAIHint(currentLevel.id);
+    updateAIMessages({ role: 'assistant', content: hint });
+    toggleAICompanion();
+  };
+
+  const getAIHint = (levelId: string): string => {
+    const hints: Record<string, string> = {
+      'dsa-1': 'Think about how many times the loop runs. Count from 1 to 10!',
+      'dsa-2': 'Arrays are created using square brackets [ ] and items are separated by commas.',
+      'dsa-3': 'Binary search divides the array in half each time. How many steps for 8 elements?',
+      'web-1': 'The game shows you need to place blocks in the correct order: div (blue), h1 (purple), p (pink), img (yellow), button (green). Click on a colored block first, then click on the grid slot where it belongs. The purple block (h1) goes in the middle slot of the first row.',
+      'web-2': 'CSS uses the property name, then a colon, then the value, and ends with a semicolon.',
+      'web-3': 'Functions in JavaScript are declared with the "function" keyword.',
+      'ai-1': 'AI systems improve through experience. This is called machine learning!',
+      'ai-2': 'This type of AI is inspired by the human brain with interconnected nodes.',
+      'cloud-1': 'One key benefit is the ability to handle more users by adding resources.',
+      'cloud-2': 'Docker packages applications in isolated environments called...',
+    };
+    return hints[levelId] || 'Keep thinking! You can do this!';
   };
 
   const handleReturnToCourses = () => {
@@ -248,8 +270,15 @@ export function GameArena({ onNavigate }: GameArenaProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 pt-20">
-      <GameComponent   
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 pt-20 relative">
+      <button
+        onClick={handleAIHelpInGame}
+        className="absolute top-4 right-4 px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-500 font-orbitron text-sm text-white transition-colors flex items-center gap-2 z-50"
+      >
+        <Lightbulb className="w-4 h-4" />
+        AI Help
+      </button>
+      <GameComponent
         config={currentLevel.gameConfig}
         onComplete={handleComplete}
         onExit={handleExit}

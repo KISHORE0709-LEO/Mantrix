@@ -33,6 +33,13 @@ function Block({ block, onClick }: { block: HTMLBlock; onClick: () => void }) {
       ref={meshRef}
       position={block.position}
       onClick={onClick}
+      onPointerOver={(e) => {
+        e.stopPropagation();
+        document.body.style.cursor = 'pointer';
+      }}
+      onPointerOut={() => {
+        document.body.style.cursor = 'auto';
+      }}
     >
       <boxGeometry args={[1, 1, 1]} />
       <meshStandardMaterial
@@ -46,13 +53,24 @@ function Block({ block, onClick }: { block: HTMLBlock; onClick: () => void }) {
 
 function BuildingGrid({ slots, onSlotClick }: { slots: number; onSlotClick: (index: number) => void }) {
   const gridItems = [];
-  
+
   for (let i = 0; i < slots; i++) {
     const x = (i % 3) * 2 - 2;
     const z = Math.floor(i / 3) * 2 - 2;
-    
+
     gridItems.push(
-      <mesh key={i} position={[x, 0.1, z]} onClick={() => onSlotClick(i)}>
+      <mesh
+        key={i}
+        position={[x, 0.1, z]}
+        onClick={() => onSlotClick(i)}
+        onPointerOver={(e) => {
+          e.stopPropagation();
+          document.body.style.cursor = 'pointer';
+        }}
+        onPointerOut={() => {
+          document.body.style.cursor = 'auto';
+        }}
+      >
         <boxGeometry args={[1.5, 0.2, 1.5]} />
         <meshStandardMaterial color="#334155" opacity={0.5} transparent />
       </mesh>
@@ -92,6 +110,7 @@ export function MarkupForge({ config, onComplete }: GameProps) {
   const [timeLeft, setTimeLeft] = useState(config.timeLimit || 90);
   const [blocks, setBlocks] = useState<HTMLBlock[]>([]);
   const [selectedBlock, setSelectedBlock] = useState<number | null>(null);
+  const [showCompletion, setShowCompletion] = useState(false);
   const gameEnded = useRef(false);
 
   const correctOrder: Array<'div' | 'h1' | 'p' | 'img' | 'button'> = ['div', 'h1', 'p', 'img', 'button'];
@@ -106,6 +125,13 @@ export function MarkupForge({ config, onComplete }: GameProps) {
     ];
     setBlocks(initialBlocks);
   }, []);
+
+  // Debug: Log block positions and states
+  useEffect(() => {
+    console.log('Current blocks state:', blocks);
+    const allPlaced = blocks.every(b => b.placed);
+    console.log('All blocks placed?', allPlaced);
+  }, [blocks]);
 
   useEffect(() => {
     if (gameEnded.current) return;
@@ -126,49 +152,65 @@ export function MarkupForge({ config, onComplete }: GameProps) {
 
   useEffect(() => {
     if (gameEnded.current) return;
-    const allPlaced = blocks.every(b => b.placed);
-    if (allPlaced && score >= config.passingScore) {
+    const allPlaced = blocks.length > 0 && blocks.every(b => b.placed);
+    if (allPlaced) {
+      // End game when all blocks are placed, regardless of score
       handleGameEnd();
     }
-  }, [blocks, score]);
+  }, [blocks]);
 
   const handleGameEnd = () => {
     if (gameEnded.current) return;
     gameEnded.current = true;
-    
+
     const success = score >= config.passingScore;
-    onComplete({
-      score,
-      timeSpent: (config.timeLimit || 90) - timeLeft,
-      success,
-      xpEarned: success ? 150 : 75,
-    });
+    console.log('Game ended! Score:', score, 'Passing score:', config.passingScore, 'Success:', success);
+
+    // Show completion screen before calling onComplete
+    setShowCompletion(true);
+
+    setTimeout(() => {
+      onComplete({
+        score,
+        timeSpent: (config.timeLimit || 90) - timeLeft,
+        success,
+        xpEarned: success ? 150 : 75,
+      });
+    }, 3000); // 3 second delay
   };
 
   const handleBlockClick = (id: number) => {
+    console.log('Block clicked:', id);
     setSelectedBlock(id);
   };
 
   const handleSlotClick = (slotIndex: number) => {
+    console.log('Slot clicked:', slotIndex, 'Selected block:', selectedBlock);
     if (selectedBlock === null) return;
 
     const block = blocks.find(b => b.id === selectedBlock);
-    if (!block || block.placed) return;
+    if (!block || block.placed) {
+      console.log('Block not found or already placed:', block);
+      return;
+    }
 
     const isCorrect = block.targetSlot === slotIndex;
-    
+    console.log('Is correct placement?', isCorrect, 'Target slot:', block.targetSlot);
+
     setBlocks(prev =>
       prev.map(b =>
         b.id === selectedBlock
-          ? { ...b, placed: true, position: [(slotIndex % 3) * 2 - 2, 1, Math.floor(slotIndex / 3) * 2 - 2, ] as [number, number, number] }
+          ? { ...b, placed: true, position: [(slotIndex % 3) * 2 - 2, 1, Math.floor(slotIndex / 3) * 2 - 2] as [number, number, number] }
           : b
       )
     );
 
     if (isCorrect) {
       setScore(prev => prev + 20);
+      console.log('Correct placement! New score:', score + 20);
     } else {
       setScore(prev => Math.max(0, prev - 5));
+      console.log('Incorrect placement! New score:', Math.max(0, score - 5));
     }
 
     setSelectedBlock(null);
@@ -202,12 +244,39 @@ export function MarkupForge({ config, onComplete }: GameProps) {
               </span>
             ))}
           </div>
+          <p className="text-white text-center mt-2 text-sm opacity-75">
+            <strong>🎯 What This Game Teaches You:</strong><br />
+            HTML Structure & Hierarchy - Just like building with blocks, web pages need proper order.<br />
+            <strong>Real-World Application:</strong> Every website follows this pattern - containers (div), headings (h1), content (p), media (img), and interactions (button).<br />
+            <strong>Why It Matters:</strong> Proper HTML structure improves SEO, accessibility, and prevents layout issues.
+          </p>
         </div>
       </div>
 
       <Canvas camera={{ position: [0, 8, 8], fov: 50 }}>
         <Scene blocks={blocks} onBlockClick={handleBlockClick} slots={6} onSlotClick={handleSlotClick} />
       </Canvas>
+      {showCompletion && (
+        <div className="absolute inset-0 flex items-center justify-center bg-slate-900/95 backdrop-blur-sm z-50">
+          <div className="bg-slate-800/90 backdrop-blur-sm rounded-2xl border-2 border-blue-500/50 p-8 max-w-2xl mx-4 text-center">
+            <div className="text-6xl mb-4">🎉</div>
+            <h1 className="font-game text-4xl text-blue-300 mb-4">Game Complete!</h1>
+            <div className="bg-slate-700/50 rounded-lg p-6 mb-6">
+              <div className="text-2xl font-bold text-white mb-2">Score: {score}/100</div>
+              <div className="text-lg text-gray-300">Time Remaining: {timeLeft}s</div>
+            </div>
+            <div className="bg-indigo-900/30 rounded-lg p-6 mb-6 border border-indigo-500/30">
+              <h3 className="font-game text-xl text-indigo-300 mb-3">🎯 What This Game Taught You:</h3>
+              <div className="text-left space-y-2 text-gray-300">
+                <p><strong>HTML Structure & Hierarchy:</strong> Just like building with blocks, web pages need proper order and nesting.</p>
+                <p><strong>Real-World Application:</strong> Every website follows this pattern - containers (div), headings (h1), content (p), media (img), and interactions (button).</p>
+                <p><strong>Why It Matters:</strong> Proper HTML structure improves SEO, accessibility, prevents layout issues, and makes websites work better for everyone.</p>
+              </div>
+            </div>
+            <p className="text-gray-400">Moving to assessment in a moment...</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

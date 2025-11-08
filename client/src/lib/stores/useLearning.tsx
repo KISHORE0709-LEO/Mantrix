@@ -23,6 +23,7 @@ interface LearningState {
   selectCourse: (courseId: string) => void;
   selectLevel: (levelId: string) => void;
   advanceStage: (levelId: string, newStage: LevelStage) => boolean;
+  goBackStage: (levelId: string) => boolean;
   startGame: (levelId: string) => boolean;
   completeGame: (levelId: string, result: GameResult) => Promise<void>;
   completeLevel: (levelId: string, xpEarned: number) => Promise<void>;
@@ -53,6 +54,29 @@ const initialCourses: Course[] = [
         completed: false, 
         currentStage: 'narrative', 
         videoTopic: 'JavaScript loops and variables for beginners',
+        aiSuggestedVideos: [
+          {
+            id: 'dsa1-v1',
+            title: 'JavaScript Loops Explained in 10 Minutes',
+            channelTitle: 'Programming with Mosh',
+            thumbnailUrl: 'https://i.ytimg.com/vi/s9wW2PpJsmQ/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=s9wW2PpJsmQ'
+          },
+          {
+            id: 'dsa1-v2',
+            title: 'For Loops vs While Loops - JavaScript Tutorial',
+            channelTitle: 'Web Dev Simplified',
+            thumbnailUrl: 'https://i.ytimg.com/vi/PpeDy5wLvJo/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=PpeDy5wLvJo'
+          },
+          {
+            id: 'dsa1-v3',
+            title: 'JavaScript Variables - Let, Const, Var',
+            channelTitle: 'Traversy Media',
+            thumbnailUrl: 'https://i.ytimg.com/vi/9WIJQDvt4Us/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=9WIJQDvt4Us'
+          }
+        ],
         quizQuestions: [
           {
             id: 'dsa-1-q1',
@@ -129,6 +153,22 @@ const initialCourses: Course[] = [
         completed: false, 
         currentStage: 'narrative',
         videoTopic: 'JavaScript arrays and array methods',
+        aiSuggestedVideos: [
+          {
+            id: 'dsa2-v1',
+            title: 'JavaScript Arrays Crash Course',
+            channelTitle: 'Traversy Media',
+            thumbnailUrl: 'https://i.ytimg.com/vi/7W4pQQ20nJg/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=7W4pQQ20nJg'
+          },
+          {
+            id: 'dsa2-v2',
+            title: '8 Must Know JavaScript Array Methods',
+            channelTitle: 'Web Dev Simplified',
+            thumbnailUrl: 'https://i.ytimg.com/vi/R8rmfD9Y5-c/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=R8rmfD9Y5-c'
+          }
+        ],
         quizQuestions: [
           {
             id: 'dsa-2-q1',
@@ -598,7 +638,7 @@ const initialCourses: Course[] = [
       {id: 'dsa-12', courseId: 'dsa', title: 'Graphs - Basics', description: 'Vertices, edges, and representations', story: 'Map the Graph Galaxy where everything connects to everything.', narrative: 'Graphs model connections: social networks, maps, dependencies. Vertices (nodes) connect via edges.', teachingContent: 'Adjacency list vs matrix. Directed vs undirected. Weighted vs unweighted graphs.', xpReward: 210, challengeType: 'interactive', difficulty: 'intermediate', unlocked: false, completed: false, currentStage: 'narrative', videoTopic: 'Graph data structures and representations', quizQuestions: [{id: 'dsa-12-q1', question: 'Which graph representation is more space-efficient for sparse graphs?', options: ['Adjacency Matrix', 'Adjacency List', 'Both equal', 'Neither'], correctAnswer: 'Adjacency List', explanation: 'Adjacency list only stores existing edges, saving space in sparse graphs.', type: 'multiple-choice'}], codingProblems: [{id: 'dsa-12-p1', title: 'Build Adjacency List', description: 'Convert edge list to adjacency list representation.', difficulty: 'easy', starterCode: 'function buildGraph(edges) {\n  // Return adjacency list\n  \n}', solution: 'function buildGraph(edges) {\n  const graph = {};\n  for (let [u,v] of edges) {\n    if (!graph[u]) graph[u] = [];\n    if (!graph[v]) graph[v] = [];\n    graph[u].push(v);\n    graph[v].push(u);\n  }\n  return graph;\n}', functionName: 'buildGraph', testCases: [{id: 't1', input: '[[[1,2],[1,3]]]', expectedOutput: '{"1":[2,3],"2":[1],"3":[1]}'}], hints: ['Initialize empty object for graph', 'For each edge, add connections both ways'], tags: ['graph']}], externalResources: [{title: 'Graph Theory - LeetCode', url: 'https://leetcode.com/tag/graph/', type: 'leetcode'}, {title: 'Graphs - NeetCode', url: 'https://neetcode.io/roadmap', type: 'neetcode'}], gameConfig: {id: 'search-challenge-12', type: 'search-challenge', title: 'Graph Galaxy', description: 'Connect vertices and explore graphs', objective: 'Build graph structures', controls: 'Click to connect nodes', passingScore: 85, importanceWhy: 'Graphs model real-world networks - social media, GPS systems, recommendation engines. This game shows how to represent and navigate connections, a skill used in countless applications.'}},
       {id: 'dsa-13', courseId: 'dsa', title: 'Graph Traversals (DFS/BFS)', description: 'Depth-first and breadth-first search', story: 'Explore the Network Nexus using systematic traversal strategies.', narrative: 'DFS explores deep before backtracking. BFS explores level by level. Essential for pathfinding and connectivity.', teachingContent: 'DFS uses stack/recursion. BFS uses queue. DFS for topological sort, BFS for shortest path in unweighted graphs.', xpReward: 220, challengeType: 'interactive', difficulty: 'advanced', unlocked: false, completed: false, currentStage: 'narrative', videoTopic: 'Graph traversal: DFS and BFS algorithms', quizQuestions: [{id: 'dsa-13-q1', question: 'Which data structure does BFS use?', options: ['Stack', 'Queue', 'Heap', 'Tree'], correctAnswer: 'Queue', explanation: 'BFS uses a queue to process nodes level by level.', type: 'multiple-choice'}], codingProblems: [{id: 'dsa-13-p1', title: 'Number of Islands', description: 'Count islands using DFS/BFS in a 2D grid.', difficulty: 'medium', starterCode: 'function numIslands(grid) {\n  // Write your code here\n  \n}', solution: 'function numIslands(grid) {\n  let count = 0;\n  for (let i = 0; i < grid.length; i++) {\n    for (let j = 0; j < grid[0].length; j++) {\n      if (grid[i][j] === "1") {\n        count++;\n        dfs(grid, i, j);\n      }\n    }\n  }\n  return count;\n}\nfunction dfs(grid, i, j) {\n  if (i < 0 || i >= grid.length || j < 0 || j >= grid[0].length || grid[i][j] === "0") return;\n  grid[i][j] = "0";\n  dfs(grid, i+1, j);\n  dfs(grid, i-1, j);\n  dfs(grid, i, j+1);\n  dfs(grid, i, j-1);\n}', functionName: 'numIslands', testCases: [{id: 't1', input: '[[["1","1"],["1","0"]]]', expectedOutput: '1'}], hints: ['Use DFS to mark connected land', 'Count how many times you start a new DFS'], tags: ['graph', 'dfs']}], externalResources: [{title: 'Number of Islands - LeetCode', url: 'https://leetcode.com/problems/number-of-islands/', type: 'leetcode', difficulty: 'medium'}, {title: 'Graph Traversal - NeetCode', url: 'https://neetcode.io/roadmap', type: 'neetcode'}], gameConfig: {id: 'recursion-maze-13', type: 'recursion-maze', title: 'Network Nexus', description: 'Traverse graphs using DFS and BFS', objective: 'Visit all nodes systematically', controls: 'Arrow Keys', passingScore: 85, importanceWhy: 'Graph traversals power everything from Google searches to finding the shortest route in GPS. This game teaches you how DFS and BFS systematically explore networks.'}},
       {id: 'dsa-14', courseId: 'dsa', title: 'Sorting - Bubble & Selection', description: 'Simple comparison-based sorting', story: 'Start at the Sorting Academy with fundamental techniques.', narrative: 'Bubble sort repeatedly swaps adjacent elements. Selection sort finds minimum and places it. Both O(n²) but educational.', teachingContent: 'Bubble: compare adjacent, swap if wrong order. Selection: find min, swap with first unsorted.', xpReward: 230, challengeType: 'interactive', difficulty: 'intermediate', unlocked: false, completed: false, currentStage: 'narrative', videoTopic: 'Bubble sort and selection sort algorithms', quizQuestions: [{id: 'dsa-14-q1', question: 'What is the time complexity of bubble sort?', options: ['O(n)', 'O(n log n)', 'O(n²)', 'O(2^n)'], correctAnswer: 'O(n²)', explanation: 'Bubble sort has nested loops, resulting in O(n²) time complexity.', type: 'multiple-choice'}], codingProblems: [{id: 'dsa-14-p1', title: 'Implement Bubble Sort', description: 'Sort an array using bubble sort algorithm.', difficulty: 'easy', starterCode: 'function bubbleSort(arr) {\n  // Write your code here\n  \n}', solution: 'function bubbleSort(arr) {\n  for (let i = 0; i < arr.length; i++) {\n    for (let j = 0; j < arr.length - i - 1; j++) {\n      if (arr[j] > arr[j+1]) {\n        [arr[j], arr[j+1]] = [arr[j+1], arr[j]];\n      }\n    }\n  }\n  return arr;\n}', functionName: 'bubbleSort', testCases: [{id: 't1', input: '[[5,2,8,1]]', expectedOutput: '[1,2,5,8]'}], hints: ['Use nested loops', 'Swap adjacent elements if out of order'], tags: ['sorting']}], externalResources: [{title: 'Sort an Array - LeetCode', url: 'https://leetcode.com/problems/sort-an-array/', type: 'leetcode', difficulty: 'medium'}, {title: 'Sorting - NeetCode', url: 'https://neetcode.io/roadmap', type: 'neetcode'}], gameConfig: {id: 'sorting-conveyor-14', type: 'sorting-conveyor', title: 'Sorting Academy', description: 'Sort items using basic algorithms', objective: 'Arrange items in order', controls: 'Click to swap', passingScore: 85, importanceWhy: 'Sorting is fundamental to computer science. This game shows basic sorting algorithms that teach you how to think about organizing data step-by-step.'}},
-      {id: 'dsa-15', courseId: 'dsa', title: 'Sorting - Merge & Quick', description: 'Divide-and-conquer sorting algorithms', story: 'Master advanced sorting in the Algorithm Arena.', narrative: 'Merge sort divides, sorts, merges. Quick sort picks pivot, partitions. Both O(n log n) average case.', teachingContent: 'Merge sort: stable, predictable O(n log n). Quick sort: in-place, faster average but O(n²) worst case.', xpReward: 240, challengeType: 'interactive', difficulty: 'advanced', unlocked: false, completed: false, currentStage: 'narrative', videoTopic: 'Merge sort and quick sort algorithms explained', quizQuestions: [{id: 'dsa-15-q1', question: 'Which sorting algorithm is stable?', options: ['Quick Sort', 'Merge Sort', 'Heap Sort', 'Selection Sort'], correctAnswer: 'Merge Sort', explanation: 'Merge sort maintains relative order of equal elements (stable).', type: 'multiple-choice'}], codingProblems: [{id: 'dsa-15-p1', title: 'Implement Merge Sort', description: 'Sort an array using merge sort.', difficulty: 'medium', starterCode: 'function mergeSort(arr) {\n  // Write your code here\n  \n}', solution: 'function mergeSort(arr) {\n  if (arr.length <= 1) return arr;\n  const mid = Math.floor(arr.length / 2);\n  const left = mergeSort(arr.slice(0, mid));\n  const right = mergeSort(arr.slice(mid));\n  return merge(left, right);\n}\nfunction merge(left, right) {\n  const result = [];\n  let i = 0, j = 0;\n  while (i < left.length && j < right.length) {\n    if (left[i] < right[j]) result.push(left[i++]);\n    else result.push(right[j++]);\n  }\n  return result.concat(left.slice(i)).concat(right.slice(j));\n}', functionName: 'mergeSort', testCases: [{id: 't1', input: '[[5,2,8,1,9]]', expectedOutput: '[1,2,5,8,9]'}], hints: ['Divide array in half recursively', 'Merge sorted halves'], tags: ['sorting', 'recursion']}], externalResources: [{title: 'Sort an Array - LeetCode', url: 'https://leetcode.com/problems/sort-an-array/', type: 'leetcode', difficulty: 'medium'}, {title: 'Sorting Algorithms - NeetCode', url: 'https://neetcode.io/roadmap', type: 'neetcode'}], gameConfig: {id: 'sorting-conveyor-15', type: 'sorting-conveyor', title: 'Algorithm Arena', description: 'Master advanced sorting techniques', objective: 'Efficiently sort large datasets', controls: 'Click to partition/merge', passingScore: 85, importanceWhy: 'Efficient sorting algorithms like merge sort and quick sort are used in every programming languages' built-in sort. Understanding divide-and-conquer techniques is crucial for advanced programming.'}},
+      {id: 'dsa-15', courseId: 'dsa', title: 'Sorting - Merge & Quick', description: 'Divide-and-conquer sorting algorithms', story: 'Master advanced sorting in the Algorithm Arena.', narrative: 'Merge sort divides, sorts, merges. Quick sort picks pivot, partitions. Both O(n log n) average case.', teachingContent: 'Merge sort: stable, predictable O(n log n). Quick sort: in-place, faster average but O(n²) worst case.', xpReward: 240, challengeType: 'interactive', difficulty: 'advanced', unlocked: false, completed: false, currentStage: 'narrative', videoTopic: 'Merge sort and quick sort algorithms explained', quizQuestions: [{id: 'dsa-15-q1', question: 'Which sorting algorithm is stable?', options: ['Quick Sort', 'Merge Sort', 'Heap Sort', 'Selection Sort'], correctAnswer: 'Merge Sort', explanation: 'Merge sort maintains relative order of equal elements (stable).', type: 'multiple-choice'}], codingProblems: [{id: 'dsa-15-p1', title: 'Implement Merge Sort', description: 'Sort an array using merge sort.', difficulty: 'medium', starterCode: 'function mergeSort(arr) {\n  // Write your code here\n  \n}', solution: 'function mergeSort(arr) {\n  if (arr.length <= 1) return arr;\n  const mid = Math.floor(arr.length / 2);\n  const left = mergeSort(arr.slice(0, mid));\n  const right = mergeSort(arr.slice(mid));\n  return merge(left, right);\n}\nfunction merge(left, right) {\n  const result = [];\n  let i = 0, j = 0;\n  while (i < left.length && j < right.length) {\n    if (left[i] < right[j]) result.push(left[i++]);\n    else result.push(right[j++]);\n  }\n  return result.concat(left.slice(i)).concat(right.slice(j));\n}', functionName: 'mergeSort', testCases: [{id: 't1', input: '[[5,2,8,1,9]]', expectedOutput: '[1,2,5,8,9]'}], hints: ['Divide array in half recursively', 'Merge sorted halves'], tags: ['sorting', 'recursion']}], externalResources: [{title: 'Sort an Array - LeetCode', url: 'https://leetcode.com/problems/sort-an-array/', type: 'leetcode', difficulty: 'medium'}, {title: 'Sorting Algorithms - NeetCode', url: 'https://neetcode.io/roadmap', type: 'neetcode'}], gameConfig: {id: 'sorting-conveyor-15', type: 'sorting-conveyor', title: 'Algorithm Arena', description: 'Master advanced sorting techniques', objective: 'Efficiently sort large datasets', controls: 'Click to partition/merge', passingScore: 85, importanceWhy: 'Efficient sorting algorithms like merge sort and quick sort are used in every programming language\'s built-in sort. Understanding divide-and-conquer techniques is crucial for advanced programming.'}},
       {id: 'dsa-16', courseId: 'dsa', title: 'Recursion', description: 'Functions calling themselves', story: 'Descend into the Recursive Abyss where functions call themselves infinitely.', narrative: 'Recursion solves problems by breaking them into smaller subproblems. Base case prevents infinite recursion.', teachingContent: 'Every recursive function needs: base case (when to stop) and recursive case (how to make progress).', xpReward: 250, challengeType: 'interactive', difficulty: 'advanced', unlocked: false, completed: false, currentStage: 'narrative', videoTopic: 'Recursion fundamentals and problem-solving', quizQuestions: [{id: 'dsa-16-q1', question: 'What prevents infinite recursion?', options: ['Base case', 'Recursive case', 'Return statement', 'Loop'], correctAnswer: 'Base case', explanation: 'Base case stops recursion by providing a direct answer.', type: 'multiple-choice'}], codingProblems: [{id: 'dsa-16-p1', title: 'Fibonacci Number', description: 'Calculate nth Fibonacci number using recursion.', difficulty: 'easy', starterCode: 'function fib(n) {\n  // Write your code here\n  \n}', solution: 'function fib(n) {\n  if (n <= 1) return n;\n  return fib(n-1) + fib(n-2);\n}', functionName: 'fib', testCases: [{id: 't1', input: '5', expectedOutput: '5'}, {id: 't2', input: '10', expectedOutput: '55'}], hints: ['Base case: fib(0)=0, fib(1)=1', 'Recursive case: fib(n) = fib(n-1) + fib(n-2)'], tags: ['recursion']}], externalResources: [{title: 'Fibonacci Number - LeetCode', url: 'https://leetcode.com/problems/fibonacci-number/', type: 'leetcode', difficulty: 'easy'}, {title: 'Recursion - NeetCode', url: 'https://neetcode.io/roadmap', type: 'neetcode'}], gameConfig: {id: 'recursion-maze-16', type: 'recursion-maze', title: 'Recursive Abyss', description: 'Navigate using recursive thinking', objective: 'Solve problems recursively', controls: 'Arrow Keys', passingScore: 85, importanceWhy: 'Recursion is a powerful problem-solving technique that breaks complex problems into simpler ones. This game visualizes how recursive calls work together to solve problems elegantly.'}},
       {id: 'dsa-17', courseId: 'dsa', title: 'Backtracking', description: 'Exploring all possibilities', story: 'Navigate the Backtracking Labyrinth by trying all paths.', narrative: 'Backtracking tries all solutions, abandoning invalid paths early. Used for puzzles, permutations, combinations.', teachingContent: 'Build solution incrementally. If invalid, backtrack (undo last choice) and try next option.', xpReward: 260, challengeType: 'interactive', difficulty: 'advanced', unlocked: false, completed: false, currentStage: 'narrative', videoTopic: 'Backtracking algorithm and applications', quizQuestions: [{id: 'dsa-17-q1', question: 'When does backtracking abandon a path?', options: ['When solution is found', 'When path becomes invalid', 'After fixed iterations', 'Never'], correctAnswer: 'When path becomes invalid', explanation: 'Backtracking abandons paths that cannot lead to valid solutions.', type: 'multiple-choice'}], codingProblems: [{id: 'dsa-17-p1', title: 'Generate Permutations', description: 'Generate all permutations of an array.', difficulty: 'medium', starterCode: 'function permute(nums) {\n  // Return all permutations\n  \n}', solution: 'function permute(nums) {\n  const result = [];\n  function backtrack(curr) {\n    if (curr.length === nums.length) {\n      result.push([...curr]);\n      return;\n    }\n    for (let num of nums) {\n      if (!curr.includes(num)) {\n        curr.push(num);\n        backtrack(curr);\n        curr.pop();\n      }\n    }\n  }\n  backtrack([]);\n  return result;\n}', functionName: 'permute', testCases: [{id: 't1', input: '[[1,2]]', expectedOutput: '[[1,2],[2,1]]'}], hints: ['Try each number', 'Backtrack by removing last choice'], tags: ['backtracking']}], externalResources: [{title: 'Permutations - LeetCode', url: 'https://leetcode.com/problems/permutations/', type: 'leetcode', difficulty: 'medium'}, {title: 'Backtracking - NeetCode', url: 'https://neetcode.io/roadmap', type: 'neetcode'}], gameConfig: {id: 'backtracking-puzzle-17', type: 'backtracking-puzzle', title: 'Backtracking Labyrinth', description: 'Find paths through trial and error', objective: 'Explore all possibilities', controls: 'Arrow Keys', passingScore: 85}},
       {id: 'dsa-18', courseId: 'dsa', title: 'Dynamic Programming - Basics', description: 'Optimization using memoization', story: 'Unlock the DP Dimension where remembering saves time.', narrative: 'DP solves optimization problems by storing subproblem solutions. Avoid redundant calculations.', teachingContent: 'Two approaches: top-down (memoization) and bottom-up (tabulation). Identify overlapping subproblems and optimal substructure.', xpReward: 270, challengeType: 'interactive', difficulty: 'advanced', unlocked: false, completed: false, currentStage: 'narrative', videoTopic: 'Dynamic programming introduction and memoization', quizQuestions: [{id: 'dsa-18-q1', question: 'What does memoization store?', options: ['Function calls', 'Subproblem results', 'Loop iterations', 'Variable names'], correctAnswer: 'Subproblem results', explanation: 'Memoization caches results of expensive function calls.', type: 'multiple-choice'}], codingProblems: [{id: 'dsa-18-p1', title: 'Climbing Stairs', description: 'Count ways to climb n stairs (1 or 2 steps at a time).', difficulty: 'easy', starterCode: 'function climbStairs(n) {\n  // Write your code here\n  \n}', solution: 'function climbStairs(n) {\n  if (n <= 2) return n;\n  const dp = [0, 1, 2];\n  for (let i = 3; i <= n; i++) {\n    dp[i] = dp[i-1] + dp[i-2];\n  }\n  return dp[n];\n}', functionName: 'climbStairs', testCases: [{id: 't1', input: '3', expectedOutput: '3'}, {id: 't2', input: '5', expectedOutput: '8'}], hints: ['Similar to Fibonacci', 'dp[n] = dp[n-1] + dp[n-2]'], tags: ['dp']}], externalResources: [{title: 'Climbing Stairs - LeetCode', url: 'https://leetcode.com/problems/climbing-stairs/', type: 'leetcode', difficulty: 'easy'}, {title: 'Dynamic Programming - NeetCode', url: 'https://neetcode.io/roadmap', type: 'neetcode'}], gameConfig: {id: 'pattern-builder-18', type: 'pattern-builder', title: 'DP Dimension', description: 'Optimize using memoization', objective: 'Solve problems efficiently with DP', controls: 'Click to compute', passingScore: 85}},
@@ -639,6 +679,29 @@ const initialCourses: Course[] = [
           importanceWhy: 'This game teaches you how HTML elements work together to create structure. Just like building blocks, each HTML tag has a specific purpose. Understanding this foundation is crucial because every website you\'ll ever build starts with HTML structure.'
         },
         videoTopic: 'HTML basics and semantic HTML tutorial',
+        aiSuggestedVideos: [
+          {
+            id: 'web1-v1',
+            title: 'HTML Crash Course For Absolute Beginners',
+            channelTitle: 'Traversy Media',
+            thumbnailUrl: 'https://i.ytimg.com/vi/UB1O30fR-EE/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=UB1O30fR-EE'
+          },
+          {
+            id: 'web1-v2',
+            title: 'Learn HTML5 and CSS3 From Scratch',
+            channelTitle: 'Programming with Mosh',
+            thumbnailUrl: 'https://i.ytimg.com/vi/qz0aGYrrlhU/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=qz0aGYrrlhU'
+          },
+          {
+            id: 'web1-v3',
+            title: 'Semantic HTML - Why It Matters',
+            channelTitle: 'Kevin Powell',
+            thumbnailUrl: 'https://i.ytimg.com/vi/kGW8Al_cga4/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=kGW8Al_cga4'
+          }
+        ],
         quizQuestions: [
           {
             id: 'web-1-q1',
@@ -688,22 +751,39 @@ const initialCourses: Course[] = [
         ],
         externalResources: [
           {
-            title: 'HTML Elements Reference - MDN',
-            url: 'https://developer.mozilla.org/en-US/docs/Web/HTML/Element',
-            type: 'documentation',
-            description: 'Complete reference of all HTML elements'
+            title: 'Two Sum - LeetCode',
+            url: 'https://leetcode.com/problems/two-sum/',
+            type: 'leetcode',
+            difficulty: 'easy',
+            description: 'Classic array problem - great for beginners'
           },
           {
-            title: 'Learn HTML - FreeCodeCamp',
-            url: 'https://www.freecodecamp.org/news/html-crash-course/',
-            type: 'article',
-            description: 'Comprehensive HTML crash course'
+            title: 'Valid Parentheses - LeetCode',
+            url: 'https://leetcode.com/problems/valid-parentheses/',
+            type: 'leetcode',
+            difficulty: 'easy',
+            description: 'Stack-based string validation problem'
           },
           {
-            title: 'HTML Tutorial - W3Schools',
-            url: 'https://www.w3schools.com/html/',
-            type: 'documentation',
-            description: 'Interactive HTML tutorials with examples'
+            title: 'Palindrome Number - LeetCode',
+            url: 'https://leetcode.com/problems/palindrome-number/',
+            type: 'leetcode',
+            difficulty: 'easy',
+            description: 'Number manipulation and logic'
+          },
+          {
+            title: 'Roman to Integer - LeetCode',
+            url: 'https://leetcode.com/problems/roman-to-integer/',
+            type: 'leetcode',
+            difficulty: 'easy',
+            description: 'String processing and mapping'
+          },
+          {
+            title: 'Longest Common Prefix - LeetCode',
+            url: 'https://leetcode.com/problems/longest-common-prefix/',
+            type: 'leetcode',
+            difficulty: 'easy',
+            description: 'String comparison and iteration'
           }
         ]
       },
@@ -718,11 +798,34 @@ const initialCourses: Course[] = [
         xpReward: 180,
         challengeType: 'interactive',
         difficulty: 'beginner',
-        unlocked: false,
+        unlocked: true,
         completed: false,
         currentStage: 'narrative',
         quizPassScore: 75,
         videoTopic: 'CSS fundamentals: selectors, box model, flexbox, and grid',
+        aiSuggestedVideos: [
+          {
+            id: 'web2-v1',
+            title: 'CSS Crash Course For Absolute Beginners',
+            channelTitle: 'Traversy Media',
+            thumbnailUrl: 'https://i.ytimg.com/vi/yfoY53QXEnI/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=yfoY53QXEnI'
+          },
+          {
+            id: 'web2-v2',
+            title: 'Learn CSS Flexbox in 20 Minutes',
+            channelTitle: 'Web Dev Simplified',
+            thumbnailUrl: 'https://i.ytimg.com/vi/FTlczfR82mQ/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=FTlczfR82mQ'
+          },
+          {
+            id: 'web2-v3',
+            title: 'CSS Grid Layout Crash Course',
+            channelTitle: 'Traversy Media',
+            thumbnailUrl: 'https://i.ytimg.com/vi/jV8B24rSN5o/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=jV8B24rSN5o'
+          }
+        ],
         quizQuestions: [
           {
             id: 'web-2-q1',
@@ -759,16 +862,32 @@ const initialCourses: Course[] = [
         ],
         externalResources: [
           {
-            title: 'CSS Basics - MDN',
-            url: 'https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/CSS_basics',
-            type: 'documentation',
-            description: 'Introduction to CSS fundamentals'
+            title: 'Best Time to Buy and Sell Stock - LeetCode',
+            url: 'https://leetcode.com/problems/best-time-to-buy-and-sell-stock/',
+            type: 'leetcode',
+            difficulty: 'easy',
+            description: 'Array manipulation and profit calculation'
           },
           {
-            title: 'Flexbox Froggy - Game',
-            url: 'https://flexboxfroggy.com/',
-            type: 'article',
-            description: 'Learn flexbox through an interactive game'
+            title: 'Maximum Subarray - LeetCode',
+            url: 'https://leetcode.com/problems/maximum-subarray/',
+            type: 'leetcode',
+            difficulty: 'medium',
+            description: 'Dynamic programming classic problem'
+          },
+          {
+            title: 'Merge Two Sorted Lists - LeetCode',
+            url: 'https://leetcode.com/problems/merge-two-sorted-lists/',
+            type: 'leetcode',
+            difficulty: 'easy',
+            description: 'Linked list merging algorithm'
+          },
+          {
+            title: 'Valid Anagram - LeetCode',
+            url: 'https://leetcode.com/problems/valid-anagram/',
+            type: 'leetcode',
+            difficulty: 'easy',
+            description: 'String manipulation and sorting'
           }
         ],
         gameConfig: {
@@ -793,7 +912,7 @@ const initialCourses: Course[] = [
         xpReward: 220,
         challengeType: 'interactive',
         difficulty: 'intermediate',
-        unlocked: false,
+        unlocked: true,
         completed: false,
         currentStage: 'narrative',
         quizPassScore: 75,
@@ -869,7 +988,7 @@ const initialCourses: Course[] = [
         xpReward: 280,
         challengeType: 'interactive',
         difficulty: 'intermediate',
-        unlocked: false,
+        unlocked: true,
         completed: false,
         currentStage: 'narrative',
         quizPassScore: 80,
@@ -944,7 +1063,7 @@ const initialCourses: Course[] = [
         xpReward: 320,
         challengeType: 'interactive',
         difficulty: 'advanced',
-        unlocked: false,
+        unlocked: true,
         completed: false,
         currentStage: 'narrative',
         quizPassScore: 80,
@@ -1019,7 +1138,7 @@ const initialCourses: Course[] = [
         xpReward: 350,
         challengeType: 'interactive',
         difficulty: 'advanced',
-        unlocked: false,
+        unlocked: true,
         completed: false,
         currentStage: 'narrative',
         quizPassScore: 80,
@@ -1094,7 +1213,7 @@ const initialCourses: Course[] = [
         xpReward: 400,
         challengeType: 'interactive',
         difficulty: 'advanced',
-        unlocked: false,
+        unlocked: true,
         completed: false,
         currentStage: 'narrative',
         quizPassScore: 85,
@@ -1324,40 +1443,41 @@ export const useLearning = create<LearningState>()(
       
       advanceStage: (levelId, newStage) => {
         const stageOrder: LevelStage[] = ['narrative', 'teaching-game', 'ai-videos', 'assessment', 'practice-game', 'resources', 'complete'];
-        
+
         const state = get();
         const level = state.courses
           .flatMap(c => c.levels)
           .find(l => l.id === levelId);
-        
+
         if (!level) {
           console.error(`Level ${levelId} not found`);
           return false;
         }
-        
+
         const currentStage = level.currentStage || 'narrative';
-        
+
         if (currentStage === newStage) {
           console.warn(`Level already on stage ${newStage}`);
           return false;
         }
-        
+
         const currentIndex = stageOrder.indexOf(currentStage);
         const newIndex = stageOrder.indexOf(newStage);
-        
+
         const hasGame = !!level.gameConfig;
         const hasResources = !!level.externalResources && level.externalResources.length > 0;
-        
-        const isValidTransition = 
+
+        const isValidTransition =
           newIndex > currentIndex ||
           (newIndex === stageOrder.indexOf('complete') && !hasResources && currentStage === 'practice-game') ||
-          (newIndex === 0 && currentStage !== 'teaching-game');
-        
+          (newIndex === 0 && currentStage !== 'teaching-game') ||
+          (currentStage === 'ai-videos' && newStage === 'teaching-game');
+
         if (!isValidTransition) {
           console.error(`Invalid stage transition from ${currentStage} to ${newStage}`);
           return false;
         }
-        
+
         set((state) => ({
           courses: state.courses.map(course => ({
             ...course,
@@ -1368,7 +1488,44 @@ export const useLearning = create<LearningState>()(
             )
           }))
         }));
-        
+
+        return true;
+      },
+
+      goBackStage: (levelId) => {
+        const stageOrder: LevelStage[] = ['narrative', 'teaching-game', 'ai-videos', 'assessment', 'practice-game', 'resources', 'complete'];
+
+        const state = get();
+        const level = state.courses
+          .flatMap(c => c.levels)
+          .find(l => l.id === levelId);
+
+        if (!level) {
+          console.error(`Level ${levelId} not found`);
+          return false;
+        }
+
+        const currentStage = level.currentStage || 'narrative';
+        const currentIndex = stageOrder.indexOf(currentStage);
+
+        if (currentIndex <= 0) {
+          console.warn(`Cannot go back from the first stage: ${currentStage}`);
+          return false;
+        }
+
+        const previousStage = stageOrder[currentIndex - 1];
+
+        set((state) => ({
+          courses: state.courses.map(course => ({
+            ...course,
+            levels: course.levels.map(level =>
+              level.id === levelId
+                ? { ...level, currentStage: previousStage }
+                : level
+            )
+          }))
+        }));
+
         return true;
       },
       
@@ -1437,8 +1594,8 @@ export const useLearning = create<LearningState>()(
           }));
           
           await get().completeLevel(levelId, result.xpEarned);
-          
-          get().advanceStage(levelId, 'complete');
+
+          get().advanceStage(levelId, 'assessment');
           
           set((state) => ({
             userProgress: {
@@ -1570,7 +1727,7 @@ export const useLearning = create<LearningState>()(
     }),
     {
       name: 'skillquest-learning',
-      version: 2,
+      version: 3,
       migrate: (persistedState: any, version: number) => {
         if (version < 2) {
           console.log('Migrating from version', version, 'to version 2 - Resetting all level stages');
