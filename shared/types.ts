@@ -28,6 +28,7 @@ export interface CodingProblem {
   difficulty: 'easy' | 'medium' | 'hard';
   starterCode: string;
   solution: string;
+  functionName: string; // The exact function name users should define
   testCases: CodingTestCase[];
   hints: string[];
   timeLimit?: number;

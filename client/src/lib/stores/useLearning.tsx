@@ -79,6 +79,7 @@ const initialCourses: Course[] = [
             difficulty: 'easy',
             starterCode: 'function sumNumbers(n) {\n  // Write your code here\n  \n}',
             solution: 'function sumNumbers(n) {\n  let sum = 0;\n  for (let i = 1; i <= n; i++) {\n    sum += i;\n  }\n  return sum;\n}',
+            functionName: 'sumNumbers',
             testCases: [
               { id: 't1', input: '5', expectedOutput: '15', isHidden: false },
               { id: 't2', input: '10', expectedOutput: '55', isHidden: false },
@@ -146,6 +147,7 @@ const initialCourses: Course[] = [
             difficulty: 'easy',
             starterCode: 'function findMax(arr) {\n  // Write your code here\n  \n}',
             solution: 'function findMax(arr) {\n  let max = arr[0];\n  for (let i = 1; i < arr.length; i++) {\n    if (arr[i] > max) max = arr[i];\n  }\n  return max;\n}',
+            functionName: 'findMax',
             testCases: [
               { id: 't1', input: '[1, 5, 3, 9, 2]', expectedOutput: '9', isHidden: false },
               { id: 't2', input: '[-5, -1, -10]', expectedOutput: '-1', isHidden: false }

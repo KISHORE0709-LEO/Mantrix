@@ -50,22 +50,27 @@ export function AssessmentHub({ level, onComplete, onAIHelp }: AssessmentHubProp
     let passed = 0;
     
     try {
+      // Execute user code and return the function they defined
       const userFunction = new Function(`
         ${currentCode}
-        return ${currentProblem.id.includes('p1') ? currentProblem.title.toLowerCase().replace(/\s+/g, '') : 'solution'};
+        return ${currentProblem.functionName};
       `)();
+      
+      if (typeof userFunction !== 'function') {
+        throw new Error(`Expected function '${currentProblem.functionName}' but got ${typeof userFunction}. Make sure you define a function with this exact name.`);
+      }
       
       currentProblem.testCases.forEach((test, idx) => {
         try {
           const input = JSON.parse(test.input);
-          const result = userFunction(input);
+          const result = Array.isArray(input) ? userFunction(...input) : userFunction(input);
           const expected = JSON.parse(test.expectedOutput);
           
-          if (result === expected) {
+          if (JSON.stringify(result) === JSON.stringify(expected)) {
             passed++;
             output.push(`✓ Test ${idx + 1}: PASSED`);
           } else {
-            output.push(`✗ Test ${idx + 1}: FAILED (Expected: ${expected}, Got: ${result})`);
+            output.push(`✗ Test ${idx + 1}: FAILED (Expected: ${JSON.stringify(expected)}, Got: ${JSON.stringify(result)})`);
           }
         } catch (e) {
           output.push(`✗ Test ${idx + 1}: ERROR - ${(e as Error).message}`);
@@ -201,6 +206,11 @@ export function AssessmentHub({ level, onComplete, onAIHelp }: AssessmentHubProp
               <div className="bg-slate-900 rounded-lg p-6 border border-slate-700">
                 <h3 className="font-game text-xl text-purple-300 mb-2">{currentProblem.title}</h3>
                 <p className="font-orbitron text-sm text-gray-300 mb-4">{currentProblem.description}</p>
+                <div className="bg-indigo-900/30 border border-indigo-500/50 rounded-lg p-3 mb-4">
+                  <p className="font-mono text-xs text-indigo-300">
+                    💡 Define a function named: <span className="font-bold text-white">{currentProblem.functionName}</span>
+                  </p>
+                </div>
                 <div className="flex gap-2 mb-4">
                   <span className={`px-3 py-1 rounded-full text-xs font-orbitron ${
                     currentProblem.difficulty === 'easy' ? 'bg-green-900 text-green-300' :
