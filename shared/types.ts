@@ -7,6 +7,19 @@ export interface Course {
   levels: Level[];
 }
 
+export type LevelStage = 'learn' | 'quiz' | 'game' | 'complete';
+
+export interface GameConfig {
+  id: string;
+  type: 'loop-arena' | 'recursion-maze' | 'sorting-conveyor' | 'pattern-builder' | 'search-challenge' | 'backtracking-puzzle';
+  title: string;
+  description: string;
+  objective: string;
+  controls: string;
+  timeLimit?: number;
+  passingScore: number;
+}
+
 export interface Level {
   id: string;
   courseId: string;
@@ -18,6 +31,24 @@ export interface Level {
   difficulty: 'beginner' | 'intermediate' | 'advanced';
   unlocked: boolean;
   completed: boolean;
+  currentStage?: LevelStage;
+  gameConfig?: GameConfig;
+}
+
+export interface GameProgress {
+  levelId: string;
+  gameId: string;
+  attempts: number;
+  bestScore: number;
+  timeSpent: number;
+  completed: boolean;
+}
+
+export interface GameResult {
+  score: number;
+  timeSpent: number;
+  success: boolean;
+  xpEarned: number;
 }
 
 export interface UserProgress {
@@ -28,6 +59,7 @@ export interface UserProgress {
   completedLevels: string[];
   currentCourse: string | null;
   currentLevel: string | null;
+  currentGame?: GameProgress | null;
 }
 
 export interface Badge {
@@ -35,7 +67,8 @@ export interface Badge {
   name: string;
   description: string;
   icon: string;
-  earnedAt: Date;
+  rarity?: 'common' | 'rare' | 'epic' | 'legendary';
+  earnedAt?: Date;
 }
 
 export interface Challenge {

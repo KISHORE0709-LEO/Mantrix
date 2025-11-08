@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { Course, Level, UserProgress, Badge, AICompanionState } from "@shared/types";
+import type { Course, Level, UserProgress, Badge, AICompanionState, GameResult, LevelStage } from "@shared/types";
 
 interface User {
   id: number;
@@ -22,6 +22,9 @@ interface LearningState {
   setCourses: (courses: Course[]) => void;
   selectCourse: (courseId: string) => void;
   selectLevel: (levelId: string) => void;
+  advanceStage: (levelId: string, newStage: LevelStage) => boolean;
+  startGame: (levelId: string) => boolean;
+  completeGame: (levelId: string, result: GameResult) => Promise<void>;
   completeLevel: (levelId: string, xpEarned: number) => Promise<void>;
   addBadge: (badge: Badge) => Promise<void>;
   updateAIMessages: (message: { role: 'user' | 'assistant'; content: string }) => void;
@@ -48,6 +51,16 @@ const initialCourses: Course[] = [
         difficulty: 'beginner',
         unlocked: true,
         completed: false,
+        currentStage: 'learn',
+        gameConfig: {
+          id: 'loop-arena-1',
+          type: 'loop-arena',
+          title: 'Loop Arena: Valley of Variables',
+          description: 'Navigate through obstacles using loop patterns',
+          objective: 'Collect 10 data crystals by moving in loop patterns. Use arrow keys to move.',
+          controls: 'WASD or Arrow Keys to move, SPACE to jump',
+          passingScore: 10,
+        },
       },
       {
         id: 'dsa-2',
@@ -60,6 +73,17 @@ const initialCourses: Course[] = [
         difficulty: 'beginner',
         unlocked: false,
         completed: false,
+        currentStage: 'learn',
+        gameConfig: {
+          id: 'sorting-conveyor-1',
+          type: 'sorting-conveyor',
+          title: 'Sorting Conveyor: Array Temple',
+          description: 'Organize items on the conveyor belt in the correct order',
+          objective: 'Sort 15 items correctly within 60 seconds',
+          controls: 'Click and drag items to sort them',
+          timeLimit: 60,
+          passingScore: 15,
+        },
       },
       {
         id: 'dsa-3',
@@ -72,6 +96,17 @@ const initialCourses: Course[] = [
         difficulty: 'intermediate',
         unlocked: false,
         completed: false,
+        currentStage: 'learn',
+        gameConfig: {
+          id: 'search-challenge-1',
+          type: 'search-challenge',
+          title: 'Search Challenge: Forest of Discovery',
+          description: 'Find hidden treasures using efficient search strategies',
+          objective: 'Locate 5 hidden treasures in the forest. Use binary search for optimal paths.',
+          controls: 'Arrow keys to navigate, SPACE to search',
+          timeLimit: 90,
+          passingScore: 5,
+        },
       }
     ]
   },
@@ -316,6 +351,143 @@ export const useLearning = create<LearningState>()(
           currentLevel: levelId,
         }
       })),
+      
+      advanceStage: (levelId, newStage) => {
+        const stageOrder: LevelStage[] = ['learn', 'quiz', 'game', 'complete'];
+        
+        const state = get();
+        const level = state.courses
+          .flatMap(c => c.levels)
+          .find(l => l.id === levelId);
+        
+        if (!level) {
+          console.error(`Level ${levelId} not found`);
+          return false;
+        }
+        
+        const currentStage = level.currentStage || 'learn';
+        
+        if (currentStage === newStage) {
+          console.warn(`Level already on stage ${newStage}`);
+          return false;
+        }
+        
+        const currentIndex = stageOrder.indexOf(currentStage);
+        const newIndex = stageOrder.indexOf(newStage);
+        
+        const isValidTransition = 
+          newIndex === currentIndex + 1 ||
+          (newIndex === 0 && currentStage !== 'learn');
+        
+        if (!isValidTransition) {
+          const expected = stageOrder[currentIndex + 1];
+          console.error(`Invalid stage transition from ${currentStage} to ${newStage}. Expected ${expected || 'complete'}`);
+          return false;
+        }
+        
+        set((state) => ({
+          courses: state.courses.map(course => ({
+            ...course,
+            levels: course.levels.map(level =>
+              level.id === levelId
+                ? { ...level, currentStage: newStage }
+                : level
+            )
+          }))
+        }));
+        
+        return true;
+      },
+      
+      startGame: (levelId) => {
+        const { courses, userProgress } = get();
+        const level = courses
+          .flatMap(c => c.levels)
+          .find(l => l.id === levelId);
+        
+        if (!level?.gameConfig) {
+          console.error('No game config found for level:', levelId);
+          return false;
+        }
+        
+        const currentStage = level.currentStage || 'learn';
+        if (currentStage !== 'quiz') {
+          console.error(`Cannot start game from stage ${currentStage}. Must complete quiz first.`);
+          return false;
+        }
+        
+        const existingGame = userProgress.currentGame;
+        const isResuming = existingGame?.levelId === levelId;
+        
+        set((state) => ({
+          userProgress: {
+            ...state.userProgress,
+            currentGame: {
+              levelId,
+              gameId: level.gameConfig!.id,
+              attempts: isResuming && existingGame ? existingGame.attempts : 0,
+              bestScore: isResuming && existingGame ? existingGame.bestScore : 0,
+              timeSpent: isResuming && existingGame ? existingGame.timeSpent : 0,
+              completed: false,
+            }
+          }
+        }));
+        
+        const advanced = get().advanceStage(levelId, 'game');
+        return advanced;
+      },
+      
+      completeGame: async (levelId, result) => {
+        const { userProgress } = get();
+        
+        const currentGame = userProgress.currentGame;
+        if (!currentGame) {
+          console.error('No active game session to complete');
+          return;
+        }
+        
+        const newBestScore = Math.max(currentGame.bestScore, result.score);
+        const newAttempts = currentGame.attempts + 1;
+        const newTimeSpent = currentGame.timeSpent + result.timeSpent;
+        
+        if (result.success) {
+          set((state) => ({
+            userProgress: {
+              ...state.userProgress,
+              currentGame: {
+                ...currentGame,
+                attempts: newAttempts,
+                bestScore: newBestScore,
+                timeSpent: newTimeSpent,
+                completed: true,
+              }
+            }
+          }));
+          
+          await get().completeLevel(levelId, result.xpEarned);
+          
+          get().advanceStage(levelId, 'complete');
+          
+          set((state) => ({
+            userProgress: {
+              ...state.userProgress,
+              currentGame: null,
+            }
+          }));
+        } else {
+          set((state) => ({
+            userProgress: {
+              ...state.userProgress,
+              currentGame: {
+                ...currentGame,
+                attempts: newAttempts,
+                bestScore: newBestScore,
+                timeSpent: newTimeSpent,
+              }
+            }
+          }));
+        }
+      },
       
       completeLevel: async (levelId, xpEarned) => {
         const { user, userProgress, courses } = get();
