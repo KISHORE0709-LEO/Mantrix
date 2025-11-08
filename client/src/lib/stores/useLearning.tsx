@@ -171,7 +171,93 @@ const initialCourses: Course[] = [
         ],
         gameConfig: { id: 'sorting-conveyor-2', type: 'sorting-conveyor', title: 'Array Organizer', description: 'Learn arrays by organizing items', objective: 'Sort items by value', controls: 'Click to swap items', passingScore: 100 } 
       },
-      { id: 'dsa-3', courseId: 'dsa', title: 'Searching Algorithms', description: 'Linear and binary search', story: 'In the Forest of Search, find treasures using efficient search strategies.', xpReward: 130, challengeType: 'interactive', difficulty: 'beginner', unlocked: false, completed: false, currentStage: 'narrative' },
+      {
+        id: 'dsa-3',
+        courseId: 'dsa',
+        title: 'Searching Algorithms',
+        description: 'Linear and binary search',
+        story: 'In the Forest of Search, find treasures using efficient search strategies.',
+        narrative: 'The forest holds many treasures, but finding them requires strategy. Learn two fundamental search algorithms: linear search checks every item one by one, while binary search divides and conquers sorted data for lightning-fast lookups.',
+        teachingContent: 'Linear Search: O(n) time - checks each element sequentially. Simple but slow for large datasets. Binary Search: O(log n) time - repeatedly divides sorted array in half. Much faster but requires sorted data.',
+        xpReward: 130,
+        challengeType: 'interactive',
+        difficulty: 'beginner',
+        unlocked: false,
+        completed: false,
+        currentStage: 'narrative',
+        videoTopic: 'Binary search algorithm explained with examples',
+        quizQuestions: [
+          {
+            id: 'dsa-3-q1',
+            question: 'What is the time complexity of binary search?',
+            options: ['O(1)', 'O(log n)', 'O(n)', 'O(n²)'],
+            correctAnswer: 'O(log n)',
+            explanation: 'Binary search divides the search space in half each time, giving logarithmic time complexity.',
+            type: 'multiple-choice'
+          },
+          {
+            id: 'dsa-3-q2',
+            question: 'What condition must be met to use binary search?',
+            options: ['Array must be sorted', 'Array must be unsorted', 'Array must have duplicates', 'Array must be empty'],
+            correctAnswer: 'Array must be sorted',
+            explanation: 'Binary search only works on sorted arrays because it relies on comparing the middle element to determine which half to search.',
+            type: 'multiple-choice'
+          }
+        ],
+        codingProblems: [
+          {
+            id: 'dsa-3-p1',
+            title: 'Binary Search Implementation',
+            description: 'Write a function that performs binary search on a sorted array. Return the index of the target value, or -1 if not found.',
+            difficulty: 'medium',
+            starterCode: 'function binarySearch(arr, target) {\n  // Write your code here\n  \n}',
+            solution: 'function binarySearch(arr, target) {\n  let left = 0;\n  let right = arr.length - 1;\n  \n  while (left <= right) {\n    let mid = Math.floor((left + right) / 2);\n    \n    if (arr[mid] === target) return mid;\n    if (arr[mid] < target) left = mid + 1;\n    else right = mid - 1;\n  }\n  \n  return -1;\n}',
+            functionName: 'binarySearch',
+            testCases: [
+              { id: 't1', input: '[[1, 3, 5, 7, 9], 5]', expectedOutput: '2', isHidden: false },
+              { id: 't2', input: '[[1, 3, 5, 7, 9], 6]', expectedOutput: '-1', isHidden: false },
+              { id: 't3', input: '[[10, 20, 30, 40, 50], 10]', expectedOutput: '0', isHidden: true }
+            ],
+            hints: [
+              'Use two pointers: left and right',
+              'Find the middle index: Math.floor((left + right) / 2)',
+              'Compare middle element with target to decide which half to search'
+            ],
+            tags: ['searching', 'binary-search', 'algorithms']
+          }
+        ],
+        externalResources: [
+          {
+            title: 'Binary Search - LeetCode',
+            url: 'https://leetcode.com/problems/binary-search/',
+            type: 'leetcode',
+            difficulty: 'easy',
+            description: 'Classic binary search problem'
+          },
+          {
+            title: 'Search Insert Position - LeetCode',
+            url: 'https://leetcode.com/problems/search-insert-position/',
+            type: 'leetcode',
+            difficulty: 'easy',
+            description: 'Binary search variation'
+          },
+          {
+            title: 'Binary Search - NeetCode',
+            url: 'https://neetcode.io/problems/binary-search',
+            type: 'neetcode',
+            difficulty: 'easy'
+          }
+        ],
+        gameConfig: {
+          id: 'search-challenge-3',
+          type: 'search-challenge',
+          title: 'Treasure Hunt',
+          description: 'Find hidden items using search algorithms',
+          objective: 'Locate all treasures efficiently',
+          controls: 'Click to search, use hints wisely',
+          passingScore: 85
+        }
+      },
       { id: 'dsa-4', courseId: 'dsa', title: 'Linked Lists', description: 'Understanding node-based data structures', story: 'Navigate the Chain Bridge where each node points to the next.', xpReward: 140, challengeType: 'interactive', difficulty: 'beginner', unlocked: false, completed: false, currentStage: 'narrative' },
       { id: 'dsa-5', courseId: 'dsa', title: 'Stacks', description: 'Last-In-First-Out (LIFO) operations', story: 'Climb the Tower of Stacks where the last item added is first removed.', xpReward: 150, challengeType: 'interactive', difficulty: 'beginner', unlocked: false, completed: false, currentStage: 'narrative' },
       { id: 'dsa-6', courseId: 'dsa', title: 'Queues', description: 'First-In-First-Out (FIFO) operations', story: 'Join the Queue Kingdom where fairness rules - first come, first served!', xpReward: 150, challengeType: 'interactive', difficulty: 'beginner', unlocked: false, completed: false, currentStage: 'narrative' },
@@ -222,7 +308,75 @@ const initialCourses: Course[] = [
           controls: 'Click to place elements, WASD to move',
           passingScore: 80,
           importanceWhy: 'This game teaches you how HTML elements work together to create structure. Just like building blocks, each HTML tag has a specific purpose. Understanding this foundation is crucial because every website you\'ll ever build starts with HTML structure.'
-        }
+        },
+        videoTopic: 'HTML basics and semantic HTML tutorial',
+        quizQuestions: [
+          {
+            id: 'web-1-q1',
+            question: 'What does HTML stand for?',
+            options: ['Hyper Text Markup Language', 'High Tech Modern Language', 'Home Tool Markup Language', 'Hyperlinks and Text Markup Language'],
+            correctAnswer: 'Hyper Text Markup Language',
+            explanation: 'HTML stands for HyperText Markup Language, the standard markup language for web pages.',
+            type: 'multiple-choice'
+          },
+          {
+            id: 'web-1-q2',
+            question: 'Which tag is used to create a hyperlink?',
+            options: ['<link>', '<a>', '<href>', '<url>'],
+            correctAnswer: '<a>',
+            explanation: 'The <a> (anchor) tag is used to create hyperlinks in HTML.',
+            type: 'multiple-choice'
+          },
+          {
+            id: 'web-1-q3',
+            question: 'What is the purpose of semantic HTML?',
+            options: ['To make pages load faster', 'To give meaning to the structure', 'To add colors and styles', 'To make code shorter'],
+            correctAnswer: 'To give meaning to the structure',
+            explanation: 'Semantic HTML uses tags like <header>, <nav>, <article> to give meaning to content structure, improving accessibility and SEO.',
+            type: 'multiple-choice'
+          }
+        ],
+        codingProblems: [
+          {
+            id: 'web-1-p1',
+            title: 'Create a Profile Card',
+            description: 'Write HTML code to create a simple profile card with a heading (h1), paragraph (p), and image (img).',
+            difficulty: 'easy',
+            starterCode: 'function createProfile(name, bio, imageUrl) {\n  // Return HTML string\n  \n}',
+            solution: 'function createProfile(name, bio, imageUrl) {\n  return `<div>\n    <h1>${name}</h1>\n    <img src="${imageUrl}" alt="${name}">\n    <p>${bio}</p>\n  </div>`;\n}',
+            functionName: 'createProfile',
+            testCases: [
+              { id: 't1', input: '["John Doe", "Web Developer", "photo.jpg"]', expectedOutput: '"<div>\\n    <h1>John Doe</h1>\\n    <img src=\\"photo.jpg\\" alt=\\"John Doe\\">\\n    <p>Web Developer</p>\\n  </div>"', isHidden: false },
+              { id: 't2', input: '["Jane", "Designer", "avatar.png"]', expectedOutput: '"<div>\\n    <h1>Jane</h1>\\n    <img src=\\"avatar.png\\" alt=\\"Jane\\">\\n    <p>Designer</p>\\n  </div>"', isHidden: false }
+            ],
+            hints: [
+              'Use template literals to build the HTML string',
+              'Include h1 for name, img for image, and p for bio',
+              'Remember to use proper HTML structure with opening and closing tags'
+            ],
+            tags: ['html', 'basics', 'web-development']
+          }
+        ],
+        externalResources: [
+          {
+            title: 'HTML Elements Reference - MDN',
+            url: 'https://developer.mozilla.org/en-US/docs/Web/HTML/Element',
+            type: 'documentation',
+            description: 'Complete reference of all HTML elements'
+          },
+          {
+            title: 'Learn HTML - FreeCodeCamp',
+            url: 'https://www.freecodecamp.org/news/html-crash-course/',
+            type: 'article',
+            description: 'Comprehensive HTML crash course'
+          },
+          {
+            title: 'HTML Tutorial - W3Schools',
+            url: 'https://www.w3schools.com/html/',
+            type: 'documentation',
+            description: 'Interactive HTML tutorials with examples'
+          }
+        ]
       },
       {
         id: 'web-2',
