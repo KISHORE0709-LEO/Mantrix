@@ -1265,34 +1265,874 @@ const initialCourses: Course[] = [
   },
   {
     id: 'cloud',
-    name: 'Cloud & DevOps',
-    description: 'Deploy and scale applications',
+    name: 'MATRIX: Cloud & DevOps Odyssey',
+    description: 'Forge the heavens. Command the clouds. Balance chaos and automation.',
     icon: '☁️',
     color: '#10b981',
     levels: [
       {
         id: 'cloud-1',
         courseId: 'cloud',
-        title: 'Cloud Computing Basics',
-        description: 'Introduction to cloud platforms',
-        story: 'Ascend to the Cloud City and learn to deploy your applications to the sky!',
-        xpReward: 100,
-        challengeType: 'quiz',
+        title: 'The Genesis Cloud (Introduction to Cloud)',
+        description: 'Rebuild order by understanding the essence of the Cloud',
+        story: 'You awaken in the "Skyforge Realm" — a fragmented world where servers float in chaos. Your first task: rebuild order by understanding the essence of the Cloud.',
+        narrative: 'Welcome to the Skyforge Realm, where compute, storage, and networking fragments drift in digital chaos. Your mission is to assemble these pieces into a functional cloud system. Learn the fundamental models of cloud computing and discover how virtualization enables the cloud revolution.',
+        teachingContent: 'Cloud Computing delivers IT resources over the internet on-demand. Three service models exist: IaaS (Infrastructure as a Service - rent servers), PaaS (Platform as a Service - deploy without managing infrastructure), and SaaS (Software as a Service - ready-to-use apps). Deployment types include Public (AWS, Azure, GCP), Private (on-premises), and Hybrid (combination). Virtualization allows multiple virtual machines to run on one physical server.',
+        xpReward: 150,
+        challengeType: 'interactive',
         difficulty: 'beginner',
         unlocked: true,
         completed: false,
+        currentStage: 'narrative',
+        videoTopic: 'Cloud computing basics IaaS PaaS SaaS explained',
+        aiSuggestedVideos: [
+          {
+            id: 'cloud1-v1',
+            title: 'Cloud Computing In 6 Minutes | What Is Cloud Computing?',
+            channelTitle: 'Simplilearn',
+            thumbnailUrl: 'https://i.ytimg.com/vi/M988_fsOSWo/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=M988_fsOSWo'
+          },
+          {
+            id: 'cloud1-v2',
+            title: 'Cloud Computing Services Models - IaaS PaaS SaaS Explained',
+            channelTitle: 'AWS',
+            thumbnailUrl: 'https://i.ytimg.com/vi/36zducUX16w/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=36zducUX16w'
+          },
+          {
+            id: 'cloud1-v3',
+            title: 'AWS vs Azure vs GCP | Cloud Providers Comparison',
+            channelTitle: 'TechWorld with Nana',
+            thumbnailUrl: 'https://i.ytimg.com/vi/n24OBVGHufQ/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=n24OBVGHufQ'
+          }
+        ],
+        quizQuestions: [
+          {
+            id: 'cloud-1-q1',
+            question: 'Which cloud service model provides the most control over infrastructure?',
+            options: ['SaaS', 'PaaS', 'IaaS', 'FaaS'],
+            correctAnswer: 'IaaS',
+            explanation: 'Infrastructure as a Service (IaaS) gives you the most control, allowing you to manage virtual machines, storage, and networks.',
+            type: 'multiple-choice'
+          },
+          {
+            id: 'cloud-1-q2',
+            question: 'What does "on-demand" mean in cloud computing?',
+            options: ['Resources are always running', 'Resources can be provisioned instantly when needed', 'Resources must be requested weeks in advance', 'Resources are free'],
+            correctAnswer: 'Resources can be provisioned instantly when needed',
+            explanation: 'On-demand means you can get computing resources immediately when you need them, without long procurement processes.',
+            type: 'multiple-choice'
+          },
+          {
+            id: 'cloud-1-q3',
+            question: 'Which deployment model combines on-premises and public cloud?',
+            options: ['Public Cloud', 'Private Cloud', 'Hybrid Cloud', 'Community Cloud'],
+            correctAnswer: 'Hybrid Cloud',
+            explanation: 'Hybrid Cloud combines private (on-premises) infrastructure with public cloud services for flexibility and data control.',
+            type: 'multiple-choice'
+          }
+        ],
+        externalResources: [
+          {
+            title: 'AWS Cloud Practitioner Learning Path',
+            url: 'https://aws.amazon.com/certification/certified-cloud-practitioner/',
+            type: 'documentation',
+            description: 'Official AWS certification path for cloud basics'
+          },
+          {
+            title: 'Azure Fundamentals',
+            url: 'https://learn.microsoft.com/en-us/training/paths/az-900-describe-cloud-concepts/',
+            type: 'documentation',
+            description: 'Microsoft Azure cloud fundamentals course'
+          },
+          {
+            title: 'Google Cloud Skills Boost',
+            url: 'https://www.cloudskillsboost.google/',
+            type: 'neetcode',
+            difficulty: 'easy',
+            description: 'Hands-on labs for GCP'
+          }
+        ],
+        gameConfig: {
+          id: 'component-link-cloud-1',
+          type: 'component-link',
+          title: 'Assemble the Cloud',
+          description: 'Drag-and-drop cloud fragments to form a functional system',
+          objective: 'Connect compute, storage, and networking correctly to stabilize the sky islands',
+          controls: 'Drag and drop components to connect them',
+          passingScore: 85,
+          importanceWhy: 'Understanding cloud architecture fundamentals is essential for modern development. This game visualizes how compute, storage, and networking work together to create cloud services that power billions of applications worldwide.'
+        }
       },
       {
         id: 'cloud-2',
         courseId: 'cloud',
-        title: 'Docker Containers',
-        description: 'Containerize your applications',
-        story: 'Master the art of containerization in the Docker Docks.',
-        xpReward: 150,
+        title: 'The Forge of Infrastructure (Networking & Compute)',
+        description: 'Master the backbone — networks and compute engines',
+        story: 'To command the Skyforge, you must master its backbone — networks and compute engines.',
+        narrative: 'The Skyforge cannot function without proper networking. Learn how data flows between cloud islands through Virtual Private Clouds (VPCs), how load balancers distribute traffic, and how compute instances power applications. Every misconfiguration causes data storms!',
+        teachingContent: 'Networking Fundamentals: IP addresses identify devices, DNS translates domain names to IPs, Load Balancers distribute traffic across servers. Compute Instances are virtual machines (EC2 in AWS, VM in Azure). Storage includes object storage (S3, Blob Storage) for files and block storage (EBS, Managed Disks) for databases. VPC creates isolated networks in the cloud with subnets, route tables, and security groups.',
+        xpReward: 180,
+        challengeType: 'interactive',
+        difficulty: 'beginner',
+        unlocked: false,
+        completed: false,
+        currentStage: 'narrative',
+        videoTopic: 'AWS VPC networking EC2 instances tutorial',
+        aiSuggestedVideos: [
+          {
+            id: 'cloud2-v1',
+            title: 'AWS VPC Beginner to Pro - Virtual Private Cloud Tutorial',
+            channelTitle: 'freeCodeCamp',
+            thumbnailUrl: 'https://i.ytimg.com/vi/g2JOHLHh4rI/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=g2JOHLHh4rI'
+          },
+          {
+            id: 'cloud2-v2',
+            title: 'AWS EC2 Tutorial For Beginners',
+            channelTitle: 'Simplilearn',
+            thumbnailUrl: 'https://i.ytimg.com/vi/8TlukLu11Yo/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=8TlukLu11Yo'
+          },
+          {
+            id: 'cloud2-v3',
+            title: 'S3 Bucket Tutorial | AWS Storage',
+            channelTitle: 'Tech With Lucy',
+            thumbnailUrl: 'https://i.ytimg.com/vi/e6w9LwZJFIA/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=e6w9LwZJFIA'
+          }
+        ],
+        quizQuestions: [
+          {
+            id: 'cloud-2-q1',
+            question: 'What is the purpose of a load balancer?',
+            options: ['Store data', 'Distribute traffic across multiple servers', 'Translate domain names', 'Encrypt data'],
+            correctAnswer: 'Distribute traffic across multiple servers',
+            explanation: 'Load balancers distribute incoming traffic across multiple servers to ensure no single server gets overwhelmed, improving availability and reliability.',
+            type: 'multiple-choice'
+          },
+          {
+            id: 'cloud-2-q2',
+            question: 'What does VPC stand for?',
+            options: ['Virtual Private Cloud', 'Virtual Public Container', 'Very Private Computing', 'Virtual Platform Cloud'],
+            correctAnswer: 'Virtual Private Cloud',
+            explanation: 'VPC (Virtual Private Cloud) is an isolated network environment in the cloud where you can launch resources securely.',
+            type: 'multiple-choice'
+          },
+          {
+            id: 'cloud-2-q3',
+            question: 'Which AWS service provides object storage?',
+            options: ['EC2', 'S3', 'VPC', 'RDS'],
+            correctAnswer: 'S3',
+            explanation: 'Amazon S3 (Simple Storage Service) provides scalable object storage for files, images, videos, and backups.',
+            type: 'multiple-choice'
+          }
+        ],
+        externalResources: [
+          {
+            title: 'AWS VPC Documentation',
+            url: 'https://docs.aws.amazon.com/vpc/',
+            type: 'documentation',
+            description: 'Complete VPC configuration guide'
+          },
+          {
+            title: 'AWS EC2 Getting Started',
+            url: 'https://aws.amazon.com/ec2/getting-started/',
+            type: 'documentation',
+            description: 'Launch your first EC2 instance'
+          },
+          {
+            title: 'Networking Basics - A Cloud Guru',
+            url: 'https://acloudguru.com/course/networking-basics',
+            type: 'neetcode',
+            difficulty: 'easy',
+            description: 'Learn cloud networking fundamentals'
+          }
+        ],
+        gameConfig: {
+          id: 'data-bridge-cloud-2',
+          type: 'data-bridge',
+          title: 'Sky Network Builder',
+          description: 'Create secure network routes between cloud islands',
+          objective: 'Configure VPC, subnets, and routes correctly - wrong configurations cause data storms',
+          controls: 'Click to configure network components',
+          passingScore: 85,
+          importanceWhy: 'Networking is the foundation of cloud infrastructure. Understanding VPCs, subnets, and routing prevents security vulnerabilities and ensures reliable communication between services. Every major cloud outage involves networking issues.'
+        }
+      },
+      {
+        id: 'cloud-3',
+        courseId: 'cloud',
+        title: 'The Chamber of Automation (DevOps Foundations)',
+        description: 'Control the storm with scripts and automation',
+        story: 'The Skyforge is too vast to manage manually. Enter the Chamber of Automation — where you learn to control the storm with scripts.',
+        narrative: 'Manual deployment is chaos. Every time you click buttons to deploy, you risk human error. The Chamber of Automation teaches you to codify your processes, use version control to track changes, and build pipelines that deploy automatically. Welcome to DevOps!',
+        teachingContent: 'DevOps unifies Development and Operations for faster, reliable delivery. CI/CD means Continuous Integration (automatically test code) and Continuous Deployment (automatically deploy to production). Git tracks code changes - commit saves snapshots, branches enable parallel work, pull requests review changes. GitHub/GitLab host Git repositories and run CI/CD pipelines. Automation eliminates manual errors and speeds deployment from weeks to minutes.',
+        xpReward: 200,
+        challengeType: 'interactive',
+        difficulty: 'beginner',
+        unlocked: false,
+        completed: false,
+        currentStage: 'narrative',
+        videoTopic: 'DevOps CI/CD pipeline Git GitHub Actions tutorial',
+        aiSuggestedVideos: [
+          {
+            id: 'cloud3-v1',
+            title: 'DevOps Explained in 100 Seconds',
+            channelTitle: 'Fireship',
+            thumbnailUrl: 'https://i.ytimg.com/vi/scEDHsr3APg/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=scEDHsr3APg'
+          },
+          {
+            id: 'cloud3-v2',
+            title: 'Git and GitHub for Beginners - Crash Course',
+            channelTitle: 'freeCodeCamp',
+            thumbnailUrl: 'https://i.ytimg.com/vi/RGOj5yH7evk/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=RGOj5yH7evk'
+          },
+          {
+            id: 'cloud3-v3',
+            title: 'CI/CD In 5 Minutes | What Is CI/CD?',
+            channelTitle: 'Simplilearn',
+            thumbnailUrl: 'https://i.ytimg.com/vi/42UP1fxi2SY/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=42UP1fxi2SY'
+          }
+        ],
+        quizQuestions: [
+          {
+            id: 'cloud-3-q1',
+            question: 'What does CI/CD stand for?',
+            options: ['Code Integration/Code Deployment', 'Continuous Integration/Continuous Deployment', 'Cloud Infrastructure/Cloud Development', 'Container Integration/Container Delivery'],
+            correctAnswer: 'Continuous Integration/Continuous Deployment',
+            explanation: 'CI/CD automates testing (Continuous Integration) and deployment (Continuous Deployment) to deliver code changes faster and more reliably.',
+            type: 'multiple-choice'
+          },
+          {
+            id: 'cloud-3-q2',
+            question: 'What is the main benefit of DevOps?',
+            options: ['Cheaper servers', 'Faster and more reliable software delivery', 'Eliminating testing', 'Reducing team size'],
+            correctAnswer: 'Faster and more reliable software delivery',
+            explanation: 'DevOps bridges development and operations to deliver features faster while maintaining stability through automation and collaboration.',
+            type: 'multiple-choice'
+          },
+          {
+            id: 'cloud-3-q3',
+            question: 'What Git command saves your changes?',
+            options: ['git push', 'git commit', 'git save', 'git deploy'],
+            correctAnswer: 'git commit',
+            explanation: 'git commit creates a snapshot of your changes in the Git history. git push then uploads commits to a remote repository.',
+            type: 'multiple-choice'
+          }
+        ],
+        externalResources: [
+          {
+            title: 'GitHub Skills - Introduction to GitHub',
+            url: 'https://skills.github.com/',
+            type: 'documentation',
+            description: 'Interactive GitHub learning labs'
+          },
+          {
+            title: 'GitLab CI/CD Documentation',
+            url: 'https://docs.gitlab.com/ee/ci/',
+            type: 'documentation',
+            description: 'Build your first pipeline'
+          },
+          {
+            title: 'DevOps Roadmap',
+            url: 'https://roadmap.sh/devops',
+            type: 'neetcode',
+            difficulty: 'easy',
+            description: 'Complete DevOps learning path'
+          }
+        ],
+        gameConfig: {
+          id: 'script-circuit-cloud-3',
+          type: 'script-circuit',
+          title: 'Automation Forge',
+          description: 'Build an automated pipeline that forges artifacts from code commits',
+          objective: 'Connect CI/CD stages correctly - mistakes cause build failures',
+          controls: 'Click to configure pipeline stages',
+          passingScore: 85,
+          importanceWhy: 'Automation is the heart of modern software delivery. Manual deployments cause errors, take hours, and don\'t scale. Learning CI/CD means you can ship features daily instead of monthly, with confidence they won\'t break production.'
+        }
+      },
+      {
+        id: 'cloud-4',
+        courseId: 'cloud',
+        title: 'The Terraform Plains (Infrastructure as Code)',
+        description: 'Summon infrastructure with code',
+        story: 'You now enter the realm where infrastructure is summoned by code. Terraform is your spellbook.',
+        narrative: 'Clicking buttons in AWS/Azure consoles is slow and error-prone. The Terraform Plains teach you to describe infrastructure in code files. With one command, you can create entire cloud environments. Change one line to add 10 servers. Infrastructure as Code is the foundation of modern cloud operations.',
+        teachingContent: 'Infrastructure as Code (IaC) means managing infrastructure with configuration files instead of manual processes. Terraform is a popular IaC tool supporting AWS, Azure, GCP, and 300+ providers. Key concepts: Providers (cloud platforms), Resources (things you create like VMs, databases), State (tracking what exists), Modules (reusable components). Terraform workflow: Write .tf files → terraform init (setup) → terraform plan (preview) → terraform apply (create).',
+        xpReward: 220,
         challengeType: 'interactive',
         difficulty: 'intermediate',
         unlocked: false,
         completed: false,
+        currentStage: 'narrative',
+        videoTopic: 'Terraform tutorial infrastructure as code AWS',
+        aiSuggestedVideos: [
+          {
+            id: 'cloud4-v1',
+            title: 'Terraform in 100 Seconds',
+            channelTitle: 'Fireship',
+            thumbnailUrl: 'https://i.ytimg.com/vi/tomUWcQ0P3k/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=tomUWcQ0P3k'
+          },
+          {
+            id: 'cloud4-v2',
+            title: 'Terraform Course - Automate your AWS cloud infrastructure',
+            channelTitle: 'freeCodeCamp',
+            thumbnailUrl: 'https://i.ytimg.com/vi/SLB_c_ayRMo/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=SLB_c_ayRMo'
+          },
+          {
+            id: 'cloud4-v3',
+            title: 'Complete Terraform Tutorial for Beginners',
+            channelTitle: 'TechWorld with Nana',
+            thumbnailUrl: 'https://i.ytimg.com/vi/l5k1ai_GBDE/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=l5k1ai_GBDE'
+          }
+        ],
+        quizQuestions: [
+          {
+            id: 'cloud-4-q1',
+            question: 'What is the main benefit of Infrastructure as Code?',
+            options: ['Cheaper cloud bills', 'Reproducible, version-controlled infrastructure', 'Faster internet', 'Automatic security'],
+            correctAnswer: 'Reproducible, version-controlled infrastructure',
+            explanation: 'IaC lets you recreate identical environments, track changes in Git, and avoid manual configuration errors.',
+            type: 'multiple-choice'
+          },
+          {
+            id: 'cloud-4-q2',
+            question: 'Which Terraform command creates infrastructure?',
+            options: ['terraform create', 'terraform apply', 'terraform build', 'terraform deploy'],
+            correctAnswer: 'terraform apply',
+            explanation: 'terraform apply executes the planned changes and creates/modifies infrastructure.',
+            type: 'multiple-choice'
+          },
+          {
+            id: 'cloud-4-q3',
+            question: 'What does Terraform state track?',
+            options: ['Your code', 'What infrastructure currently exists', 'Billing information', 'User passwords'],
+            correctAnswer: 'What infrastructure currently exists',
+            explanation: 'Terraform state maps your configuration to real infrastructure, tracking what resources exist and their current configuration.',
+            type: 'multiple-choice'
+          }
+        ],
+        externalResources: [
+          {
+            title: 'Terraform AWS Provider Documentation',
+            url: 'https://registry.terraform.io/providers/hashicorp/aws/latest/docs',
+            type: 'documentation',
+            description: 'Complete AWS Terraform reference'
+          },
+          {
+            title: 'Learn Terraform - HashiCorp',
+            url: 'https://learn.hashicorp.com/terraform',
+            type: 'documentation',
+            description: 'Official Terraform tutorials'
+          },
+          {
+            title: 'Terraform Best Practices',
+            url: 'https://www.terraform-best-practices.com/',
+            type: 'neetcode',
+            difficulty: 'medium',
+            description: 'Production-ready Terraform patterns'
+          }
+        ],
+        gameConfig: {
+          id: 'pattern-builder-cloud-4',
+          type: 'pattern-builder',
+          title: 'Code the Cloud',
+          description: 'Write Terraform-like commands to summon cloud resources',
+          objective: 'Correct syntax builds towers; mistakes spawn resource errors',
+          controls: 'Type commands to create infrastructure',
+          passingScore: 85,
+          importanceWhy: 'Infrastructure as Code is essential for scaling cloud operations. Companies managing hundreds of servers can\'t click buttons - they write code. Terraform skills let you build entire cloud environments in minutes and destroy them just as fast, saving thousands in cloud costs.'
+        }
+      },
+      {
+        id: 'cloud-5',
+        courseId: 'cloud',
+        title: 'The Docker Depths (Containerization)',
+        description: 'Discover the secret of containers',
+        story: 'You discover ancient chambers holding the secret of "containers" — self-contained life forms that can run anywhere.',
+        narrative: 'The Docker Depths reveal why "it works on my machine" is never acceptable. Containers package your application with all dependencies - code, libraries, environment variables - into a portable unit that runs identically everywhere. No more dependency conflicts, no more environment mismatches.',
+        teachingContent: 'Docker containers are lightweight, standalone packages containing everything needed to run software. Unlike virtual machines, containers share the host OS kernel (faster, less overhead). Key concepts: Images (blueprints), Containers (running instances), Dockerfile (build instructions), Volumes (persistent data), Networks (container communication). Docker workflow: Write Dockerfile → docker build (create image) → docker run (start container) → docker push (share on Docker Hub).',
+        xpReward: 240,
+        challengeType: 'interactive',
+        difficulty: 'intermediate',
+        unlocked: false,
+        completed: false,
+        currentStage: 'narrative',
+        videoTopic: 'Docker containers tutorial Dockerfile basics',
+        aiSuggestedVideos: [
+          {
+            id: 'cloud5-v1',
+            title: 'Docker in 100 Seconds',
+            channelTitle: 'Fireship',
+            thumbnailUrl: 'https://i.ytimg.com/vi/Gjnup-PuquQ/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=Gjnup-PuquQ'
+          },
+          {
+            id: 'cloud5-v2',
+            title: 'Docker Tutorial for Beginners - A Full DevOps Course',
+            channelTitle: 'freeCodeCamp',
+            thumbnailUrl: 'https://i.ytimg.com/vi/fqMOX6JJhGo/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=fqMOX6JJhGo'
+          },
+          {
+            id: 'cloud5-v3',
+            title: 'Docker Crash Course for Absolute Beginners',
+            channelTitle: 'TechWorld with Nana',
+            thumbnailUrl: 'https://i.ytimg.com/vi/pg19Z8LL06w/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=pg19Z8LL06w'
+          }
+        ],
+        quizQuestions: [
+          {
+            id: 'cloud-5-q1',
+            question: 'What is the main advantage of containers over virtual machines?',
+            options: ['Containers are more secure', 'Containers are lighter and start faster', 'Containers cost less', 'Containers have better graphics'],
+            correctAnswer: 'Containers are lighter and start faster',
+            explanation: 'Containers share the host OS kernel, making them much lighter (MBs vs GBs) and faster to start (seconds vs minutes) than VMs.',
+            type: 'multiple-choice'
+          },
+          {
+            id: 'cloud-5-q2',
+            question: 'What file defines how to build a Docker image?',
+            options: ['docker.json', 'Dockerfile', 'container.yaml', 'image.txt'],
+            correctAnswer: 'Dockerfile',
+            explanation: 'Dockerfile contains instructions (FROM, RUN, COPY, CMD) that define how to build a Docker image.',
+            type: 'multiple-choice'
+          },
+          {
+            id: 'cloud-5-q3',
+            question: 'Why do we need Docker volumes?',
+            options: ['To make containers louder', 'To persist data when containers stop', 'To speed up containers', 'To connect to networks'],
+            correctAnswer: 'To persist data when containers stop',
+            explanation: 'Containers are ephemeral - data inside them disappears when they stop. Volumes persist data outside containers for databases and user files.',
+            type: 'multiple-choice'
+          }
+        ],
+        externalResources: [
+          {
+            title: 'Docker Documentation',
+            url: 'https://docs.docker.com/get-started/',
+            type: 'documentation',
+            description: 'Official Docker getting started guide'
+          },
+          {
+            title: 'Docker Hub',
+            url: 'https://hub.docker.com/',
+            type: 'documentation',
+            description: 'Find and share container images'
+          },
+          {
+            title: 'Play with Docker',
+            url: 'https://labs.play-with-docker.com/',
+            type: 'neetcode',
+            difficulty: 'easy',
+            description: 'Practice Docker in browser'
+          }
+        ],
+        gameConfig: {
+          id: 'component-link-cloud-5',
+          type: 'component-link',
+          title: 'Contain the Chaos',
+          description: 'Containerize unstable microservices to prevent system meltdown',
+          objective: 'Balance resources, dependencies, and versions correctly',
+          controls: 'Configure containers and connect them',
+          passingScore: 85,
+          importanceWhy: 'Containerization solves the "works on my machine" problem forever. Every major tech company uses containers - from Netflix to Spotify. Understanding Docker means your applications run consistently from development to production, eliminating 90% of deployment bugs.'
+        }
+      },
+      {
+        id: 'cloud-6',
+        courseId: 'cloud',
+        title: 'The Kubernetes Peaks (Orchestration)',
+        description: 'Balance pods and clusters atop cloud mountains',
+        story: 'Atop the cloud mountains lies Kubernetes — the guardian of orchestration and scaling. Only those who can balance pods and clusters may pass.',
+        narrative: 'Running one Docker container is easy. Running 1000 containers across 100 servers? That\'s chaos without orchestration. Kubernetes (K8s) automatically deploys, scales, and heals your containerized applications. Master it to command container armies.',
+        teachingContent: 'Kubernetes orchestrates containers at scale. Architecture: Pods (smallest unit, one or more containers), Nodes (worker machines running pods), Clusters (set of nodes), Control Plane (manages cluster). Key resources: Deployments (manage replicas), Services (networking/load balancing), ConfigMaps/Secrets (configuration), Ingress (external access). Kubernetes provides self-healing (restarts failed pods), auto-scaling (adds pods under load), rolling updates (zero-downtime deploys). kubectl is the CLI tool.',
+        xpReward: 280,
+        challengeType: 'interactive',
+        difficulty: 'intermediate',
+        unlocked: false,
+        completed: false,
+        currentStage: 'narrative',
+        videoTopic: 'Kubernetes tutorial pods deployments services explained',
+        aiSuggestedVideos: [
+          {
+            id: 'cloud6-v1',
+            title: 'Kubernetes in 100 Seconds',
+            channelTitle: 'Fireship',
+            thumbnailUrl: 'https://i.ytimg.com/vi/PziYflu8cB8/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=PziYflu8cB8'
+          },
+          {
+            id: 'cloud6-v2',
+            title: 'Kubernetes Tutorial for Beginners [FULL COURSE in 4 Hours]',
+            channelTitle: 'TechWorld with Nana',
+            thumbnailUrl: 'https://i.ytimg.com/vi/X48VuDVv0do/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=X48VuDVv0do'
+          },
+          {
+            id: 'cloud6-v3',
+            title: 'Kubernetes Course - Full Beginners Tutorial',
+            channelTitle: 'freeCodeCamp',
+            thumbnailUrl: 'https://i.ytimg.com/vi/d6WC5n9G_sM/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=d6WC5n9G_sM'
+          }
+        ],
+        quizQuestions: [
+          {
+            id: 'cloud-6-q1',
+            question: 'What is a Kubernetes Pod?',
+            options: ['A storage volume', 'The smallest deployable unit containing one or more containers', 'A type of server', 'A database'],
+            correctAnswer: 'The smallest deployable unit containing one or more containers',
+            explanation: 'A Pod is the basic execution unit in Kubernetes, containing one or more tightly coupled containers that share storage and network.',
+            type: 'multiple-choice'
+          },
+          {
+            id: 'cloud-6-q2',
+            question: 'What does Kubernetes auto-scaling do?',
+            options: ['Makes pods bigger', 'Automatically adjusts the number of pods based on load', 'Scales storage automatically', 'Upgrades Kubernetes versions'],
+            correctAnswer: 'Automatically adjusts the number of pods based on load',
+            explanation: 'Horizontal Pod Autoscaler automatically increases or decreases pod replicas based on CPU, memory, or custom metrics.',
+            type: 'multiple-choice'
+          },
+          {
+            id: 'cloud-6-q3',
+            question: 'What Kubernetes resource exposes pods to network traffic?',
+            options: ['Deployment', 'Service', 'Pod', 'Volume'],
+            correctAnswer: 'Service',
+            explanation: 'A Service provides stable networking and load balancing to a set of Pods, even as pods are created and destroyed.',
+            type: 'multiple-choice'
+          }
+        ],
+        externalResources: [
+          {
+            title: 'Kubernetes Documentation',
+            url: 'https://kubernetes.io/docs/home/',
+            type: 'documentation',
+            description: 'Official Kubernetes docs'
+          },
+          {
+            title: 'Kubernetes the Hard Way',
+            url: 'https://github.com/kelseyhightower/kubernetes-the-hard-way',
+            type: 'documentation',
+            description: 'Learn K8s by building a cluster from scratch'
+          },
+          {
+            title: 'Killercoda Kubernetes Labs',
+            url: 'https://killercoda.com/kubernetes',
+            type: 'neetcode',
+            difficulty: 'medium',
+            description: 'Interactive Kubernetes scenarios'
+          }
+        ],
+        gameConfig: {
+          id: 'pattern-builder-cloud-6',
+          type: 'pattern-builder',
+          title: 'Battle of Pods',
+          description: 'Deploy and scale microservice armies to handle surging requests',
+          objective: 'Too few pods = system crash; too many = wasted resources',
+          controls: 'Scale deployments and configure services',
+          passingScore: 85,
+          importanceWhy: 'Kubernetes powers the infrastructure of companies like Google, Spotify, and Pinterest. Understanding K8s orchestration means you can deploy applications that automatically scale from 10 to 10,000 users without crashing or overspending on cloud resources.'
+        }
+      },
+      {
+        id: 'cloud-7',
+        courseId: 'cloud',
+        title: 'The CI/CD Citadel',
+        description: 'Create unbroken pipelines sustaining the Skyforge',
+        story: 'You ascend to the Citadel, where time and deployment flow continuously. Here you learn to create unbroken pipelines that sustain the Skyforge.',
+        narrative: 'The CI/CD Citadel is where theory becomes practice. Build complete automated pipelines using Jenkins, GitHub Actions, or GitLab CI. Every code commit triggers tests, builds, and deployments automatically. Wrong stage order breaks everything - learn to architect bulletproof delivery pipelines.',
+        teachingContent: 'CI/CD Pipelines automate the path from code to production. Pipeline stages: Source (pull code from Git) → Build (compile/package code) → Test (run automated tests) → Deploy (push to environments). Tools: Jenkins (self-hosted, flexible), GitHub Actions (integrated with GitHub), GitLab CI (integrated with GitLab), CircleCI (cloud-based). Concepts: Triggers (what starts pipeline), Stages (sequential steps), Jobs (parallel tasks), Artifacts (build outputs), Environments (dev, staging, production). Best practices: fail fast, parallel testing, deployment strategies (blue-green, canary).',
+        xpReward: 300,
+        challengeType: 'interactive',
+        difficulty: 'advanced',
+        unlocked: false,
+        completed: false,
+        currentStage: 'narrative',
+        videoTopic: 'CI/CD pipeline GitHub Actions Jenkins tutorial',
+        aiSuggestedVideos: [
+          {
+            id: 'cloud7-v1',
+            title: 'GitHub Actions Tutorial - From Zero to Hero',
+            channelTitle: 'TechWorld with Nana',
+            thumbnailUrl: 'https://i.ytimg.com/vi/R8_veQiYBjI/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=R8_veQiYBjI'
+          },
+          {
+            id: 'cloud7-v2',
+            title: 'Jenkins Tutorial - Full Course for Beginners',
+            channelTitle: 'freeCodeCamp',
+            thumbnailUrl: 'https://i.ytimg.com/vi/7KCS70sCoK0/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=7KCS70sCoK0'
+          },
+          {
+            id: 'cloud7-v3',
+            title: 'GitLab CI CD Tutorial for Beginners',
+            channelTitle: 'TechWorld with Nana',
+            thumbnailUrl: 'https://i.ytimg.com/vi/qP8kir2GUgo/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=qP8kir2GUgo'
+          }
+        ],
+        quizQuestions: [
+          {
+            id: 'cloud-7-q1',
+            question: 'What is the main goal of Continuous Deployment?',
+            options: ['To deploy code manually', 'To automatically deploy every code change that passes tests', 'To deploy once a month', 'To avoid testing'],
+            correctAnswer: 'To automatically deploy every code change that passes tests',
+            explanation: 'Continuous Deployment automates the entire release process - code that passes all tests automatically goes to production without human intervention.',
+            type: 'multiple-choice'
+          },
+          {
+            id: 'cloud-7-q2',
+            question: 'In a CI/CD pipeline, what should happen first?',
+            options: ['Deploy', 'Test', 'Build', 'Source/Pull Code'],
+            correctAnswer: 'Source/Pull Code',
+            explanation: 'Pipelines always start by pulling the latest code from the repository, then build, test, and finally deploy.',
+            type: 'multiple-choice'
+          },
+          {
+            id: 'cloud-7-q3',
+            question: 'What is a "build artifact"?',
+            options: ['A bug in the code', 'The output of the build process (compiled code, packages)', 'A test result', 'A Git commit'],
+            correctAnswer: 'The output of the build process (compiled code, packages)',
+            explanation: 'Artifacts are the compiled binaries, Docker images, or packages produced by the build stage and deployed in later stages.',
+            type: 'multiple-choice'
+          }
+        ],
+        externalResources: [
+          {
+            title: 'GitHub Actions Documentation',
+            url: 'https://docs.github.com/en/actions',
+            type: 'documentation',
+            description: 'Build workflows with GitHub Actions'
+          },
+          {
+            title: 'Jenkins User Documentation',
+            url: 'https://www.jenkins.io/doc/',
+            type: 'documentation',
+            description: 'Set up Jenkins pipelines'
+          },
+          {
+            title: 'GitLab CI/CD Examples',
+            url: 'https://docs.gitlab.com/ee/ci/examples/',
+            type: 'neetcode',
+            difficulty: 'medium',
+            description: 'Real-world pipeline examples'
+          }
+        ],
+        gameConfig: {
+          id: 'deploy-orbit-cloud-7',
+          type: 'deploy-orbit',
+          title: 'Deploy the Citadel',
+          description: 'Build and connect pipeline nodes that automatically test, build, and deploy',
+          objective: 'Connect stages in correct order - wrong order breaks the CI/CD flow',
+          controls: 'Drag to connect pipeline stages',
+          passingScore: 90,
+          importanceWhy: 'CI/CD pipelines are the assembly line of modern software. Companies using CI/CD deploy 100x more frequently with 50% fewer failures than those doing manual releases. This game teaches you to build the automation that lets teams ship features daily instead of quarterly.'
+        }
+      },
+      {
+        id: 'cloud-8',
+        courseId: 'cloud',
+        title: 'The Realm of Observability (Monitoring & Logging)',
+        description: 'Watch over the Skyforge using logs, metrics, and alerts',
+        story: 'Even perfect systems crumble without vigilance. Learn to watch over the Skyforge using logs, metrics, and alerts.',
+        narrative: 'You cannot fix what you cannot see. The Realm of Observability teaches you to instrument applications, collect metrics, aggregate logs, and set up alerts. When problems occur (and they will), your dashboards show exactly where and when, turning hours of debugging into minutes.',
+        teachingContent: 'Observability means understanding system internal state from external outputs. Three pillars: Metrics (numerical data: CPU, requests/sec), Logs (event records: errors, requests), Traces (request flows through services). Tools: Prometheus (metrics collection), Grafana (visualization), ELK Stack (Elasticsearch, Logstash, Kibana for logs), Datadog/New Relic (all-in-one SaaS). Concepts: SLO (Service Level Objectives - targets like 99.9% uptime), SLA (Service Level Agreements - contracts), Alerts (notifications when thresholds exceeded). Best practices: monitor user-facing metrics, avoid alert fatigue, dashboard hierarchy (overview → drill-down).',
+        xpReward: 320,
+        challengeType: 'interactive',
+        difficulty: 'advanced',
+        unlocked: false,
+        completed: false,
+        currentStage: 'narrative',
+        videoTopic: 'Prometheus Grafana monitoring tutorial observability',
+        aiSuggestedVideos: [
+          {
+            id: 'cloud8-v1',
+            title: 'Prometheus Monitoring Tutorial',
+            channelTitle: 'TechWorld with Nana',
+            thumbnailUrl: 'https://i.ytimg.com/vi/h4Sl21AKiDg/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=h4Sl21AKiDg'
+          },
+          {
+            id: 'cloud8-v2',
+            title: 'Grafana Tutorial - Monitoring and Observability',
+            channelTitle: 'TechWorld with Nana',
+            thumbnailUrl: 'https://i.ytimg.com/vi/9TJx7QTrTyo/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=9TJx7QTrTyo'
+          },
+          {
+            id: 'cloud8-v3',
+            title: 'ELK Stack Tutorial - Elasticsearch, Logstash, and Kibana',
+            channelTitle: 'Amigoscode',
+            thumbnailUrl: 'https://i.ytimg.com/vi/gS_nHTWZEJ8/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=gS_nHTWZEJ8'
+          }
+        ],
+        quizQuestions: [
+          {
+            id: 'cloud-8-q1',
+            question: 'What are the three pillars of observability?',
+            options: ['Servers, Storage, Network', 'Metrics, Logs, Traces', 'CPU, Memory, Disk', 'Dev, Staging, Production'],
+            correctAnswer: 'Metrics, Logs, Traces',
+            explanation: 'Observability relies on Metrics (numbers), Logs (events), and Traces (request paths) to understand system behavior.',
+            type: 'multiple-choice'
+          },
+          {
+            id: 'cloud-8-q2',
+            question: 'What does SLO stand for?',
+            options: ['Service Level Objective', 'System Log Output', 'Server Load Optimizer', 'Security Level Operation'],
+            correctAnswer: 'Service Level Objective',
+            explanation: 'SLO is a target reliability metric like "99.9% uptime" or "95% of requests under 200ms" that defines acceptable service quality.',
+            type: 'multiple-choice'
+          },
+          {
+            id: 'cloud-8-q3',
+            question: 'Why is Grafana commonly used with Prometheus?',
+            options: ['They are made by the same company', 'Grafana visualizes Prometheus metrics in dashboards', 'Prometheus cannot work alone', 'Grafana stores logs'],
+            correctAnswer: 'Grafana visualizes Prometheus metrics in dashboards',
+            explanation: 'Prometheus collects and stores metrics; Grafana creates beautiful, interactive dashboards to visualize those metrics.',
+            type: 'multiple-choice'
+          }
+        ],
+        externalResources: [
+          {
+            title: 'Prometheus Documentation',
+            url: 'https://prometheus.io/docs/introduction/overview/',
+            type: 'documentation',
+            description: 'Learn Prometheus monitoring'
+          },
+          {
+            title: 'Grafana Tutorials',
+            url: 'https://grafana.com/tutorials/',
+            type: 'documentation',
+            description: 'Build your first dashboard'
+          },
+          {
+            title: 'Observability Engineering Book',
+            url: 'https://www.oreilly.com/library/view/observability-engineering/9781492076438/',
+            type: 'neetcode',
+            difficulty: 'advanced',
+            description: 'Deep dive into observability practices'
+          }
+        ],
+        gameConfig: {
+          id: 'search-challenge-cloud-8',
+          type: 'search-challenge',
+          title: 'Eyes of the Sky',
+          description: 'Use observability tools to detect hidden anomalies across the matrix',
+          objective: 'Find and fix system failures using metrics, logs, and traces',
+          controls: 'Click on dashboards to investigate anomalies',
+          passingScore: 85,
+          importanceWhy: 'Without observability, finding production bugs is like searching in the dark. Companies with strong observability detect and fix issues in minutes instead of hours. This game simulates real incident response - identifying anomalies, correlating signals, and root-causing problems.'
+        }
+      },
+      {
+        id: 'cloud-9',
+        courseId: 'cloud',
+        title: 'The DevOps Devas (Automation & Cloud Synergy)',
+        description: 'Merge all knowledge — automate, deploy, maintain balance',
+        story: 'At last, you must merge all knowledge — automate the world, deploy harmony, and maintain balance.',
+        narrative: 'The final trial! Build an end-to-end system combining everything: IaC provisions cloud infrastructure, Docker containerizes apps, Kubernetes orchestrates them, CI/CD deploys automatically, and monitoring watches over all. Your choices impact uptime, cost, and security. Become a Cloud Sage.',
+        teachingContent: 'DevOps Cloud Synergy combines all practices: Write Terraform to provision VPC, servers, databases. Build Docker images in CI/CD pipeline. Deploy containers to Kubernetes cluster. Monitor with Prometheus/Grafana. Practice DevSecOps (security integration): scan images for vulnerabilities, secrets management (never commit keys!), least privilege access. Cost optimization: right-size instances, use auto-scaling, reserved instances for steady workloads, spot instances for batch jobs. Production checklist: automated deployments, rollback plan, monitoring/alerting, backup/disaster recovery, security hardening.',
+        xpReward: 400,
+        challengeType: 'interactive',
+        difficulty: 'advanced',
+        unlocked: false,
+        completed: false,
+        currentStage: 'narrative',
+        videoTopic: 'DevOps full project end-to-end deployment tutorial',
+        aiSuggestedVideos: [
+          {
+            id: 'cloud9-v1',
+            title: 'Complete DevOps Project - From Code to Production',
+            channelTitle: 'TechWorld with Nana',
+            thumbnailUrl: 'https://i.ytimg.com/vi/S_0q75eD8Yc/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=S_0q75eD8Yc'
+          },
+          {
+            id: 'cloud9-v2',
+            title: 'AWS Full Course - Learn AWS In 12 Hours',
+            channelTitle: 'freeCodeCamp',
+            thumbnailUrl: 'https://i.ytimg.com/vi/ulprqHHWlng/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=ulprqHHWlng'
+          },
+          {
+            id: 'cloud9-v3',
+            title: 'DevSecOps - Security in DevOps Pipeline',
+            channelTitle: 'Simplilearn',
+            thumbnailUrl: 'https://i.ytimg.com/vi/nrhxNNH5lt0/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=nrhxNNH5lt0'
+          }
+        ],
+        quizQuestions: [
+          {
+            id: 'cloud-9-q1',
+            question: 'What is DevSecOps?',
+            options: ['Development Security Operations - integrating security into DevOps', 'A new cloud provider', 'A security tool', 'A type of server'],
+            correctAnswer: 'Development Security Operations - integrating security into DevOps',
+            explanation: 'DevSecOps means building security into every stage of development and deployment, not treating it as an afterthought.',
+            type: 'multiple-choice'
+          },
+          {
+            id: 'cloud-9-q2',
+            question: 'Which is the BEST way to reduce cloud costs?',
+            options: ['Delete all monitoring', 'Use auto-scaling and right-sized instances', 'Run everything on one large server', 'Turn off security'],
+            correctAnswer: 'Use auto-scaling and right-sized instances',
+            explanation: 'Auto-scaling adjusts capacity to demand, and right-sizing ensures you are not paying for unused resources. Never compromise security or monitoring for cost.',
+            type: 'multiple-choice'
+          },
+          {
+            id: 'cloud-9-q3',
+            question: 'What should a production-ready system include?',
+            options: ['Only the application code', 'Automated deployments, monitoring, backups, and security', 'Just a server', 'Manual deployment process'],
+            correctAnswer: 'Automated deployments, monitoring, backups, and security',
+            explanation: 'Production systems need comprehensive automation, observability, disaster recovery, and security to ensure reliability.',
+            type: 'multiple-choice'
+          }
+        ],
+        externalResources: [
+          {
+            title: 'AWS Well-Architected Framework',
+            url: 'https://aws.amazon.com/architecture/well-architected/',
+            type: 'documentation',
+            description: 'Best practices for cloud architecture'
+          },
+          {
+            title: 'DevOps Roadmap',
+            url: 'https://roadmap.sh/devops',
+            type: 'neetcode',
+            difficulty: 'advanced',
+            description: 'Complete DevOps learning path'
+          },
+          {
+            title: 'The Phoenix Project (Book)',
+            url: 'https://www.amazon.com/Phoenix-Project-DevOps-Helping-Business/dp/0988262592',
+            type: 'documentation',
+            description: 'DevOps novel about transformation'
+          }
+        ],
+        gameConfig: {
+          id: 'deploy-orbit-cloud-9',
+          type: 'deploy-orbit',
+          title: 'Harmony of the Clouds',
+          description: 'Build an end-to-end system: deploy an app, automate scaling, secure the pipeline',
+          objective: 'Balance uptime, cost, and security in a production environment',
+          controls: 'Configure all components of the cloud system',
+          passingScore: 90,
+          importanceWhy: 'This capstone integrates everything you have learned. Real DevOps engineers architect complete systems balancing reliability, cost, security, and speed. Mastering this means you can build production-grade infrastructure that serves millions of users.'
+        }
       }
     ]
   }
