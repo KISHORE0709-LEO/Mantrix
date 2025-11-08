@@ -13,7 +13,7 @@ interface ChallengeProps {
 }
 
 export default function Challenge({ onNavigate }: ChallengeProps) {
-  const { courses, userProgress, advanceStage, goBackStage, startGame, updateAIMessages, aiCompanion, toggleAICompanion } = useLearning();
+  const { courses, userProgress, advanceStage, goBackStage, startGame, updateAIMessages, aiCompanion, toggleAICompanion, completeLevel } = useLearning();
   const { playSuccess } = useAudio();
   const [userAnswer, setUserAnswer] = useState('');
   const [showResult, setShowResult] = useState(false);
@@ -29,15 +29,8 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
   useEffect(() => {
     if (!currentLevel) {
       onNavigate('courses');
-      return;
     }
-    
-    // Check if we just completed a game and should advance to assessment
-    const currentStage = currentLevel.currentStage || 'narrative';
-    const hasGame = !!currentLevel.gameConfig;
-    
-    // No automatic stage handling needed - store handles it
-  }, [currentLevel, onNavigate, userProgress.currentGame, advanceStage]);
+  }, [currentLevel, onNavigate]);
 
   if (!currentLevel || !currentCourse) {
     return null;
@@ -51,7 +44,6 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
   };
 
   const handleTeachingGameComplete = (gameResult?: any) => {
-    console.log('Teaching game completed, advancing to assessment');
     // Show game completion screen first
     setTimeout(() => {
       advanceStage(currentLevel.id, 'assessment');
@@ -72,7 +64,7 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
     if (correct) {
       playSuccess();
       
-      if (currentStage === 'assessment') {
+      if (currentStage === 'assessment' && !hasGame) {
         setTimeout(() => {
           if (currentLevel.externalResources && currentLevel.externalResources.length > 0) {
             advanceStage(currentLevel.id, 'resources');
@@ -85,14 +77,36 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
   };
 
   const handleVideosComplete = () => {
-    if (hasGame && currentLevel.gameConfig) {
-      advanceStage(currentLevel.id, 'practice-game');
+    console.log('Videos completed for level:', currentLevel.id);
+    console.log('Has game:', hasGame);
+    console.log('Game config:', currentLevel.gameConfig);
+    
+    if (hasGame) {
+      // For DSA levels, go to practice-game stage to show the game launch screen
+      if (currentLevel.id.startsWith('dsa-')) {
+        console.log('Advancing DSA level to practice-game stage');
+        advanceStage(currentLevel.id, 'practice-game');
+      }
+      // For DevOps levels, go directly to practice-game stage
+      else if (currentLevel.id.startsWith('cloud-')) {
+        console.log('Advancing DevOps level to practice-game stage');
+        advanceStage(currentLevel.id, 'practice-game');
+      } 
+      // For other levels with games, go to teaching-game first
+      else {
+        console.log('Advancing to teaching-game stage');
+        advanceStage(currentLevel.id, 'teaching-game');
+      }
     } else {
+      console.log('No game, advancing to assessment');
       advanceStage(currentLevel.id, 'assessment');
     }
   };
 
-  const handleAssessmentComplete = () => {
+  const handleAssessmentComplete = async () => {
+    // Complete the level and award XP when assessment is finished
+    await completeLevel(currentLevel.id, currentLevel.xpReward);
+    
     if (currentLevel.externalResources && currentLevel.externalResources.length > 0) {
       advanceStage(currentLevel.id, 'resources');
     } else {
@@ -106,7 +120,8 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
     if (success) {
       onNavigate('game-arena');
     } else {
-      console.error('Failed to start game');
+      console.error('Failed to start game for level:', currentLevel.id);
+      console.error('Game config:', currentLevel.gameConfig);
     }
   };
 
@@ -116,6 +131,12 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
   };
 
   const handleAIHelp = (context?: { type: 'quiz' | 'coding'; title?: string; description?: string; userCode?: string; testResults?: string; attempts?: number; }) => {
+    // If context is provided with description, use that directly (from AssessmentHub)
+    if (context?.description) {
+      alert(context.description);
+      return;
+    }
+
     const quizAnswers = getQuizAnswers(currentLevel.id);
     const codingAnswers = getCodingAnswers(currentLevel.id);
 
@@ -218,6 +239,7 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
       'ai-2': 'This type of AI is inspired by the human brain with interconnected nodes.',
       'cloud-1': 'One key benefit is the ability to handle more users by adding resources.',
       'cloud-2': 'Docker packages applications in isolated environments called...',
+      'cloud-7': 'CI/CD automates testing and deployment. Build your pipeline step by step: checkout code, install dependencies, run tests, then deploy. Each stage must pass before the next one runs.',
     };
     return hints[levelId] || 'Keep thinking! You can do this!';
   };
@@ -236,13 +258,15 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
         'Functions in JavaScript are declared with the "function" keyword'
       ],
       'dsa-1': [
-        'The loop will print 10 numbers (1 through 10)'
+        '1. What will this code print? for (let i = 1; i <= 5; i++) { console.log(i); } - 1 2 3 4 5',
+        '2. What keyword do you use to declare a variable that can be reassigned? - Both let and var'
       ],
       'dsa-2': [
-        'The array containing numbers 1 through 5 is: [1, 2, 3, 4, 5]'
+        '1. How do you access the first element of an array named arr? - arr[0]'
       ],
       'dsa-3': [
-        'Binary search takes 3 steps for 8 elements'
+        '1. What is the time complexity of binary search? - O(log n)',
+        '2. What condition must be met to use binary search? - Array must be sorted'
       ],
       'ai-1': [
         'Machine learning is how AI systems improve through experience'
@@ -251,10 +275,17 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
         'Neural network is the type of AI inspired by the human brain'
       ],
       'cloud-1': [
-        'Scalability is the ability to handle more users by adding resources'
+        '1. Which cloud service model provides the most control over infrastructure? - IaaS',
+        '2. What does "on-demand" mean in cloud computing? - Resources can be provisioned instantly when needed',
+        '3. Which deployment model combines on-premises and public cloud? - Hybrid Cloud'
       ],
       'cloud-2': [
         'Container is what Docker packages applications in'
+      ],
+      'cloud-7': [
+        '1. What is the main goal of Continuous Deployment? - To automatically deploy every code change that passes tests',
+        '2. In a CI/CD pipeline, what should happen first? - Source/Pull Code', 
+        '3. What is a "build artifact"? - The output of the build process (compiled code, packages)'
       ]
     };
     return quizAnswers[levelId] || [];
@@ -295,35 +326,37 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
 }`
       ],
       'dsa-1': [
-        `for (let i = 1; i <= 10; i++) {
-  console.log(i);
-}`,
-        `let count = 0;
-for (let i = 1; i <= 10; i++) {
-  count++;
-}
-console.log(count);`
+        `function sumNumbers(n) {
+  let sum = 0;
+  for (let i = 1; i <= n; i++) {
+    sum += i;
+  }
+  return sum;
+}`
       ],
       'dsa-2': [
-        `const numbers = [1, 2, 3, 4, 5];`,
-        `function createArray() {
-  return [1, 2, 3, 4, 5];
+        `function findMax(arr) {
+  let max = arr[0];
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] > max) max = arr[i];
+  }
+  return max;
 }`
       ],
       'dsa-3': [
         `function binarySearch(arr, target) {
   let left = 0;
   let right = arr.length - 1;
-  let steps = 0;
   
   while (left <= right) {
-    steps++;
-    const mid = Math.floor((left + right) / 2);
-    if (arr[mid] === target) return steps;
+    let mid = Math.floor((left + right) / 2);
+    
+    if (arr[mid] === target) return mid;
     if (arr[mid] < target) left = mid + 1;
     else right = mid - 1;
   }
-  return steps;
+  
+  return -1;
 }`
       ],
       'ai-1': [
@@ -345,11 +378,16 @@ console.log(count);`
 }`
       ],
       'cloud-1': [
-        `const cloudBenefits = {
-  scalability: "Handle more users by adding resources",
-  flexibility: "Scale up or down as needed",
-  costEffective: "Pay only for what you use"
-};`
+        `function classifyService(serviceName) {
+  const iaas = ["EC2", "Virtual Machines", "Compute Engine"];
+  const paas = ["Heroku", "App Engine", "Azure App Service"];
+  const saas = ["Gmail", "Office 365", "Salesforce"];
+  
+  if (iaas.includes(serviceName)) return "IaaS";
+  if (paas.includes(serviceName)) return "PaaS";
+  if (saas.includes(serviceName)) return "SaaS";
+  return "Unknown";
+}`
       ],
       'cloud-2': [
         `// Dockerfile
@@ -360,6 +398,21 @@ RUN npm install
 COPY . .
 EXPOSE 3000
 CMD ["npm", "start"]`
+      ],
+      'cloud-7': [
+        `name: CI/CD Pipeline
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: npm install
+      - run: npm test
+      - run: npm run build`
       ]
     };
     return codingAnswers[levelId] || [];
@@ -425,18 +478,7 @@ CMD ["npm", "start"]`
   }
 
   if (currentStage === 'teaching-game') {
-    console.log('Rendering teaching game for level:', currentLevel.id, 'gameConfig:', currentLevel.gameConfig);
-    
-    // If level has a specific game config, use the game arena
-    if (currentLevel.gameConfig) {
-      const success = startGame(currentLevel.id);
-      if (success) {
-        onNavigate('game-arena');
-        return null;
-      }
-    }
-    
-    // Fallback to generic teaching game or specific games
+    // Check if this is the HTML level that should use MarkupForge
     if (currentLevel.id === 'web-1' || currentLevel.title.toLowerCase().includes('html') || currentLevel.title.toLowerCase().includes('markup')) {
       return (
         <div className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900 pt-24 pb-12 px-4">
@@ -577,7 +619,17 @@ CMD ["npm", "start"]`
     );
   }
 
-  if (currentStage === 'practice-game' && hasGame) {
+  if (currentStage === 'practice-game') {
+    if (!hasGame) {
+      console.log('No game config found, advancing to assessment');
+      setTimeout(() => advanceStage(currentLevel.id, 'assessment'), 100);
+      return (
+        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 pt-24 pb-12 px-4 flex items-center justify-center">
+          <div className="text-white text-xl">Loading...</div>
+        </div>
+      );
+    }
+    
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 pt-24 pb-12 px-4">
         <div className="max-w-4xl mx-auto">
@@ -599,10 +651,18 @@ CMD ["npm", "start"]`
           </div>
           <div className="relative">
             <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl border-2 border-purple-500 p-12 text-center max-w-2xl mx-auto">
-              <h1 className="font-game text-4xl text-purple-300 mb-6">Ready to Play?</h1>
+              <h1 className="font-game text-4xl text-purple-300 mb-6">Ready to Deploy?</h1>
               <p className="font-orbitron text-gray-300 mb-8">
-                Time to put your knowledge to the test! Complete the game to unlock the assessment.
+                {currentLevel.id.startsWith('cloud-') 
+                  ? 'Time to deploy! Put your DevOps skills to the test in the deployment game.' 
+                  : currentLevel.id.startsWith('dsa-')
+                  ? 'You\'ve learned the theory! Now practice your DSA skills in an interactive game.'
+                  : 'You\'ve completed the videos! Now put your skills to the test in the practice game.'}
               </p>
+              <div className="mb-6">
+                <p className="text-sm text-gray-400 mb-2">Game: {currentLevel.gameConfig?.title}</p>
+                <p className="text-sm text-gray-400">{currentLevel.gameConfig?.description}</p>
+              </div>
               <button
                 onClick={handleStartGame}
                 className="px-8 py-4 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 font-game text-xl text-white transition-all glow"

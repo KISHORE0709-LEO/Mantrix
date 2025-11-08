@@ -1232,842 +1232,17 @@ const initialCourses: Course[] = [
   },
   {
     id: 'aiml',
-    name: 'MATRIX: The AI/ML Quest',
-    description: 'Awaken your inner algorithm. Train your mind like you train a model.',
+    name: 'AI & Machine Learning',
+    description: 'Explore artificial intelligence',
     icon: '🤖',
     color: '#ec4899',
     levels: [
       {
-        id: 'aiml-1',
+        id: 'ai-1',
         courseId: 'aiml',
-        title: 'The Awakening',
-        description: 'Intro to AI & ML Concepts',
-        story: 'You wake up in the "Neural Nexus" — a world powered by intelligent entities. To understand this world, you must first learn what powers it — Artificial Intelligence.',
-        narrative: 'Welcome to the Neural Nexus! This world runs on Artificial Intelligence - systems that can learn, reason, and make decisions. You\'ll discover what AI is, how machines learn from data, and see real examples of AI in action all around you.',
-        teachingContent: 'AI (Artificial Intelligence) enables machines to perform tasks that typically require human intelligence - like recognizing faces, understanding language, or playing games. Machine Learning is a subset of AI where systems learn from data without explicit programming. Deep Learning uses neural networks with many layers. Examples: Netflix recommendations (supervised learning), self-driving cars, chatbots like me!',
-        xpReward: 150,
-        challengeType: 'interactive',
-        difficulty: 'beginner',
-        unlocked: true,
-        completed: false,
-        currentStage: 'narrative',
-        videoTopic: 'Introduction to AI and Machine Learning explained',
-        aiSuggestedVideos: [
-          {
-            id: 'aiml1-v1',
-            title: 'AI vs Machine Learning vs Deep Learning',
-            channelTitle: 'IBM Technology',
-            thumbnailUrl: 'https://i.ytimg.com/vi/4RixMPF4xis/maxresdefault.jpg',
-            videoUrl: 'https://www.youtube.com/watch?v=4RixMPF4xis'
-          },
-          {
-            id: 'aiml1-v2',
-            title: 'Machine Learning Explained in 5 Minutes',
-            channelTitle: 'AI Explained',
-            thumbnailUrl: 'https://i.ytimg.com/vi/ukzFI9rgwfU/maxresdefault.jpg',
-            videoUrl: 'https://www.youtube.com/watch?v=ukzFI9rgwfU'
-          }
-        ],
-        quizQuestions: [
-          {
-            id: 'aiml-1-q1',
-            question: 'What is the main difference between AI and Machine Learning?',
-            options: ['AI is older than ML', 'ML is a subset of AI focused on learning from data', 'They are exactly the same', 'ML requires more computing power'],
-            correctAnswer: 'ML is a subset of AI focused on learning from data',
-            explanation: 'Machine Learning is a specific approach within AI where systems learn patterns from data rather than being explicitly programmed with rules.',
-            type: 'multiple-choice'
-          },
-          {
-            id: 'aiml-1-q2',
-            question: 'Which of these is an example of supervised learning?',
-            options: ['Clustering customer data', 'Netflix movie recommendations', 'Exploring unknown data patterns', 'Generating random art'],
-            correctAnswer: 'Netflix movie recommendations',
-            explanation: 'Netflix uses supervised learning - it learns from labeled data (your ratings and viewing history) to predict what you\'ll enjoy watching next.',
-            type: 'multiple-choice'
-          },
-          {
-            id: 'aiml-1-q3',
-            question: 'What does "training a model" mean in machine learning?',
-            options: ['Teaching it to run faster', 'Feeding it data so it can learn patterns', 'Installing software updates', 'Making it more accurate by coding rules'],
-            correctAnswer: 'Feeding it data so it can learn patterns',
-            explanation: 'Training involves showing the model many examples so it can automatically discover patterns and relationships in the data.',
-            type: 'multiple-choice'
-          }
-        ],
-        externalResources: [
-          {
-            title: 'Elements of AI - Free Course',
-            url: 'https://www.elementsofai.com/',
-            type: 'course',
-            description: 'Comprehensive introduction to AI concepts for everyone'
-          },
-          {
-            title: 'Andrew Ng\'s Machine Learning Course',
-            url: 'https://www.coursera.org/learn/machine-learning',
-            type: 'course',
-            description: 'The most popular ML course on the internet'
-          },
-          {
-            title: 'Google AI Crash Course',
-            url: 'https://developers.google.com/machine-learning/crash-course',
-            type: 'documentation',
-            description: 'Fast-paced practical introduction to ML'
-          }
-        ],
-        gameConfig: {
-          id: 'aiml-decode-matrix-1',
-          type: 'pattern-builder',
-          title: 'Decode the Matrix',
-          description: 'Classify real-world systems as AI-powered or rule-based',
-          objective: 'Identify whether systems use AI/ML to restore order in the Neural Nexus',
-          controls: 'Click to classify systems',
-          passingScore: 80,
-          importanceWhy: 'Understanding the difference between AI and traditional programming is fundamental. This game trains you to recognize AI in the real world - from your phone\'s face unlock to spam filters. Knowing when to use AI versus rules-based systems is a critical skill for any developer.'
-        }
-      },
-      {
-        id: 'aiml-2',
-        courseId: 'aiml',
-        title: 'The Data Forge',
-        description: 'Data & Preprocessing',
-        story: 'The AI Nexus runs on Data Crystals — they\'re corrupted. You must clean, shape, and prepare them for training models.',
-        narrative: 'In the machine learning realm, data is everything. But raw data is messy - missing values, inconsistencies, noise. Before any AI can learn, you must become a Data Forger, transforming chaotic information into clean, structured datasets.',
-        teachingContent: 'Data comes in two types: structured (tables, databases) and unstructured (images, text, audio). Data preprocessing includes: collecting data, cleaning (removing errors/duplicates), handling missing values (fill with average, remove, or predict), normalization (scaling 0-1), standardization (mean=0, std=1), and train-test split (80/20 rule). Remember: "Garbage in, garbage out" - your model is only as good as your data!',
-        xpReward: 160,
-        challengeType: 'interactive',
-        difficulty: 'beginner',
-        unlocked: false,
-        completed: false,
-        currentStage: 'narrative',
-        videoTopic: 'Data preprocessing and cleaning for machine learning',
-        aiSuggestedVideos: [
-          {
-            id: 'aiml2-v1',
-            title: 'Data Preprocessing in Machine Learning',
-            channelTitle: 'Krish Naik',
-            thumbnailUrl: 'https://i.ytimg.com/vi/7sbeT5lRi5I/maxresdefault.jpg',
-            videoUrl: 'https://www.youtube.com/watch?v=7sbeT5lRi5I'
-          },
-          {
-            id: 'aiml2-v2',
-            title: 'Pandas Data Cleaning Tutorial',
-            channelTitle: 'Keith Galli',
-            thumbnailUrl: 'https://i.ytimg.com/vi/ZOX18HObkow/maxresdefault.jpg',
-            videoUrl: 'https://www.youtube.com/watch?v=ZOX18HObkow'
-          }
-        ],
-        quizQuestions: [
-          {
-            id: 'aiml-2-q1',
-            question: 'Why is data preprocessing important?',
-            options: ['It makes models train faster', 'Clean data leads to better model performance', 'It reduces storage needs', 'It makes code look better'],
-            correctAnswer: 'Clean data leads to better model performance',
-            explanation: 'Quality data directly impacts model accuracy. Missing values, outliers, and inconsistencies can confuse the model and lead to poor predictions.',
-            type: 'multiple-choice'
-          },
-          {
-            id: 'aiml-2-q2',
-            question: 'What is normalization in data preprocessing?',
-            options: ['Removing duplicate data', 'Scaling features to a range like 0-1', 'Fixing spelling errors', 'Converting text to numbers'],
-            correctAnswer: 'Scaling features to a range like 0-1',
-            explanation: 'Normalization scales numerical features to a common range (often 0-1) so features with larger values don\'t dominate the learning process.',
-            type: 'multiple-choice'
-          },
-          {
-            id: 'aiml-2-q3',
-            question: 'Why do we split data into training and testing sets?',
-            options: ['To save memory', 'To evaluate how well the model generalizes to new data', 'To make training faster', 'To balance the classes'],
-            correctAnswer: 'To evaluate how well the model generalizes to new data',
-            explanation: 'The test set simulates real-world data the model hasn\'t seen before, helping us measure if it can make accurate predictions on new examples.',
-            type: 'multiple-choice'
-          }
-        ],
-        externalResources: [
-          {
-            title: 'Pandas Documentation',
-            url: 'https://pandas.pydata.org/docs/',
-            type: 'documentation',
-            description: 'Official guide for data manipulation in Python'
-          },
-          {
-            title: 'Kaggle Learn - Pandas',
-            url: 'https://www.kaggle.com/learn/pandas',
-            type: 'course',
-            description: 'Interactive Pandas tutorials with practice'
-          },
-          {
-            title: 'NumPy Tutorial',
-            url: 'https://numpy.org/doc/stable/user/quickstart.html',
-            type: 'documentation',
-            description: 'Essential library for numerical computing'
-          }
-        ],
-        gameConfig: {
-          id: 'aiml-data-smith-2',
-          type: 'data-cleaning',
-          title: 'Data Smith',
-          description: 'Collect and clean corrupted data shards',
-          objective: 'Transform messy data into clean datasets',
-          controls: 'Click to clean, fill gaps, and forge data',
-          passingScore: 85,
-          importanceWhy: 'Data scientists spend 80% of their time cleaning data. This game simulates real challenges - missing values, outliers, inconsistent formats. Master this and you\'ll understand why quality data is more valuable than complex algorithms.'
-        }
-      },
-      {
-        id: 'aiml-3',
-        courseId: 'aiml',
-        title: 'The Algorithm Arena',
-        description: 'ML Algorithms Basics',
-        story: 'The world is run by powerful entities — Algorithms — each with its own strength. To proceed, you must battle and learn from them.',
-        narrative: 'Every machine learning problem requires the right algorithm. Linear Regression predicts numbers, Logistic Regression classifies categories, Decision Trees make logical choices, K-Means groups similar data. Each algorithm is a tool in your arsenal - choose wisely!',
-        teachingContent: 'ML Algorithms: Linear Regression (predict continuous values like house prices), Logistic Regression (binary classification like spam/not spam), Decision Trees (tree-like model of decisions), Random Forests (many decision trees voting together), KNN (K-Nearest Neighbors - classify based on similar examples), Naive Bayes (probability-based classification), K-Means (clustering similar data points). Each has strengths: speed, accuracy, interpretability. Choose based on your problem type and data size.',
-        xpReward: 180,
-        challengeType: 'interactive',
-        difficulty: 'intermediate',
-        unlocked: false,
-        completed: false,
-        currentStage: 'narrative',
-        videoTopic: 'Machine learning algorithms explained with examples',
-        aiSuggestedVideos: [
-          {
-            id: 'aiml3-v1',
-            title: 'Machine Learning Algorithms Explained',
-            channelTitle: 'StatQuest',
-            thumbnailUrl: 'https://i.ytimg.com/vi/yN7ypxC7838/maxresdefault.jpg',
-            videoUrl: 'https://www.youtube.com/watch?v=yN7ypxC7838'
-          },
-          {
-            id: 'aiml3-v2',
-            title: 'All Machine Learning Models Explained in 6 Minutes',
-            channelTitle: 'The AI Hacker',
-            thumbnailUrl: 'https://i.ytimg.com/vi/yN7ypxC7838/maxresdefault.jpg',
-            videoUrl: 'https://www.youtube.com/watch?v=yN7ypxC7838'
-          }
-        ],
-        quizQuestions: [
-          {
-            id: 'aiml-3-q1',
-            question: 'Which algorithm would you use to predict house prices based on features like size and location?',
-            options: ['K-Means Clustering', 'Linear Regression', 'Logistic Regression', 'Decision Tree'],
-            correctAnswer: 'Linear Regression',
-            explanation: 'Linear Regression predicts continuous numerical values (like prices) based on input features. It finds the best-fit line through your data points.',
-            type: 'multiple-choice'
-          },
-          {
-            id: 'aiml-3-q2',
-            question: 'What is the main advantage of Random Forests over a single Decision Tree?',
-            options: ['Faster training', 'More accurate and less prone to overfitting', 'Easier to interpret', 'Uses less memory'],
-            correctAnswer: 'More accurate and less prone to overfitting',
-            explanation: 'Random Forests combine multiple decision trees (ensemble learning), reducing overfitting and generally producing more reliable predictions than any single tree.',
-            type: 'multiple-choice'
-          },
-          {
-            id: 'aiml-3-q3',
-            question: 'What type of problem is K-Means Clustering used for?',
-            options: ['Predicting continuous values', 'Binary classification', 'Grouping similar data points together', 'Time series forecasting'],
-            correctAnswer: 'Grouping similar data points together',
-            explanation: 'K-Means is an unsupervised learning algorithm that groups (clusters) similar data points together, useful for customer segmentation, image compression, and pattern discovery.',
-            type: 'multiple-choice'
-          }
-        ],
-        externalResources: [
-          {
-            title: 'Scikit-learn Documentation',
-            url: 'https://scikit-learn.org/stable/user_guide.html',
-            type: 'documentation',
-            description: 'The most popular ML library in Python'
-          },
-          {
-            title: 'Kaggle Competitions',
-            url: 'https://www.kaggle.com/competitions',
-            type: 'practice',
-            description: 'Practice ML on real datasets with community'
-          },
-          {
-            title: 'StatQuest ML Playlist',
-            url: 'https://www.youtube.com/playlist?list=PLblh5JKOoLUICTaGLRoHQDuF_7q2GfuJF',
-            type: 'course',
-            description: 'Intuitive explanations of ML algorithms'
-          }
-        ],
-        gameConfig: {
-          id: 'aiml-algorithm-battles-3',
-          type: 'algorithm-selection',
-          title: 'Algorithm Battles',
-          description: 'Choose the right ML algorithm for each problem',
-          objective: 'Match algorithms to problems and understand their properties',
-          controls: 'Click to select algorithms and test them',
-          passingScore: 85,
-          importanceWhy: 'Choosing the right algorithm is like choosing the right tool for a job. This game teaches you when to use regression vs classification, when ensemble methods help, and how bias vs variance affects performance. These decisions separate good ML engineers from great ones.'
-        }
-      },
-      {
-        id: 'aiml-4',
-        courseId: 'aiml',
-        title: 'The Training Grounds',
-        description: 'Model Training & Evaluation',
-        story: 'You\'ve collected algorithms, but they\'re untrained warriors. Now, it\'s time to train them.',
-        narrative: 'A model is only as good as its training. Learn to split data properly, avoid overfitting (memorizing instead of learning), use cross-validation for robust testing, and measure performance with the right metrics. This is where theory meets practice.',
-        teachingContent: 'Training & Evaluation: Training data teaches the model, testing data evaluates it. Overfitting = model memorizes training data, fails on new data. Underfitting = model too simple to learn patterns. Cross-validation splits data into K folds for robust testing. Metrics: Accuracy (correct predictions / total), Precision (true positives / all predicted positives), Recall (true positives / all actual positives), F1 Score (balance of precision and recall), Confusion Matrix (visualizes errors). Hyperparameters (learning rate, depth, etc.) control how the model learns.',
-        xpReward: 200,
-        challengeType: 'interactive',
-        difficulty: 'intermediate',
-        unlocked: false,
-        completed: false,
-        currentStage: 'narrative',
-        videoTopic: 'Model training, overfitting, and evaluation metrics explained',
-        aiSuggestedVideos: [
-          {
-            id: 'aiml4-v1',
-            title: 'Overfitting and Underfitting Explained',
-            channelTitle: 'StatQuest',
-            thumbnailUrl: 'https://i.ytimg.com/vi/EuBBz3bI-aA/maxresdefault.jpg',
-            videoUrl: 'https://www.youtube.com/watch?v=EuBBz3bI-aA'
-          },
-          {
-            id: 'aiml4-v2',
-            title: 'Confusion Matrix Explained',
-            channelTitle: 'Normalized Nerd',
-            thumbnailUrl: 'https://i.ytimg.com/vi/Kdsp6soqA7o/maxresdefault.jpg',
-            videoUrl: 'https://www.youtube.com/watch?v=Kdsp6soqA7o'
-          }
-        ],
-        quizQuestions: [
-          {
-            id: 'aiml-4-q1',
-            question: 'What is overfitting?',
-            options: ['Model is too simple', 'Model memorizes training data and fails on new data', 'Model trains too fast', 'Model has too few parameters'],
-            correctAnswer: 'Model memorizes training data and fails on new data',
-            explanation: 'Overfitting occurs when a model learns the noise and specific patterns in training data so well that it fails to generalize to new, unseen data.',
-            type: 'multiple-choice'
-          },
-          {
-            id: 'aiml-4-q2',
-            question: 'Why do we use a separate test set?',
-            options: ['To save training time', 'To measure how well the model works on data it hasn\'t seen', 'To balance the dataset', 'To speed up predictions'],
-            correctAnswer: 'To measure how well the model works on data it hasn\'t seen',
-            explanation: 'The test set provides an unbiased evaluation of how the model will perform in the real world on completely new data.',
-            type: 'multiple-choice'
-          },
-          {
-            id: 'aiml-4-q3',
-            question: 'What does high precision and low recall indicate?',
-            options: ['Model finds all positive cases but makes many false positives', 'Model is very selective but misses many positive cases', 'Model is perfect', 'Model is completely random'],
-            correctAnswer: 'Model is very selective but misses many positive cases',
-            explanation: 'High precision means when the model says "yes" it\'s usually right, but low recall means it misses many actual positive cases by being too conservative.',
-            type: 'multiple-choice'
-          }
-        ],
-        externalResources: [
-          {
-            title: 'Cross-Validation Explained - Kaggle',
-            url: 'https://www.kaggle.com/code/alexisbcook/cross-validation',
-            type: 'tutorial',
-            description: 'Interactive notebook on validation strategies'
-          },
-          {
-            title: 'Model Evaluation Metrics',
-            url: 'https://scikit-learn.org/stable/modules/model_evaluation.html',
-            type: 'documentation',
-            description: 'Complete guide to ML evaluation metrics'
-          },
-          {
-            title: 'Hyperparameter Tuning Guide',
-            url: 'https://www.kaggle.com/learn/intermediate-machine-learning',
-            type: 'course',
-            description: 'Learn to optimize model performance'
-          }
-        ],
-        gameConfig: {
-          id: 'aiml-train-titans-4',
-          type: 'hyperparameter-tuning',
-          title: 'Train the Titans',
-          description: 'Tune hyperparameters to optimize model performance',
-          objective: 'Adjust learning rate, depth, and other parameters to improve accuracy',
-          controls: 'Click to adjust parameters and train',
-          passingScore: 85,
-          importanceWhy: 'Hyperparameter tuning can improve model accuracy by 10-30%. This game simulates the trial-and-error process of finding optimal settings. You\'ll learn when to increase model complexity vs reduce overfitting - a skill that defines expert ML practitioners.'
-        }
-      },
-      {
-        id: 'aiml-5',
-        courseId: 'aiml',
-        title: 'The Neural Sanctum',
-        description: 'Intro to Neural Networks',
-        story: 'Deep inside the Matrix, lies the Neural Sanctum — where intelligence is born. You\'ll learn how neurons form networks that can see, speak, and think.',
-        narrative: 'Neural networks are inspired by the human brain. Individual neurons combine inputs, apply weights, use activation functions to decide if they "fire", and pass signals forward. Layer by layer, networks learn to recognize patterns - from simple edges to complex faces.',
-        teachingContent: 'Neural Networks: Artificial neurons mimic brain cells. Each neuron: receives inputs, multiplies by weights, adds bias, applies activation function (ReLU, Sigmoid, Tanh). Layers: Input layer (receives data), Hidden layers (extract features), Output layer (makes prediction). Feedforward: data flows forward through network. Backpropagation: errors flow backward to update weights. Frameworks: TensorFlow and PyTorch make building networks easy. Deep Learning = neural networks with many hidden layers.',
-        xpReward: 220,
-        challengeType: 'interactive',
-        difficulty: 'intermediate',
-        unlocked: false,
-        completed: false,
-        currentStage: 'narrative',
-        videoTopic: 'Neural networks and deep learning fundamentals',
-        aiSuggestedVideos: [
-          {
-            id: 'aiml5-v1',
-            title: 'But what is a Neural Network? | Chapter 1, Deep Learning',
-            channelTitle: '3Blue1Brown',
-            thumbnailUrl: 'https://i.ytimg.com/vi/aircAruvnKk/maxresdefault.jpg',
-            videoUrl: 'https://www.youtube.com/watch?v=aircAruvnKk'
-          },
-          {
-            id: 'aiml5-v2',
-            title: 'Neural Networks Explained in 5 Minutes',
-            channelTitle: 'IBM Technology',
-            thumbnailUrl: 'https://i.ytimg.com/vi/jmmW0F0biz0/maxresdefault.jpg',
-            videoUrl: 'https://www.youtube.com/watch?v=jmmW0F0biz0'
-          }
-        ],
-        quizQuestions: [
-          {
-            id: 'aiml-5-q1',
-            question: 'What is an activation function\'s purpose in a neural network?',
-            options: ['To store data', 'To introduce non-linearity so networks can learn complex patterns', 'To speed up training', 'To reduce memory usage'],
-            correctAnswer: 'To introduce non-linearity so networks can learn complex patterns',
-            explanation: 'Activation functions like ReLU or Sigmoid add non-linearity, allowing neural networks to learn complex relationships. Without them, stacked layers would just be one large linear function.',
-            type: 'multiple-choice'
-          },
-          {
-            id: 'aiml-5-q2',
-            question: 'What is backpropagation?',
-            options: ['A method to compress neural networks', 'The algorithm that updates weights by propagating errors backward', 'A type of neural network layer', 'A data preprocessing technique'],
-            correctAnswer: 'The algorithm that updates weights by propagating errors backward',
-            explanation: 'Backpropagation calculates how much each weight contributed to the error and adjusts them to reduce that error, enabling the network to learn from mistakes.',
-            type: 'multiple-choice'
-          },
-          {
-            id: 'aiml-5-q3',
-            question: 'What makes a neural network "deep"?',
-            options: ['It processes images', 'It has many hidden layers', 'It uses a lot of data', 'It runs on GPUs'],
-            correctAnswer: 'It has many hidden layers',
-            explanation: 'Deep learning refers to neural networks with multiple (many) hidden layers between input and output, allowing them to learn hierarchical representations of data.',
-            type: 'multiple-choice'
-          }
-        ],
-        externalResources: [
-          {
-            title: 'TensorFlow Tutorials',
-            url: 'https://www.tensorflow.org/tutorials',
-            type: 'documentation',
-            description: 'Official TensorFlow guides and tutorials'
-          },
-          {
-            title: 'PyTorch Tutorials',
-            url: 'https://pytorch.org/tutorials/',
-            type: 'documentation',
-            description: 'Learn PyTorch from basics to advanced'
-          },
-          {
-            title: 'Fast.ai Course',
-            url: 'https://www.fast.ai/',
-            type: 'course',
-            description: 'Practical deep learning for coders'
-          },
-          {
-            title: 'Neural Networks Playground',
-            url: 'https://playground.tensorflow.org/',
-            type: 'practice',
-            description: 'Interactive visualization of neural networks'
-          }
-        ],
-        gameConfig: {
-          id: 'aiml-neural-core-5',
-          type: 'neural-network-builder',
-          title: 'Build the Neural Core',
-          description: 'Connect neurons to form working neural networks',
-          objective: 'Complete circuits by connecting activation → hidden → output correctly',
-          controls: 'Click to connect neurons and watch data flow',
-          passingScore: 85,
-          importanceWhy: 'Visualizing how data flows through neural networks builds intuition. This game shows how individual neurons combine to recognize patterns - start with binary classification, advance to multi-class. Understanding architecture is key to designing effective deep learning models.'
-        }
-      },
-      {
-        id: 'aiml-6',
-        courseId: 'aiml',
-        title: 'The Vision Tower',
-        description: 'Computer Vision',
-        story: 'You gain access to the Vision Tower — machines that see the world. Restore their sight by learning how images are processed.',
-        narrative: 'Computer vision enables machines to see and understand images. Convolutional Neural Networks (CNNs) are the key - they use filters to detect edges, textures, and objects. From self-driving cars to medical imaging, vision AI is transforming how machines perceive reality.',
-        teachingContent: 'Computer Vision: Images are grids of pixels (RGB values). Convolutional Neural Networks (CNNs): Convolutional layers apply filters to detect features (edges, textures, shapes), Pooling layers reduce size while keeping important features, Feature maps show what the network "sees", Fully connected layers at the end make predictions. Applications: Image classification (cat vs dog), Object detection (finding objects), Segmentation (outlining objects), Face recognition. Popular architectures: LeNet, AlexNet, VGG, ResNet.',
-        xpReward: 240,
-        challengeType: 'interactive',
-        difficulty: 'advanced',
-        unlocked: false,
-        completed: false,
-        currentStage: 'narrative',
-        videoTopic: 'Convolutional neural networks and computer vision',
-        aiSuggestedVideos: [
-          {
-            id: 'aiml6-v1',
-            title: 'Convolutional Neural Networks Explained',
-            channelTitle: 'Computerphile',
-            thumbnailUrl: 'https://i.ytimg.com/vi/py5byOOHZM8/maxresdefault.jpg',
-            videoUrl: 'https://www.youtube.com/watch?v=py5byOOHZM8'
-          },
-          {
-            id: 'aiml6-v2',
-            title: 'How Convolutional Neural Networks Work',
-            channelTitle: 'Brandon Rohrer',
-            thumbnailUrl: 'https://i.ytimg.com/vi/FmpDIaiMIeA/maxresdefault.jpg',
-            videoUrl: 'https://www.youtube.com/watch?v=FmpDIaiMIeA'
-          }
-        ],
-        quizQuestions: [
-          {
-            id: 'aiml-6-q1',
-            question: 'What is the purpose of convolutional layers in a CNN?',
-            options: ['To reduce image size', 'To detect features like edges and textures', 'To classify the final output', 'To add color to images'],
-            correctAnswer: 'To detect features like edges and textures',
-            explanation: 'Convolutional layers apply filters that scan across images to detect local patterns like edges, corners, and textures, building up to more complex features in deeper layers.',
-            type: 'multiple-choice'
-          },
-          {
-            id: 'aiml-6-q2',
-            question: 'Why do we use pooling layers in CNNs?',
-            options: ['To increase image resolution', 'To reduce spatial dimensions and make the network more efficient', 'To add more parameters', 'To change colors'],
-            correctAnswer: 'To reduce spatial dimensions and make the network more efficient',
-            explanation: 'Pooling (like max pooling) reduces the size of feature maps, keeping the most important information while reducing computation and preventing overfitting.',
-            type: 'multiple-choice'
-          },
-          {
-            id: 'aiml-6-q3',
-            question: 'What type of problem is image classification?',
-            options: ['Regression', 'Supervised classification', 'Unsupervised clustering', 'Reinforcement learning'],
-            correctAnswer: 'Supervised classification',
-            explanation: 'Image classification is supervised learning where the model learns from labeled examples (images with known categories) to predict categories of new images.',
-            type: 'multiple-choice'
-          }
-        ],
-        externalResources: [
-          {
-            title: 'CS231n: CNN for Visual Recognition',
-            url: 'http://cs231n.stanford.edu/',
-            type: 'course',
-            description: 'Stanford\'s famous computer vision course'
-          },
-          {
-            title: 'Keras Computer Vision Examples',
-            url: 'https://keras.io/examples/vision/',
-            type: 'tutorial',
-            description: 'Practical CNN implementations'
-          },
-          {
-            title: 'ImageNet Challenge',
-            url: 'https://www.image-net.org/',
-            type: 'practice',
-            description: 'Famous image recognition benchmark'
-          }
-        ],
-        gameConfig: {
-          id: 'aiml-vision-tower-6',
-          type: 'cnn-filter',
-          title: 'Rebuild the Vision',
-          description: 'Use convolution filters to process and reconstruct images',
-          objective: 'Apply correct filters to restore corrupted image statues',
-          controls: 'Click to apply edge detection, blur, and feature filters',
-          passingScore: 85,
-          importanceWhy: 'Understanding how CNNs "see" is crucial for debugging vision models. This game lets you apply real filters (edge detection, blur, sharpen) to see how networks extract features layer by layer. It\'s the foundation of facial recognition, autonomous vehicles, and medical imaging.'
-        }
-      },
-      {
-        id: 'aiml-7',
-        courseId: 'aiml',
-        title: 'The Voice Realm',
-        description: 'NLP & Chatbots',
-        story: 'Now, the Matrix starts to speak. You must understand and respond.',
-        narrative: 'Natural Language Processing (NLP) enables machines to understand human language. From chatbots to translation, sentiment analysis to text generation - NLP is how AI communicates. You\'ll learn to process text, extract meaning, and build conversational AI.',
-        teachingContent: 'NLP Basics: Tokenization (split text into words/tokens), Stemming (reduce to root: running → run), Lemmatization (better stemming: better → good), Stop words (remove "the", "is", "and"). Bag of Words (count word frequency), TF-IDF (weight by importance). RNNs process sequences, LSTMs remember long-term context, Transformers (like GPT) revolutionized NLP with attention mechanisms. Chatbots: Rule-based (if/else), Retrieval-based (pick from responses), Generative (create new responses).',
-        xpReward: 260,
-        challengeType: 'interactive',
-        difficulty: 'advanced',
-        unlocked: false,
-        completed: false,
-        currentStage: 'narrative',
-        videoTopic: 'Natural language processing and chatbots explained',
-        aiSuggestedVideos: [
-          {
-            id: 'aiml7-v1',
-            title: 'Natural Language Processing in 5 Minutes',
-            channelTitle: 'AI Explained',
-            thumbnailUrl: 'https://i.ytimg.com/vi/fOvTtapxa9c/maxresdefault.jpg',
-            videoUrl: 'https://www.youtube.com/watch?v=fOvTtapxa9c'
-          },
-          {
-            id: 'aiml7-v2',
-            title: 'Illustrated Guide to Transformers',
-            channelTitle: 'Jay Alammar',
-            thumbnailUrl: 'https://i.ytimg.com/vi/4Bdc55j80l8/maxresdefault.jpg',
-            videoUrl: 'https://www.youtube.com/watch?v=4Bdc55j80l8'
-          }
-        ],
-        quizQuestions: [
-          {
-            id: 'aiml-7-q1',
-            question: 'What is tokenization in NLP?',
-            options: ['Translating text to another language', 'Breaking text into individual words or tokens', 'Removing punctuation', 'Checking grammar'],
-            correctAnswer: 'Breaking text into individual words or tokens',
-            explanation: 'Tokenization splits text into meaningful units (tokens) - usually words or subwords - which is the first step in most NLP pipelines.',
-            type: 'multiple-choice'
-          },
-          {
-            id: 'aiml-7-q2',
-            question: 'What advantage do Transformers have over RNNs for NLP?',
-            options: ['They use less memory', 'They can process sequences in parallel and capture long-range dependencies better', 'They don\'t need training', 'They only work on short text'],
-            correctAnswer: 'They can process sequences in parallel and capture long-range dependencies better',
-            explanation: 'Transformers use attention mechanisms to process all tokens simultaneously and relate distant words effectively, unlike RNNs which process sequentially and struggle with long-term memory.',
-            type: 'multiple-choice'
-          },
-          {
-            id: 'aiml-7-q3',
-            question: 'What type of chatbot is ChatGPT?',
-            options: ['Rule-based', 'Retrieval-based', 'Generative', 'Random'],
-            correctAnswer: 'Generative',
-            explanation: 'ChatGPT is a generative model that creates new responses based on its training, rather than selecting from pre-written responses or following hardcoded rules.',
-            type: 'multiple-choice'
-          }
-        ],
-        externalResources: [
-          {
-            title: 'Hugging Face NLP Course',
-            url: 'https://huggingface.co/learn/nlp-course',
-            type: 'course',
-            description: 'Comprehensive course on modern NLP'
-          },
-          {
-            title: 'spaCy Tutorials',
-            url: 'https://spacy.io/usage',
-            type: 'documentation',
-            description: 'Industrial-strength NLP library'
-          },
-          {
-            title: 'Building Chatbots with Python',
-            url: 'https://www.datacamp.com/courses/building-chatbots-in-python',
-            type: 'course',
-            description: 'Hands-on chatbot development'
-          }
-        ],
-        gameConfig: {
-          id: 'aiml-echo-words-7',
-          type: 'nlp-processing',
-          title: 'Echo of Words',
-          description: 'Decode and clean corrupted text messages',
-          objective: 'Process text data and train a mini chatbot',
-          controls: 'Click to tokenize, clean, and respond',
-          passingScore: 85,
-          importanceWhy: 'Text processing is everywhere - search engines, spam filters, autocomplete, translation. This game teaches you to clean messy text and understand how chatbots map questions to answers. It\'s the foundation of conversational AI that powers virtual assistants and customer service bots.'
-        }
-      },
-      {
-        id: 'aiml-8',
-        courseId: 'aiml',
-        title: 'The Sage\'s Code',
-        description: 'AI Ethics & Explainability',
-        story: 'Power must be balanced with wisdom. Learn the ethics of using AI responsibly.',
-        narrative: 'AI is powerful, but with power comes responsibility. Biased data creates biased AI. Models can discriminate, invade privacy, or be misused. You must learn to build fair, transparent, explainable AI that serves humanity ethically.',
-        teachingContent: 'AI Ethics: Bias in data leads to biased predictions (facial recognition less accurate on minorities, hiring AI favoring men). Fairness means equal treatment across groups. Explainable AI (XAI) helps us understand why models make decisions. Privacy concerns: models can memorize sensitive training data. Transparency: users should know when AI makes decisions about them. Accountability: who\'s responsible when AI makes mistakes? Responsible AI practices: diverse datasets, regular bias testing, human oversight, clear documentation.',
-        xpReward: 280,
-        challengeType: 'interactive',
-        difficulty: 'advanced',
-        unlocked: false,
-        completed: false,
-        currentStage: 'narrative',
-        videoTopic: 'AI ethics, bias, and responsible artificial intelligence',
-        aiSuggestedVideos: [
-          {
-            id: 'aiml8-v1',
-            title: 'AI Ethics and Bias Explained',
-            channelTitle: 'CrashCourse AI',
-            thumbnailUrl: 'https://i.ytimg.com/vi/AlusjivRJV0/maxresdefault.jpg',
-            videoUrl: 'https://www.youtube.com/watch?v=AlusjivRJV0'
-          },
-          {
-            id: 'aiml8-v2',
-            title: 'Explainable AI (XAI) Explained',
-            channelTitle: 'IBM Technology',
-            thumbnailUrl: 'https://i.ytimg.com/vi/T4TsOA-U7dk/maxresdefault.jpg',
-            videoUrl: 'https://www.youtube.com/watch?v=T4TsOA-U7dk'
-          }
-        ],
-        quizQuestions: [
-          {
-            id: 'aiml-8-q1',
-            question: 'Why is AI bias a serious concern?',
-            options: ['It makes models slower', 'Biased models can discriminate and harm marginalized groups', 'It increases training costs', 'It makes models harder to deploy'],
-            correctAnswer: 'Biased models can discriminate and harm marginalized groups',
-            explanation: 'AI systems trained on biased data can perpetuate and amplify discrimination in critical areas like hiring, lending, criminal justice, and healthcare, causing real harm to people.',
-            type: 'multiple-choice'
-          },
-          {
-            id: 'aiml-8-q2',
-            question: 'What is Explainable AI (XAI)?',
-            options: ['AI that talks to humans', 'Methods to understand and interpret how AI makes decisions', 'AI that explains code', 'Simpler AI models'],
-            correctAnswer: 'Methods to understand and interpret how AI makes decisions',
-            explanation: 'XAI provides insights into why models make certain predictions, which is crucial for trust, debugging, and meeting regulatory requirements in sensitive domains.',
-            type: 'multiple-choice'
-          },
-          {
-            id: 'aiml-8-q3',
-            question: 'In the ethics of AI deployment, what does the "accountability" principle mean?',
-            options: ['Making AI faster', 'Ensuring someone is responsible for AI decisions and outcomes', 'Reducing costs', 'Increasing accuracy'],
-            correctAnswer: 'Ensuring someone is responsible for AI decisions and outcomes',
-            explanation: 'Accountability means there must be clear responsibility when AI systems make errors or cause harm, with processes to address and remedy negative outcomes.',
-            type: 'multiple-choice'
-          }
-        ],
-        externalResources: [
-          {
-            title: 'AI Ethics Guidelines - EU',
-            url: 'https://digital-strategy.ec.europa.eu/en/policies/expert-group-ai',
-            type: 'documentation',
-            description: 'European Union\'s ethical AI framework'
-          },
-          {
-            title: 'Responsible AI Practices - Google',
-            url: 'https://ai.google/responsibility/responsible-ai-practices/',
-            type: 'documentation',
-            description: 'Google\'s guide to responsible AI development'
-          },
-          {
-            title: 'AI Fairness 360 Toolkit',
-            url: 'https://aif360.mybluemix.net/',
-            type: 'tool',
-            description: 'IBM toolkit for detecting and mitigating bias'
-          },
-          {
-            title: 'Ethics of AI Course - MIT',
-            url: 'https://ethics.fast.ai/',
-            type: 'course',
-            description: 'Practical ethics for data scientists'
-          }
-        ],
-        gameConfig: {
-          id: 'aiml-balance-matrix-8',
-          type: 'ethics-decision',
-          title: 'Balance of the Matrix',
-          description: 'Make ethical AI decisions in branching scenarios',
-          objective: 'Balance fairness, accuracy, and transparency in real-world situations',
-          controls: 'Choose decisions and see their impact on different groups',
-          passingScore: 85,
-          importanceWhy: 'AI ethics isn\'t abstract - it\'s about real decisions with real consequences. This game presents scenarios like: "High accuracy but unfair to minorities" vs "Lower accuracy but more fair". You\'ll see how bias metrics, fairness constraints, and transparency affect people\'s lives. Every AI developer needs this perspective.'
-        }
-      },
-      {
-        id: 'aiml-9',
-        courseId: 'aiml',
-        title: 'The Integration Nexus',
-        description: 'AI Projects & APIs',
-        story: 'Time to build your legacy — merge all your knowledge to create something real.',
-        narrative: 'You\'ve mastered the theory. Now build real AI applications! Use powerful APIs like OpenAI, Hugging Face, and Google Gemini to add AI to your apps. Deploy models with Flask or FastAPI. Create image classifiers, chatbots, sentiment analyzers. This is where you become a true AI architect.',
-        teachingContent: 'Real-World AI: AI APIs provide pre-trained models: OpenAI (GPT for text generation, DALL-E for images), Hugging Face (thousands of models), Google Gemini (multimodal AI). Projects: Image classification (CNN + user uploads), Chatbot (NLP + conversation logic), Sentiment analysis (classify emotions in text), Recommendation system (collaborative filtering). Deployment: Flask/FastAPI for web APIs, Streamlit for quick demos, Docker for containers, Cloud platforms (AWS, GCP, Azure) for scalability. MLOps: versioning models, monitoring performance, A/B testing.',
-        xpReward: 300,
-        challengeType: 'interactive',
-        difficulty: 'advanced',
-        unlocked: false,
-        completed: false,
-        currentStage: 'narrative',
-        videoTopic: 'Building and deploying machine learning projects with APIs',
-        aiSuggestedVideos: [
-          {
-            id: 'aiml9-v1',
-            title: 'Deploy Machine Learning Models with Flask',
-            channelTitle: 'Krish Naik',
-            thumbnailUrl: 'https://i.ytimg.com/vi/UbCWoMf80PY/maxresdefault.jpg',
-            videoUrl: 'https://www.youtube.com/watch?v=UbCWoMf80PY'
-          },
-          {
-            id: 'aiml9-v2',
-            title: 'OpenAI API Tutorial',
-            channelTitle: 'Tech With Tim',
-            thumbnailUrl: 'https://i.ytimg.com/vi/c-g6epk3fFE/maxresdefault.jpg',
-            videoUrl: 'https://www.youtube.com/watch?v=c-g6epk3fFE'
-          }
-        ],
-        quizQuestions: [
-          {
-            id: 'aiml-9-q1',
-            question: 'Why use AI APIs instead of building models from scratch?',
-            options: ['APIs are always free', 'APIs provide access to powerful pre-trained models, saving time and resources', 'APIs are faster to run', 'You don\'t need data with APIs'],
-            correctAnswer: 'APIs provide access to powerful pre-trained models, saving time and resources',
-            explanation: 'AI APIs let you leverage models trained on massive datasets with huge computational resources, which would be impractical to replicate. You get state-of-the-art capabilities immediately.',
-            type: 'multiple-choice'
-          },
-          {
-            id: 'aiml-9-q2',
-            question: 'What is Flask commonly used for in ML projects?',
-            options: ['Training models', 'Creating web APIs to serve model predictions', 'Data cleaning', 'Image processing'],
-            correctAnswer: 'Creating web APIs to serve model predictions',
-            explanation: 'Flask is a lightweight Python web framework perfect for creating REST APIs that receive input, run model inference, and return predictions to users or applications.',
-            type: 'multiple-choice'
-          },
-          {
-            id: 'aiml-9-q3',
-            question: 'What is MLOps?',
-            options: ['A type of neural network', 'Practices for deploying, monitoring, and maintaining ML systems in production', 'A programming language', 'A data visualization tool'],
-            correctAnswer: 'Practices for deploying, monitoring, and maintaining ML systems in production',
-            explanation: 'MLOps (Machine Learning Operations) combines ML, DevOps, and data engineering to automate and improve the process of taking ML models from development to production.',
-            type: 'multiple-choice'
-          }
-        ],
-        externalResources: [
-          {
-            title: 'OpenAI API Documentation',
-            url: 'https://platform.openai.com/docs',
-            type: 'documentation',
-            description: 'Official guide to OpenAI\'s powerful AI models'
-          },
-          {
-            title: 'Hugging Face Models',
-            url: 'https://huggingface.co/models',
-            type: 'platform',
-            description: 'Thousands of pre-trained AI models'
-          },
-          {
-            title: 'FastAPI ML Tutorial',
-            url: 'https://fastapi.tiangolo.com/tutorial/',
-            type: 'tutorial',
-            description: 'Modern Python web framework for APIs'
-          },
-          {
-            title: 'End-to-End ML Projects - Kaggle',
-            url: 'https://www.kaggle.com/learn',
-            type: 'practice',
-            description: 'Complete ML workflows from data to deployment'
-          },
-          {
-            title: 'MLOps Guide',
-            url: 'https://ml-ops.org/',
-            type: 'documentation',
-            description: 'Best practices for production ML systems'
-          }
-        ],
-        gameConfig: {
-          id: 'aiml-architect-matrix-9',
-          type: 'deploy-orbit',
-          title: 'Architect of the Matrix',
-          description: 'Build and deploy your own AI-powered system',
-          objective: 'Choose tools, models, and architecture to create a working AI application',
-          controls: 'Click to select components and deploy',
-          passingScore: 90,
-          importanceWhy: 'This is your final boss - building a real AI system from scratch. You\'ll choose between different APIs (OpenAI vs Hugging Face), decide on architecture (REST vs WebSocket), handle errors, and deploy. It simulates the full stack of decisions AI engineers make daily. Complete this and you\'re ready to build real AI products.'
-        }
-      }
-    ]
-  },
-  {
-    id: 'cloud',
-    name: 'Cloud & DevOps',
-    description: 'Deploy and scale applications',
-    icon: '☁️',
-    color: '#10b981',
-    levels: [
-      {
-        id: 'cloud-1',
-        courseId: 'cloud',
-        title: 'Cloud Computing Basics',
-        description: 'Introduction to cloud platforms',
-        story: 'Ascend to the Cloud City and learn to deploy your applications to the sky!',
+        title: 'Introduction to AI',
+        description: 'What is artificial intelligence?',
+        story: 'Welcome to the AI Realm, where machines learn and evolve!',
         xpReward: 100,
         challengeType: 'quiz',
         difficulty: 'beginner',
@@ -2075,16 +1250,924 @@ const initialCourses: Course[] = [
         completed: false,
       },
       {
-        id: 'cloud-2',
-        courseId: 'cloud',
-        title: 'Docker Containers',
-        description: 'Containerize your applications',
-        story: 'Master the art of containerization in the Docker Docks.',
+        id: 'ai-2',
+        courseId: 'aiml',
+        title: 'Neural Networks',
+        description: 'Understanding brain-inspired computing',
+        story: 'Dive into the Neural Network Nexus and unlock the secrets of machine cognition.',
         xpReward: 150,
         challengeType: 'interactive',
         difficulty: 'intermediate',
         unlocked: false,
         completed: false,
+      }
+    ]
+  },
+  {
+    id: 'cloud',
+    name: 'MATRIX: Cloud & DevOps Odyssey',
+    description: 'Forge the heavens. Command the clouds. Balance chaos and automation.',
+    icon: '☁️',
+    color: '#10b981',
+    levels: [
+      {
+        id: 'cloud-1',
+        courseId: 'cloud',
+        title: 'The Genesis Cloud (Introduction to Cloud)',
+        description: 'Rebuild order by understanding the essence of the Cloud',
+        story: 'You awaken in the "Skyforge Realm" — a fragmented world where servers float in chaos. Your first task: rebuild order by understanding the essence of the Cloud.',
+        narrative: 'Welcome to the Skyforge Realm, where compute, storage, and networking fragments drift in digital chaos. Your mission is to assemble these pieces into a functional cloud system. Learn the fundamental models of cloud computing and discover how virtualization enables the cloud revolution.',
+        teachingContent: 'Cloud Computing delivers IT resources over the internet on-demand. Three service models exist: IaaS (Infrastructure as a Service - rent servers), PaaS (Platform as a Service - deploy without managing infrastructure), and SaaS (Software as a Service - ready-to-use apps). Deployment types include Public (AWS, Azure, GCP), Private (on-premises), and Hybrid (combination). Virtualization allows multiple virtual machines to run on one physical server.',
+        xpReward: 150,
+        challengeType: 'interactive',
+        difficulty: 'beginner',
+        unlocked: true,
+        completed: false,
+        currentStage: 'narrative',
+        videoTopic: 'Cloud computing basics IaaS PaaS SaaS explained',
+        aiSuggestedVideos: [
+          {
+            id: 'cloud1-v1',
+            title: 'Cloud Computing In 6 Minutes | What Is Cloud Computing?',
+            channelTitle: 'Simplilearn',
+            thumbnailUrl: 'https://i.ytimg.com/vi/M988_fsOSWo/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=M988_fsOSWo'
+          },
+          {
+            id: 'cloud1-v2',
+            title: 'Cloud Computing Services Models - IaaS PaaS SaaS Explained',
+            channelTitle: 'AWS',
+            thumbnailUrl: 'https://i.ytimg.com/vi/36zducUX16w/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=36zducUX16w'
+          },
+          {
+            id: 'cloud1-v3',
+            title: 'AWS vs Azure vs GCP | Cloud Providers Comparison',
+            channelTitle: 'TechWorld with Nana',
+            thumbnailUrl: 'https://i.ytimg.com/vi/n24OBVGHufQ/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=n24OBVGHufQ'
+          }
+        ],
+        quizQuestions: [
+          {
+            id: 'cloud-1-q1',
+            question: 'Which cloud service model provides the most control over infrastructure?',
+            options: ['SaaS', 'PaaS', 'IaaS', 'FaaS'],
+            correctAnswer: 'IaaS',
+            explanation: 'Infrastructure as a Service (IaaS) gives you the most control, allowing you to manage virtual machines, storage, and networks.',
+            type: 'multiple-choice'
+          },
+          {
+            id: 'cloud-1-q2',
+            question: 'What does "on-demand" mean in cloud computing?',
+            options: ['Resources are always running', 'Resources can be provisioned instantly when needed', 'Resources must be requested weeks in advance', 'Resources are free'],
+            correctAnswer: 'Resources can be provisioned instantly when needed',
+            explanation: 'On-demand means you can get computing resources immediately when you need them, without long procurement processes.',
+            type: 'multiple-choice'
+          },
+          {
+            id: 'cloud-1-q3',
+            question: 'Which deployment model combines on-premises and public cloud?',
+            options: ['Public Cloud', 'Private Cloud', 'Hybrid Cloud', 'Community Cloud'],
+            correctAnswer: 'Hybrid Cloud',
+            explanation: 'Hybrid Cloud combines private (on-premises) infrastructure with public cloud services for flexibility and data control.',
+            type: 'multiple-choice'
+          }
+        ],
+        codingProblems: [
+          {
+            id: 'cloud-1-p1',
+            title: 'Cloud Service Classifier',
+            description: 'Write a function that classifies cloud services into IaaS, PaaS, or SaaS categories.',
+            difficulty: 'easy',
+            starterCode: 'function classifyService(serviceName) {\n  // Return "IaaS", "PaaS", or "SaaS"\n  \n}',
+            solution: 'function classifyService(serviceName) {\n  const iaas = ["EC2", "Virtual Machines", "Compute Engine"];\n  const paas = ["Heroku", "App Engine", "Azure App Service"];\n  const saas = ["Gmail", "Office 365", "Salesforce"];\n  \n  if (iaas.includes(serviceName)) return "IaaS";\n  if (paas.includes(serviceName)) return "PaaS";\n  if (saas.includes(serviceName)) return "SaaS";\n  return "Unknown";\n}',
+            functionName: 'classifyService',
+            testCases: [
+              { id: 't1', input: '"EC2"', expectedOutput: '"IaaS"', isHidden: false },
+              { id: 't2', input: '"Heroku"', expectedOutput: '"PaaS"', isHidden: false }
+            ],
+            hints: ['Create arrays for each service type', 'Check which array contains the service'],
+            tags: ['cloud', 'classification']
+          }
+        ],
+        externalResources: [
+          {
+            title: 'AWS Cloud Practitioner Learning Path',
+            url: 'https://aws.amazon.com/certification/certified-cloud-practitioner/',
+            type: 'documentation',
+            description: 'Official AWS certification path for cloud basics'
+          },
+          {
+            title: 'Azure Fundamentals',
+            url: 'https://learn.microsoft.com/en-us/training/paths/az-900-describe-cloud-concepts/',
+            type: 'documentation',
+            description: 'Microsoft Azure cloud fundamentals course'
+          },
+          {
+            title: 'Google Cloud Skills Boost',
+            url: 'https://www.cloudskillsboost.google/',
+            type: 'neetcode',
+            difficulty: 'easy',
+            description: 'Hands-on labs for GCP'
+          }
+        ],
+        gameConfig: {
+          id: 'component-link-cloud-1',
+          type: 'component-link',
+          title: 'Assemble the Cloud',
+          description: 'Drag-and-drop cloud fragments to form a functional system',
+          objective: 'Connect compute, storage, and networking correctly to stabilize the sky islands',
+          controls: 'Drag and drop components to connect them',
+          passingScore: 85,
+          importanceWhy: 'Understanding cloud architecture fundamentals is essential for modern development. This game visualizes how compute, storage, and networking work together to create cloud services that power billions of applications worldwide.'
+        }
+      },
+      {
+        id: 'cloud-2',
+        courseId: 'cloud',
+        title: 'The Forge of Infrastructure (Networking & Compute)',
+        description: 'Master the backbone — networks and compute engines',
+        story: 'To command the Skyforge, you must master its backbone — networks and compute engines.',
+        narrative: 'The Skyforge cannot function without proper networking. Learn how data flows between cloud islands through Virtual Private Clouds (VPCs), how load balancers distribute traffic, and how compute instances power applications. Every misconfiguration causes data storms!',
+        teachingContent: 'Networking Fundamentals: IP addresses identify devices, DNS translates domain names to IPs, Load Balancers distribute traffic across servers. Compute Instances are virtual machines (EC2 in AWS, VM in Azure). Storage includes object storage (S3, Blob Storage) for files and block storage (EBS, Managed Disks) for databases. VPC creates isolated networks in the cloud with subnets, route tables, and security groups.',
+        xpReward: 180,
+        challengeType: 'interactive',
+        difficulty: 'beginner',
+        unlocked: false,
+        completed: false,
+        currentStage: 'narrative',
+        videoTopic: 'AWS VPC networking EC2 instances tutorial',
+        aiSuggestedVideos: [
+          {
+            id: 'cloud2-v1',
+            title: 'AWS VPC Beginner to Pro - Virtual Private Cloud Tutorial',
+            channelTitle: 'freeCodeCamp',
+            thumbnailUrl: 'https://i.ytimg.com/vi/g2JOHLHh4rI/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=g2JOHLHh4rI'
+          },
+          {
+            id: 'cloud2-v2',
+            title: 'AWS EC2 Tutorial For Beginners',
+            channelTitle: 'Simplilearn',
+            thumbnailUrl: 'https://i.ytimg.com/vi/8TlukLu11Yo/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=8TlukLu11Yo'
+          },
+          {
+            id: 'cloud2-v3',
+            title: 'S3 Bucket Tutorial | AWS Storage',
+            channelTitle: 'Tech With Lucy',
+            thumbnailUrl: 'https://i.ytimg.com/vi/e6w9LwZJFIA/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=e6w9LwZJFIA'
+          }
+        ],
+        quizQuestions: [
+          {
+            id: 'cloud-2-q1',
+            question: 'What is the purpose of a load balancer?',
+            options: ['Store data', 'Distribute traffic across multiple servers', 'Translate domain names', 'Encrypt data'],
+            correctAnswer: 'Distribute traffic across multiple servers',
+            explanation: 'Load balancers distribute incoming traffic across multiple servers to ensure no single server gets overwhelmed, improving availability and reliability.',
+            type: 'multiple-choice'
+          },
+          {
+            id: 'cloud-2-q2',
+            question: 'What does VPC stand for?',
+            options: ['Virtual Private Cloud', 'Virtual Public Container', 'Very Private Computing', 'Virtual Platform Cloud'],
+            correctAnswer: 'Virtual Private Cloud',
+            explanation: 'VPC (Virtual Private Cloud) is an isolated network environment in the cloud where you can launch resources securely.',
+            type: 'multiple-choice'
+          },
+          {
+            id: 'cloud-2-q3',
+            question: 'Which AWS service provides object storage?',
+            options: ['EC2', 'S3', 'VPC', 'RDS'],
+            correctAnswer: 'S3',
+            explanation: 'Amazon S3 (Simple Storage Service) provides scalable object storage for files, images, videos, and backups.',
+            type: 'multiple-choice'
+          }
+        ],
+        externalResources: [
+          {
+            title: 'AWS VPC Documentation',
+            url: 'https://docs.aws.amazon.com/vpc/',
+            type: 'documentation',
+            description: 'Complete VPC configuration guide'
+          },
+          {
+            title: 'AWS EC2 Getting Started',
+            url: 'https://aws.amazon.com/ec2/getting-started/',
+            type: 'documentation',
+            description: 'Launch your first EC2 instance'
+          },
+          {
+            title: 'Networking Basics - A Cloud Guru',
+            url: 'https://acloudguru.com/course/networking-basics',
+            type: 'neetcode',
+            difficulty: 'easy',
+            description: 'Learn cloud networking fundamentals'
+          }
+        ],
+        gameConfig: {
+          id: 'data-bridge-cloud-2',
+          type: 'data-bridge',
+          title: 'Sky Network Builder',
+          description: 'Create secure network routes between cloud islands',
+          objective: 'Configure VPC, subnets, and routes correctly - wrong configurations cause data storms',
+          controls: 'Click to configure network components',
+          passingScore: 85,
+          importanceWhy: 'Networking is the foundation of cloud infrastructure. Understanding VPCs, subnets, and routing prevents security vulnerabilities and ensures reliable communication between services. Every major cloud outage involves networking issues.'
+        }
+      },
+      {
+        id: 'cloud-3',
+        courseId: 'cloud',
+        title: 'The Chamber of Automation (DevOps Foundations)',
+        description: 'Control the storm with scripts and automation',
+        story: 'The Skyforge is too vast to manage manually. Enter the Chamber of Automation — where you learn to control the storm with scripts.',
+        narrative: 'Manual deployment is chaos. Every time you click buttons to deploy, you risk human error. The Chamber of Automation teaches you to codify your processes, use version control to track changes, and build pipelines that deploy automatically. Welcome to DevOps!',
+        teachingContent: 'DevOps unifies Development and Operations for faster, reliable delivery. CI/CD means Continuous Integration (automatically test code) and Continuous Deployment (automatically deploy to production). Git tracks code changes - commit saves snapshots, branches enable parallel work, pull requests review changes. GitHub/GitLab host Git repositories and run CI/CD pipelines. Automation eliminates manual errors and speeds deployment from weeks to minutes.',
+        xpReward: 200,
+        challengeType: 'interactive',
+        difficulty: 'beginner',
+        unlocked: false,
+        completed: false,
+        currentStage: 'narrative',
+        videoTopic: 'DevOps CI/CD pipeline Git GitHub Actions tutorial',
+        aiSuggestedVideos: [
+          {
+            id: 'cloud3-v1',
+            title: 'DevOps Explained in 100 Seconds',
+            channelTitle: 'Fireship',
+            thumbnailUrl: 'https://i.ytimg.com/vi/scEDHsr3APg/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=scEDHsr3APg'
+          },
+          {
+            id: 'cloud3-v2',
+            title: 'Git and GitHub for Beginners - Crash Course',
+            channelTitle: 'freeCodeCamp',
+            thumbnailUrl: 'https://i.ytimg.com/vi/RGOj5yH7evk/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=RGOj5yH7evk'
+          },
+          {
+            id: 'cloud3-v3',
+            title: 'CI/CD In 5 Minutes | What Is CI/CD?',
+            channelTitle: 'Simplilearn',
+            thumbnailUrl: 'https://i.ytimg.com/vi/42UP1fxi2SY/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=42UP1fxi2SY'
+          }
+        ],
+        quizQuestions: [
+          {
+            id: 'cloud-3-q1',
+            question: 'What does CI/CD stand for?',
+            options: ['Code Integration/Code Deployment', 'Continuous Integration/Continuous Deployment', 'Cloud Infrastructure/Cloud Development', 'Container Integration/Container Delivery'],
+            correctAnswer: 'Continuous Integration/Continuous Deployment',
+            explanation: 'CI/CD automates testing (Continuous Integration) and deployment (Continuous Deployment) to deliver code changes faster and more reliably.',
+            type: 'multiple-choice'
+          },
+          {
+            id: 'cloud-3-q2',
+            question: 'What is the main benefit of DevOps?',
+            options: ['Cheaper servers', 'Faster and more reliable software delivery', 'Eliminating testing', 'Reducing team size'],
+            correctAnswer: 'Faster and more reliable software delivery',
+            explanation: 'DevOps bridges development and operations to deliver features faster while maintaining stability through automation and collaboration.',
+            type: 'multiple-choice'
+          },
+          {
+            id: 'cloud-3-q3',
+            question: 'What Git command saves your changes?',
+            options: ['git push', 'git commit', 'git save', 'git deploy'],
+            correctAnswer: 'git commit',
+            explanation: 'git commit creates a snapshot of your changes in the Git history. git push then uploads commits to a remote repository.',
+            type: 'multiple-choice'
+          }
+        ],
+        externalResources: [
+          {
+            title: 'GitHub Skills - Introduction to GitHub',
+            url: 'https://skills.github.com/',
+            type: 'documentation',
+            description: 'Interactive GitHub learning labs'
+          },
+          {
+            title: 'GitLab CI/CD Documentation',
+            url: 'https://docs.gitlab.com/ee/ci/',
+            type: 'documentation',
+            description: 'Build your first pipeline'
+          },
+          {
+            title: 'DevOps Roadmap',
+            url: 'https://roadmap.sh/devops',
+            type: 'neetcode',
+            difficulty: 'easy',
+            description: 'Complete DevOps learning path'
+          }
+        ],
+        gameConfig: {
+          id: 'script-circuit-cloud-3',
+          type: 'script-circuit',
+          title: 'Automation Forge',
+          description: 'Build an automated pipeline that forges artifacts from code commits',
+          objective: 'Connect CI/CD stages correctly - mistakes cause build failures',
+          controls: 'Click to configure pipeline stages',
+          passingScore: 85,
+          importanceWhy: 'Automation is the heart of modern software delivery. Manual deployments cause errors, take hours, and don\'t scale. Learning CI/CD means you can ship features daily instead of monthly, with confidence they won\'t break production.'
+        }
+      },
+      {
+        id: 'cloud-4',
+        courseId: 'cloud',
+        title: 'The Terraform Plains (Infrastructure as Code)',
+        description: 'Summon infrastructure with code',
+        story: 'You now enter the realm where infrastructure is summoned by code. Terraform is your spellbook.',
+        narrative: 'Clicking buttons in AWS/Azure consoles is slow and error-prone. The Terraform Plains teach you to describe infrastructure in code files. With one command, you can create entire cloud environments. Change one line to add 10 servers. Infrastructure as Code is the foundation of modern cloud operations.',
+        teachingContent: 'Infrastructure as Code (IaC) means managing infrastructure with configuration files instead of manual processes. Terraform is a popular IaC tool supporting AWS, Azure, GCP, and 300+ providers. Key concepts: Providers (cloud platforms), Resources (things you create like VMs, databases), State (tracking what exists), Modules (reusable components). Terraform workflow: Write .tf files → terraform init (setup) → terraform plan (preview) → terraform apply (create).',
+        xpReward: 220,
+        challengeType: 'interactive',
+        difficulty: 'intermediate',
+        unlocked: false,
+        completed: false,
+        currentStage: 'narrative',
+        videoTopic: 'Terraform tutorial infrastructure as code AWS',
+        aiSuggestedVideos: [
+          {
+            id: 'cloud4-v1',
+            title: 'Terraform in 100 Seconds',
+            channelTitle: 'Fireship',
+            thumbnailUrl: 'https://i.ytimg.com/vi/tomUWcQ0P3k/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=tomUWcQ0P3k'
+          },
+          {
+            id: 'cloud4-v2',
+            title: 'Terraform Course - Automate your AWS cloud infrastructure',
+            channelTitle: 'freeCodeCamp',
+            thumbnailUrl: 'https://i.ytimg.com/vi/SLB_c_ayRMo/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=SLB_c_ayRMo'
+          },
+          {
+            id: 'cloud4-v3',
+            title: 'Complete Terraform Tutorial for Beginners',
+            channelTitle: 'TechWorld with Nana',
+            thumbnailUrl: 'https://i.ytimg.com/vi/l5k1ai_GBDE/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=l5k1ai_GBDE'
+          }
+        ],
+        quizQuestions: [
+          {
+            id: 'cloud-4-q1',
+            question: 'What is the main benefit of Infrastructure as Code?',
+            options: ['Cheaper cloud bills', 'Reproducible, version-controlled infrastructure', 'Faster internet', 'Automatic security'],
+            correctAnswer: 'Reproducible, version-controlled infrastructure',
+            explanation: 'IaC lets you recreate identical environments, track changes in Git, and avoid manual configuration errors.',
+            type: 'multiple-choice'
+          },
+          {
+            id: 'cloud-4-q2',
+            question: 'Which Terraform command creates infrastructure?',
+            options: ['terraform create', 'terraform apply', 'terraform build', 'terraform deploy'],
+            correctAnswer: 'terraform apply',
+            explanation: 'terraform apply executes the planned changes and creates/modifies infrastructure.',
+            type: 'multiple-choice'
+          },
+          {
+            id: 'cloud-4-q3',
+            question: 'What does Terraform state track?',
+            options: ['Your code', 'What infrastructure currently exists', 'Billing information', 'User passwords'],
+            correctAnswer: 'What infrastructure currently exists',
+            explanation: 'Terraform state maps your configuration to real infrastructure, tracking what resources exist and their current configuration.',
+            type: 'multiple-choice'
+          }
+        ],
+        externalResources: [
+          {
+            title: 'Terraform AWS Provider Documentation',
+            url: 'https://registry.terraform.io/providers/hashicorp/aws/latest/docs',
+            type: 'documentation',
+            description: 'Complete AWS Terraform reference'
+          },
+          {
+            title: 'Learn Terraform - HashiCorp',
+            url: 'https://learn.hashicorp.com/terraform',
+            type: 'documentation',
+            description: 'Official Terraform tutorials'
+          },
+          {
+            title: 'Terraform Best Practices',
+            url: 'https://www.terraform-best-practices.com/',
+            type: 'neetcode',
+            difficulty: 'medium',
+            description: 'Production-ready Terraform patterns'
+          }
+        ],
+        gameConfig: {
+          id: 'pattern-builder-cloud-4',
+          type: 'pattern-builder',
+          title: 'Code the Cloud',
+          description: 'Write Terraform-like commands to summon cloud resources',
+          objective: 'Correct syntax builds towers; mistakes spawn resource errors',
+          controls: 'Type commands to create infrastructure',
+          passingScore: 85,
+          importanceWhy: 'Infrastructure as Code is essential for scaling cloud operations. Companies managing hundreds of servers can\'t click buttons - they write code. Terraform skills let you build entire cloud environments in minutes and destroy them just as fast, saving thousands in cloud costs.'
+        }
+      },
+      {
+        id: 'cloud-5',
+        courseId: 'cloud',
+        title: 'The Docker Depths (Containerization)',
+        description: 'Discover the secret of containers',
+        story: 'You discover ancient chambers holding the secret of "containers" — self-contained life forms that can run anywhere.',
+        narrative: 'The Docker Depths reveal why "it works on my machine" is never acceptable. Containers package your application with all dependencies - code, libraries, environment variables - into a portable unit that runs identically everywhere. No more dependency conflicts, no more environment mismatches.',
+        teachingContent: 'Docker containers are lightweight, standalone packages containing everything needed to run software. Unlike virtual machines, containers share the host OS kernel (faster, less overhead). Key concepts: Images (blueprints), Containers (running instances), Dockerfile (build instructions), Volumes (persistent data), Networks (container communication). Docker workflow: Write Dockerfile → docker build (create image) → docker run (start container) → docker push (share on Docker Hub).',
+        xpReward: 240,
+        challengeType: 'interactive',
+        difficulty: 'intermediate',
+        unlocked: false,
+        completed: false,
+        currentStage: 'narrative',
+        videoTopic: 'Docker containers tutorial Dockerfile basics',
+        aiSuggestedVideos: [
+          {
+            id: 'cloud5-v1',
+            title: 'Docker in 100 Seconds',
+            channelTitle: 'Fireship',
+            thumbnailUrl: 'https://i.ytimg.com/vi/Gjnup-PuquQ/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=Gjnup-PuquQ'
+          },
+          {
+            id: 'cloud5-v2',
+            title: 'Docker Tutorial for Beginners - A Full DevOps Course',
+            channelTitle: 'freeCodeCamp',
+            thumbnailUrl: 'https://i.ytimg.com/vi/fqMOX6JJhGo/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=fqMOX6JJhGo'
+          },
+          {
+            id: 'cloud5-v3',
+            title: 'Docker Crash Course for Absolute Beginners',
+            channelTitle: 'TechWorld with Nana',
+            thumbnailUrl: 'https://i.ytimg.com/vi/pg19Z8LL06w/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=pg19Z8LL06w'
+          }
+        ],
+        quizQuestions: [
+          {
+            id: 'cloud-5-q1',
+            question: 'What is the main advantage of containers over virtual machines?',
+            options: ['Containers are more secure', 'Containers are lighter and start faster', 'Containers cost less', 'Containers have better graphics'],
+            correctAnswer: 'Containers are lighter and start faster',
+            explanation: 'Containers share the host OS kernel, making them much lighter (MBs vs GBs) and faster to start (seconds vs minutes) than VMs.',
+            type: 'multiple-choice'
+          },
+          {
+            id: 'cloud-5-q2',
+            question: 'What file defines how to build a Docker image?',
+            options: ['docker.json', 'Dockerfile', 'container.yaml', 'image.txt'],
+            correctAnswer: 'Dockerfile',
+            explanation: 'Dockerfile contains instructions (FROM, RUN, COPY, CMD) that define how to build a Docker image.',
+            type: 'multiple-choice'
+          },
+          {
+            id: 'cloud-5-q3',
+            question: 'Why do we need Docker volumes?',
+            options: ['To make containers louder', 'To persist data when containers stop', 'To speed up containers', 'To connect to networks'],
+            correctAnswer: 'To persist data when containers stop',
+            explanation: 'Containers are ephemeral - data inside them disappears when they stop. Volumes persist data outside containers for databases and user files.',
+            type: 'multiple-choice'
+          }
+        ],
+        externalResources: [
+          {
+            title: 'Docker Documentation',
+            url: 'https://docs.docker.com/get-started/',
+            type: 'documentation',
+            description: 'Official Docker getting started guide'
+          },
+          {
+            title: 'Docker Hub',
+            url: 'https://hub.docker.com/',
+            type: 'documentation',
+            description: 'Find and share container images'
+          },
+          {
+            title: 'Play with Docker',
+            url: 'https://labs.play-with-docker.com/',
+            type: 'neetcode',
+            difficulty: 'easy',
+            description: 'Practice Docker in browser'
+          }
+        ],
+        gameConfig: {
+          id: 'component-link-cloud-5',
+          type: 'component-link',
+          title: 'Contain the Chaos',
+          description: 'Containerize unstable microservices to prevent system meltdown',
+          objective: 'Balance resources, dependencies, and versions correctly',
+          controls: 'Configure containers and connect them',
+          passingScore: 85,
+          importanceWhy: 'Containerization solves the "works on my machine" problem forever. Every major tech company uses containers - from Netflix to Spotify. Understanding Docker means your applications run consistently from development to production, eliminating 90% of deployment bugs.'
+        }
+      },
+      {
+        id: 'cloud-6',
+        courseId: 'cloud',
+        title: 'The Kubernetes Peaks (Orchestration)',
+        description: 'Balance pods and clusters atop cloud mountains',
+        story: 'Atop the cloud mountains lies Kubernetes — the guardian of orchestration and scaling. Only those who can balance pods and clusters may pass.',
+        narrative: 'Running one Docker container is easy. Running 1000 containers across 100 servers? That\'s chaos without orchestration. Kubernetes (K8s) automatically deploys, scales, and heals your containerized applications. Master it to command container armies.',
+        teachingContent: 'Kubernetes orchestrates containers at scale. Architecture: Pods (smallest unit, one or more containers), Nodes (worker machines running pods), Clusters (set of nodes), Control Plane (manages cluster). Key resources: Deployments (manage replicas), Services (networking/load balancing), ConfigMaps/Secrets (configuration), Ingress (external access). Kubernetes provides self-healing (restarts failed pods), auto-scaling (adds pods under load), rolling updates (zero-downtime deploys). kubectl is the CLI tool.',
+        xpReward: 280,
+        challengeType: 'interactive',
+        difficulty: 'intermediate',
+        unlocked: false,
+        completed: false,
+        currentStage: 'narrative',
+        videoTopic: 'Kubernetes tutorial pods deployments services explained',
+        aiSuggestedVideos: [
+          {
+            id: 'cloud6-v1',
+            title: 'Kubernetes in 100 Seconds',
+            channelTitle: 'Fireship',
+            thumbnailUrl: 'https://i.ytimg.com/vi/PziYflu8cB8/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=PziYflu8cB8'
+          },
+          {
+            id: 'cloud6-v2',
+            title: 'Kubernetes Tutorial for Beginners [FULL COURSE in 4 Hours]',
+            channelTitle: 'TechWorld with Nana',
+            thumbnailUrl: 'https://i.ytimg.com/vi/X48VuDVv0do/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=X48VuDVv0do'
+          },
+          {
+            id: 'cloud6-v3',
+            title: 'Kubernetes Course - Full Beginners Tutorial',
+            channelTitle: 'freeCodeCamp',
+            thumbnailUrl: 'https://i.ytimg.com/vi/d6WC5n9G_sM/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=d6WC5n9G_sM'
+          }
+        ],
+        quizQuestions: [
+          {
+            id: 'cloud-6-q1',
+            question: 'What is a Kubernetes Pod?',
+            options: ['A storage volume', 'The smallest deployable unit containing one or more containers', 'A type of server', 'A database'],
+            correctAnswer: 'The smallest deployable unit containing one or more containers',
+            explanation: 'A Pod is the basic execution unit in Kubernetes, containing one or more tightly coupled containers that share storage and network.',
+            type: 'multiple-choice'
+          },
+          {
+            id: 'cloud-6-q2',
+            question: 'What does Kubernetes auto-scaling do?',
+            options: ['Makes pods bigger', 'Automatically adjusts the number of pods based on load', 'Scales storage automatically', 'Upgrades Kubernetes versions'],
+            correctAnswer: 'Automatically adjusts the number of pods based on load',
+            explanation: 'Horizontal Pod Autoscaler automatically increases or decreases pod replicas based on CPU, memory, or custom metrics.',
+            type: 'multiple-choice'
+          },
+          {
+            id: 'cloud-6-q3',
+            question: 'What Kubernetes resource exposes pods to network traffic?',
+            options: ['Deployment', 'Service', 'Pod', 'Volume'],
+            correctAnswer: 'Service',
+            explanation: 'A Service provides stable networking and load balancing to a set of Pods, even as pods are created and destroyed.',
+            type: 'multiple-choice'
+          }
+        ],
+        externalResources: [
+          {
+            title: 'Kubernetes Documentation',
+            url: 'https://kubernetes.io/docs/home/',
+            type: 'documentation',
+            description: 'Official Kubernetes docs'
+          },
+          {
+            title: 'Kubernetes the Hard Way',
+            url: 'https://github.com/kelseyhightower/kubernetes-the-hard-way',
+            type: 'documentation',
+            description: 'Learn K8s by building a cluster from scratch'
+          },
+          {
+            title: 'Killercoda Kubernetes Labs',
+            url: 'https://killercoda.com/kubernetes',
+            type: 'neetcode',
+            difficulty: 'medium',
+            description: 'Interactive Kubernetes scenarios'
+          }
+        ],
+        gameConfig: {
+          id: 'pattern-builder-cloud-6',
+          type: 'pattern-builder',
+          title: 'Battle of Pods',
+          description: 'Deploy and scale microservice armies to handle surging requests',
+          objective: 'Too few pods = system crash; too many = wasted resources',
+          controls: 'Scale deployments and configure services',
+          passingScore: 85,
+          importanceWhy: 'Kubernetes powers the infrastructure of companies like Google, Spotify, and Pinterest. Understanding K8s orchestration means you can deploy applications that automatically scale from 10 to 10,000 users without crashing or overspending on cloud resources.'
+        }
+      },
+      {
+        id: 'cloud-7',
+        courseId: 'cloud',
+        title: 'The CI/CD Citadel',
+        description: 'Create unbroken pipelines sustaining the Skyforge',
+        story: 'You ascend to the Citadel, where time and deployment flow continuously. Here you learn to create unbroken pipelines that sustain the Skyforge.',
+        narrative: 'The CI/CD Citadel is where theory becomes practice. Build complete automated pipelines using Jenkins, GitHub Actions, or GitLab CI. Every code commit triggers tests, builds, and deployments automatically. Wrong stage order breaks everything - learn to architect bulletproof delivery pipelines.',
+        teachingContent: 'CI/CD Pipelines automate the path from code to production. Pipeline stages: Source (pull code from Git) → Build (compile/package code) → Test (run automated tests) → Deploy (push to environments). Tools: Jenkins (self-hosted, flexible), GitHub Actions (integrated with GitHub), GitLab CI (integrated with GitLab), CircleCI (cloud-based). Concepts: Triggers (what starts pipeline), Stages (sequential steps), Jobs (parallel tasks), Artifacts (build outputs), Environments (dev, staging, production). Best practices: fail fast, parallel testing, deployment strategies (blue-green, canary).',
+        xpReward: 300,
+        challengeType: 'interactive',
+        difficulty: 'advanced',
+        unlocked: false,
+        completed: false,
+        currentStage: 'narrative',
+        videoTopic: 'CI/CD pipeline GitHub Actions Jenkins tutorial',
+        aiSuggestedVideos: [
+          {
+            id: 'cloud7-v1',
+            title: 'GitHub Actions Tutorial - From Zero to Hero',
+            channelTitle: 'TechWorld with Nana',
+            thumbnailUrl: 'https://i.ytimg.com/vi/R8_veQiYBjI/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=R8_veQiYBjI'
+          },
+          {
+            id: 'cloud7-v2',
+            title: 'Jenkins Tutorial - Full Course for Beginners',
+            channelTitle: 'freeCodeCamp',
+            thumbnailUrl: 'https://i.ytimg.com/vi/7KCS70sCoK0/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=7KCS70sCoK0'
+          },
+          {
+            id: 'cloud7-v3',
+            title: 'GitLab CI CD Tutorial for Beginners',
+            channelTitle: 'TechWorld with Nana',
+            thumbnailUrl: 'https://i.ytimg.com/vi/qP8kir2GUgo/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=qP8kir2GUgo'
+          }
+        ],
+        quizQuestions: [
+          {
+            id: 'cloud-7-q1',
+            question: 'What is the main goal of Continuous Deployment?',
+            options: ['To deploy code manually', 'To automatically deploy every code change that passes tests', 'To deploy once a month', 'To avoid testing'],
+            correctAnswer: 'To automatically deploy every code change that passes tests',
+            explanation: 'Continuous Deployment automates the entire release process - code that passes all tests automatically goes to production without human intervention.',
+            type: 'multiple-choice'
+          },
+          {
+            id: 'cloud-7-q2',
+            question: 'In a CI/CD pipeline, what should happen first?',
+            options: ['Deploy', 'Test', 'Build', 'Source/Pull Code'],
+            correctAnswer: 'Source/Pull Code',
+            explanation: 'Pipelines always start by pulling the latest code from the repository, then build, test, and finally deploy.',
+            type: 'multiple-choice'
+          },
+          {
+            id: 'cloud-7-q3',
+            question: 'What is a "build artifact"?',
+            options: ['A bug in the code', 'The output of the build process (compiled code, packages)', 'A test result', 'A Git commit'],
+            correctAnswer: 'The output of the build process (compiled code, packages)',
+            explanation: 'Artifacts are the compiled binaries, Docker images, or packages produced by the build stage and deployed in later stages.',
+            type: 'multiple-choice'
+          }
+        ],
+        codingProblems: [
+          {
+            id: 'cloud-7-p1',
+            title: 'Create GitHub Actions Workflow',
+            description: 'Write a YAML configuration for a basic CI/CD pipeline that builds and tests a Node.js app.',
+            difficulty: 'medium',
+            starterCode: 'name: CI/CD Pipeline\non: [push]\njobs:\n  build:\n    runs-on: ubuntu-latest\n    steps:\n      # Add your steps here',
+            solution: 'name: CI/CD Pipeline\non: [push]\njobs:\n  build:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v3\n      - uses: actions/setup-node@v3\n        with:\n          node-version: 18\n      - run: npm install\n      - run: npm test\n      - run: npm run build',
+            functionName: 'workflow',
+            testCases: [
+              { id: 't1', input: 'workflow', expectedOutput: 'valid YAML with checkout, setup-node, install, test, build steps', isHidden: false }
+            ],
+            hints: ['Use actions/checkout@v3 to get code', 'Use actions/setup-node@v3 for Node.js', 'Run npm install, test, and build'],
+            tags: ['ci-cd', 'github-actions', 'devops']
+          }
+        ],
+        externalResources: [
+          {
+            title: 'Build a CI/CD Pipeline - GitHub Actions',
+            url: 'https://github.com/skills/continuous-integration',
+            type: 'leetcode',
+            difficulty: 'medium',
+            description: 'Hands-on GitHub Actions tutorial'
+          },
+          {
+            title: 'Deploy to Production - GitLab CI',
+            url: 'https://docs.gitlab.com/ee/ci/examples/deployment/',
+            type: 'leetcode', 
+            difficulty: 'medium',
+            description: 'Production deployment pipeline'
+          },
+          {
+            title: 'Jenkins Pipeline Tutorial',
+            url: 'https://www.jenkins.io/doc/tutorials/build-a-node-js-and-react-app-with-npm/',
+            type: 'neetcode',
+            difficulty: 'medium',
+            description: 'Build Node.js app with Jenkins'
+          }
+        ],
+        gameConfig: {
+          id: 'deploy-orbit-cloud-7',
+          type: 'deploy-orbit',
+          title: 'Deploy the Citadel',
+          description: 'Build and connect pipeline nodes that automatically test, build, and deploy',
+          objective: 'Connect stages in correct order - wrong order breaks the CI/CD flow',
+          controls: 'Drag to connect pipeline stages',
+          passingScore: 90,
+          importanceWhy: 'CI/CD pipelines are the assembly line of modern software. Companies using CI/CD deploy 100x more frequently with 50% fewer failures than those doing manual releases. This game teaches you to build the automation that lets teams ship features daily instead of quarterly.'
+        }
+      },
+      {
+        id: 'cloud-8',
+        courseId: 'cloud',
+        title: 'The Realm of Observability (Monitoring & Logging)',
+        description: 'Watch over the Skyforge using logs, metrics, and alerts',
+        story: 'Even perfect systems crumble without vigilance. Learn to watch over the Skyforge using logs, metrics, and alerts.',
+        narrative: 'You cannot fix what you cannot see. The Realm of Observability teaches you to instrument applications, collect metrics, aggregate logs, and set up alerts. When problems occur (and they will), your dashboards show exactly where and when, turning hours of debugging into minutes.',
+        teachingContent: 'Observability means understanding system internal state from external outputs. Three pillars: Metrics (numerical data: CPU, requests/sec), Logs (event records: errors, requests), Traces (request flows through services). Tools: Prometheus (metrics collection), Grafana (visualization), ELK Stack (Elasticsearch, Logstash, Kibana for logs), Datadog/New Relic (all-in-one SaaS). Concepts: SLO (Service Level Objectives - targets like 99.9% uptime), SLA (Service Level Agreements - contracts), Alerts (notifications when thresholds exceeded). Best practices: monitor user-facing metrics, avoid alert fatigue, dashboard hierarchy (overview → drill-down).',
+        xpReward: 320,
+        challengeType: 'interactive',
+        difficulty: 'advanced',
+        unlocked: false,
+        completed: false,
+        currentStage: 'narrative',
+        videoTopic: 'Prometheus Grafana monitoring tutorial observability',
+        aiSuggestedVideos: [
+          {
+            id: 'cloud8-v1',
+            title: 'Prometheus Monitoring Tutorial',
+            channelTitle: 'TechWorld with Nana',
+            thumbnailUrl: 'https://i.ytimg.com/vi/h4Sl21AKiDg/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=h4Sl21AKiDg'
+          },
+          {
+            id: 'cloud8-v2',
+            title: 'Grafana Tutorial - Monitoring and Observability',
+            channelTitle: 'TechWorld with Nana',
+            thumbnailUrl: 'https://i.ytimg.com/vi/9TJx7QTrTyo/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=9TJx7QTrTyo'
+          },
+          {
+            id: 'cloud8-v3',
+            title: 'ELK Stack Tutorial - Elasticsearch, Logstash, and Kibana',
+            channelTitle: 'Amigoscode',
+            thumbnailUrl: 'https://i.ytimg.com/vi/gS_nHTWZEJ8/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=gS_nHTWZEJ8'
+          }
+        ],
+        quizQuestions: [
+          {
+            id: 'cloud-8-q1',
+            question: 'What are the three pillars of observability?',
+            options: ['Servers, Storage, Network', 'Metrics, Logs, Traces', 'CPU, Memory, Disk', 'Dev, Staging, Production'],
+            correctAnswer: 'Metrics, Logs, Traces',
+            explanation: 'Observability relies on Metrics (numbers), Logs (events), and Traces (request paths) to understand system behavior.',
+            type: 'multiple-choice'
+          },
+          {
+            id: 'cloud-8-q2',
+            question: 'What does SLO stand for?',
+            options: ['Service Level Objective', 'System Log Output', 'Server Load Optimizer', 'Security Level Operation'],
+            correctAnswer: 'Service Level Objective',
+            explanation: 'SLO is a target reliability metric like "99.9% uptime" or "95% of requests under 200ms" that defines acceptable service quality.',
+            type: 'multiple-choice'
+          },
+          {
+            id: 'cloud-8-q3',
+            question: 'Why is Grafana commonly used with Prometheus?',
+            options: ['They are made by the same company', 'Grafana visualizes Prometheus metrics in dashboards', 'Prometheus cannot work alone', 'Grafana stores logs'],
+            correctAnswer: 'Grafana visualizes Prometheus metrics in dashboards',
+            explanation: 'Prometheus collects and stores metrics; Grafana creates beautiful, interactive dashboards to visualize those metrics.',
+            type: 'multiple-choice'
+          }
+        ],
+        externalResources: [
+          {
+            title: 'Prometheus Documentation',
+            url: 'https://prometheus.io/docs/introduction/overview/',
+            type: 'documentation',
+            description: 'Learn Prometheus monitoring'
+          },
+          {
+            title: 'Grafana Tutorials',
+            url: 'https://grafana.com/tutorials/',
+            type: 'documentation',
+            description: 'Build your first dashboard'
+          },
+          {
+            title: 'Observability Engineering Book',
+            url: 'https://www.oreilly.com/library/view/observability-engineering/9781492076438/',
+            type: 'neetcode',
+            difficulty: 'hard',
+            description: 'Deep dive into observability practices'
+          }
+        ],
+        gameConfig: {
+          id: 'search-challenge-cloud-8',
+          type: 'search-challenge',
+          title: 'Eyes of the Sky',
+          description: 'Use observability tools to detect hidden anomalies across the matrix',
+          objective: 'Find and fix system failures using metrics, logs, and traces',
+          controls: 'Click on dashboards to investigate anomalies',
+          passingScore: 85,
+          importanceWhy: 'Without observability, finding production bugs is like searching in the dark. Companies with strong observability detect and fix issues in minutes instead of hours. This game simulates real incident response - identifying anomalies, correlating signals, and root-causing problems.'
+        }
+      },
+      {
+        id: 'cloud-9',
+        courseId: 'cloud',
+        title: 'The DevOps Devas (Automation & Cloud Synergy)',
+        description: 'Merge all knowledge — automate, deploy, maintain balance',
+        story: 'At last, you must merge all knowledge — automate the world, deploy harmony, and maintain balance.',
+        narrative: 'The final trial! Build an end-to-end system combining everything: IaC provisions cloud infrastructure, Docker containerizes apps, Kubernetes orchestrates them, CI/CD deploys automatically, and monitoring watches over all. Your choices impact uptime, cost, and security. Become a Cloud Sage.',
+        teachingContent: 'DevOps Cloud Synergy combines all practices: Write Terraform to provision VPC, servers, databases. Build Docker images in CI/CD pipeline. Deploy containers to Kubernetes cluster. Monitor with Prometheus/Grafana. Practice DevSecOps (security integration): scan images for vulnerabilities, secrets management (never commit keys!), least privilege access. Cost optimization: right-size instances, use auto-scaling, reserved instances for steady workloads, spot instances for batch jobs. Production checklist: automated deployments, rollback plan, monitoring/alerting, backup/disaster recovery, security hardening.',
+        xpReward: 400,
+        challengeType: 'interactive',
+        difficulty: 'advanced',
+        unlocked: false,
+        completed: false,
+        currentStage: 'narrative',
+        videoTopic: 'DevOps full project end-to-end deployment tutorial',
+        aiSuggestedVideos: [
+          {
+            id: 'cloud9-v1',
+            title: 'Complete DevOps Project - From Code to Production',
+            channelTitle: 'TechWorld with Nana',
+            thumbnailUrl: 'https://i.ytimg.com/vi/S_0q75eD8Yc/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=S_0q75eD8Yc'
+          },
+          {
+            id: 'cloud9-v2',
+            title: 'AWS Full Course - Learn AWS In 12 Hours',
+            channelTitle: 'freeCodeCamp',
+            thumbnailUrl: 'https://i.ytimg.com/vi/ulprqHHWlng/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=ulprqHHWlng'
+          },
+          {
+            id: 'cloud9-v3',
+            title: 'DevSecOps - Security in DevOps Pipeline',
+            channelTitle: 'Simplilearn',
+            thumbnailUrl: 'https://i.ytimg.com/vi/nrhxNNH5lt0/maxresdefault.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=nrhxNNH5lt0'
+          }
+        ],
+        quizQuestions: [
+          {
+            id: 'cloud-9-q1',
+            question: 'What is DevSecOps?',
+            options: ['Development Security Operations - integrating security into DevOps', 'A new cloud provider', 'A security tool', 'A type of server'],
+            correctAnswer: 'Development Security Operations - integrating security into DevOps',
+            explanation: 'DevSecOps means building security into every stage of development and deployment, not treating it as an afterthought.',
+            type: 'multiple-choice'
+          },
+          {
+            id: 'cloud-9-q2',
+            question: 'Which is the BEST way to reduce cloud costs?',
+            options: ['Delete all monitoring', 'Use auto-scaling and right-sized instances', 'Run everything on one large server', 'Turn off security'],
+            correctAnswer: 'Use auto-scaling and right-sized instances',
+            explanation: 'Auto-scaling adjusts capacity to demand, and right-sizing ensures you are not paying for unused resources. Never compromise security or monitoring for cost.',
+            type: 'multiple-choice'
+          },
+          {
+            id: 'cloud-9-q3',
+            question: 'What should a production-ready system include?',
+            options: ['Only the application code', 'Automated deployments, monitoring, backups, and security', 'Just a server', 'Manual deployment process'],
+            correctAnswer: 'Automated deployments, monitoring, backups, and security',
+            explanation: 'Production systems need comprehensive automation, observability, disaster recovery, and security to ensure reliability.',
+            type: 'multiple-choice'
+          }
+        ],
+        externalResources: [
+          {
+            title: 'AWS Well-Architected Framework',
+            url: 'https://aws.amazon.com/architecture/well-architected/',
+            type: 'documentation',
+            description: 'Best practices for cloud architecture'
+          },
+          {
+            title: 'DevOps Roadmap',
+            url: 'https://roadmap.sh/devops',
+            type: 'neetcode',
+            difficulty: 'hard',
+            description: 'Complete DevOps learning path'
+          },
+          {
+            title: 'The Phoenix Project (Book)',
+            url: 'https://www.amazon.com/Phoenix-Project-DevOps-Helping-Business/dp/0988262592',
+            type: 'documentation',
+            description: 'DevOps novel about transformation'
+          }
+        ],
+        gameConfig: {
+          id: 'deploy-orbit-cloud-9',
+          type: 'deploy-orbit',
+          title: 'Harmony of the Clouds',
+          description: 'Build an end-to-end system: deploy an app, automate scaling, secure the pipeline',
+          objective: 'Balance uptime, cost, and security in a production environment',
+          controls: 'Configure all components of the cloud system',
+          passingScore: 90,
+          importanceWhy: 'This capstone integrates everything you have learned. Real DevOps engineers architect complete systems balancing reliability, cost, security, and speed. Mastering this means you can build production-grade infrastructure that serves millions of users.'
+        }
       }
     ]
   }
@@ -2234,7 +2317,7 @@ export const useLearning = create<LearningState>()(
       },
       
       advanceStage: (levelId, newStage) => {
-        const stageOrder: LevelStage[] = ['narrative', 'teaching-game', 'ai-videos', 'practice-game', 'assessment', 'resources', 'complete'];
+        const stageOrder: LevelStage[] = ['narrative', 'teaching-game', 'ai-videos', 'assessment', 'practice-game', 'resources', 'complete'];
 
         const state = get();
         const level = state.courses
@@ -2263,7 +2346,9 @@ export const useLearning = create<LearningState>()(
           newIndex > currentIndex ||
           (newIndex === stageOrder.indexOf('complete') && !hasResources && currentStage === 'practice-game') ||
           (newIndex === 0 && currentStage !== 'teaching-game') ||
-          (currentStage === 'ai-videos' && newStage === 'teaching-game');
+          (currentStage === 'ai-videos' && newStage === 'teaching-game') ||
+          (currentStage === 'ai-videos' && newStage === 'practice-game') ||
+          (currentStage === 'practice-game' && newStage === 'assessment');
 
         if (!isValidTransition) {
           console.error(`Invalid stage transition from ${currentStage} to ${newStage}`);
@@ -2285,7 +2370,7 @@ export const useLearning = create<LearningState>()(
       },
 
       goBackStage: (levelId) => {
-        const stageOrder: LevelStage[] = ['narrative', 'teaching-game', 'ai-videos', 'practice-game', 'assessment', 'resources', 'complete'];
+        const stageOrder: LevelStage[] = ['narrative', 'teaching-game', 'ai-videos', 'assessment', 'practice-game', 'resources', 'complete'];
 
         const state = get();
         const level = state.courses
@@ -2385,12 +2470,9 @@ export const useLearning = create<LearningState>()(
             }
           }));
           
-          await get().completeLevel(levelId, result.xpEarned);
-          
-          // Advance to assessment stage
+          // Advance to assessment stage after successful game completion
           get().advanceStage(levelId, 'assessment');
           
-          // Clear the game after advancing
           set((state) => ({
             userProgress: {
               ...state.userProgress,
@@ -2406,7 +2488,6 @@ export const useLearning = create<LearningState>()(
                 attempts: newAttempts,
                 bestScore: newBestScore,
                 timeSpent: newTimeSpent,
-                completed: false,
               }
             }
           }));
@@ -2522,10 +2603,10 @@ export const useLearning = create<LearningState>()(
     }),
     {
       name: 'skillquest-learning',
-      version: 4,
+      version: 3,
       migrate: (persistedState: any, version: number) => {
-        if (version < 4) {
-          console.log('Migrating from version', version, 'to version 4 - Resetting all level stages for new flow');
+        if (version < 2) {
+          console.log('Migrating from version', version, 'to version 2 - Resetting all level stages');
           
           if (persistedState.courses) {
             persistedState.courses = persistedState.courses.map((course: any) => ({
@@ -2539,7 +2620,6 @@ export const useLearning = create<LearningState>()(
           
           if (persistedState.userProgress) {
             persistedState.userProgress.currentLevel = null;
-            persistedState.userProgress.currentGame = null;
           }
         }
         return persistedState;

@@ -79,7 +79,11 @@ export function GameArena({ onNavigate }: GameArenaProps) {
   };
 
   const handleReturnToCourses = () => {
-    onNavigate('courses');
+    if (gameResult?.success) {
+      onNavigate('challenge');
+    } else {
+      onNavigate('courses');
+    }
   };
 
   if (gameResult && currentLevel?.gameConfig) {

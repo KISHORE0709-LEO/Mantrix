@@ -143,7 +143,7 @@ export default function VideoRecommendations({ topic, difficulty, aiSuggestedVid
                 onClick={onComplete}
                 className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 text-xl font-game"
               >
-                {hasGame ? 'Continue to Game →' : 'Continue to Assessment →'}
+                {hasGame ? 'Continue to Practice Game →' : 'Continue to Assessment →'}
               </Button>
             </div>
           </>
@@ -154,7 +154,7 @@ export default function VideoRecommendations({ topic, difficulty, aiSuggestedVid
               onClick={onComplete}
               className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 text-xl font-game"
             >
-              {hasGame ? 'Continue to Game →' : 'Continue to Assessment →'}
+              {hasGame ? 'Continue to Practice Game →' : 'Continue to Assessment →'}
             </Button>
           </div>
         )}
