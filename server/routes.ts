@@ -2,6 +2,7 @@ import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { generateHint, generateChallenge, provideExplanation, getMotivationalMessage } from "./ai";
+import { getRecommendedVideos } from "./services/youtube";
 import bcrypt from "bcrypt";
 import { nanoid } from "nanoid";
 import "./types";
@@ -244,6 +245,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error generating motivational message:", error);
       res.status(500).json({ error: "Failed to generate message" });
+    }
+  });
+
+  app.post("/api/youtube/recommendations", async (req, res) => {
+    try {
+      const { topic, difficulty } = req.body;
+      
+      if (!topic) {
+        return res.status(400).json({ error: 'Topic is required' });
+      }
+      
+      const videos = await getRecommendedVideos(topic, difficulty || 'beginner');
+      res.json({ videos });
+    } catch (error) {
+      console.error('Error fetching video recommendations:', error);
+      res.status(500).json({ error: 'Failed to fetch recommendations' });
     }
   });
 

@@ -62,6 +62,20 @@ export const gameSessions = pgTable("game_sessions", {
   playedAt: timestamp("played_at").defaultNow().notNull(),
 });
 
+export const behavioralMetrics = pgTable("behavioral_metrics", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull().references(() => users.id),
+  levelId: text("level_id").notNull(),
+  activityType: text("activity_type").notNull(),
+  timeToSolve: integer("time_to_solve"),
+  hintsUsed: integer("hints_used").notNull().default(0),
+  mistakeCount: integer("mistake_count").notNull().default(0),
+  attemptsCount: integer("attempts_count").notNull().default(1),
+  successRate: integer("success_rate"),
+  performanceScore: integer("performance_score"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
 export const insertUserSchema = createInsertSchema(users).pick({
   username: true,
   password: true,
