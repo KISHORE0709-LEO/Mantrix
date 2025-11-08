@@ -56,7 +56,7 @@ export function GameArena({ onNavigate }: GameArenaProps) {
 
   if (gameResult && currentLevel?.gameConfig) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 pt-24 flex items-center justify-center p-4">
         <Card className="max-w-2xl p-8 bg-slate-800/50 border-purple-500/30">
           <div className="text-center mb-6">
             {gameResult.success ? (
@@ -147,7 +147,7 @@ export function GameArena({ onNavigate }: GameArenaProps) {
 
   if (!currentLevel || !currentLevel.gameConfig) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 pt-24 flex items-center justify-center p-4">
         <Card className="p-8 bg-slate-800/50 border-purple-500/30">
           <h1 className="text-2xl font-bold text-white mb-4">No Active Game</h1>
           <p className="text-slate-300 mb-4">Please select a level and complete the quiz first.</p>
@@ -163,7 +163,7 @@ export function GameArena({ onNavigate }: GameArenaProps) {
 
   if (!GameComponent) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 pt-24 flex items-center justify-center p-4">
         <Card className="p-8 bg-slate-800/50 border-purple-500/30">
           <h1 className="text-2xl font-bold text-white mb-4">Game Not Found</h1>
           <p className="text-slate-300 mb-4">Game type: {currentLevel.gameConfig.type}</p>
@@ -177,7 +177,7 @@ export function GameArena({ onNavigate }: GameArenaProps) {
 
   if (showBriefing) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 pt-24 flex items-center justify-center p-4">
         <Card className="max-w-2xl p-8 bg-slate-800/50 border-purple-500/30">
           <div className="mb-6">
             <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400 mb-2">
@@ -248,7 +248,7 @@ export function GameArena({ onNavigate }: GameArenaProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 pt-20">
       <GameComponent   
         config={currentLevel.gameConfig}
         onComplete={handleComplete}

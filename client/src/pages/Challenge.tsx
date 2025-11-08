@@ -170,7 +170,7 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
 
   if (currentStage === 'narrative') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900 pt-20 pb-12 px-4">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900 pt-24 pb-12 px-4">
         <div className="max-w-4xl mx-auto">
           <button
             onClick={() => onNavigate('courses')}
@@ -358,7 +358,7 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
   };
 
   return (
-    <div className="min-h-screen pt-20 pb-12 px-4">
+    <div className="min-h-screen pt-24 pb-12 px-4">
       <div className="max-w-5xl mx-auto">
         <button
           onClick={() => onNavigate('courses')}

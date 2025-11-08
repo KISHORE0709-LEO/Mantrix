@@ -53,7 +53,7 @@ export function ResourcesPanel({ resources, onComplete }: ResourcesPanelProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 pt-24 p-8">
       <div className="max-w-4xl mx-auto">
         <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl border-2 border-purple-500 p-8">
           <h1 className="font-game text-3xl text-purple-300 mb-4 flex items-center gap-3">
