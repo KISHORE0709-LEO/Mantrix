@@ -7,17 +7,18 @@ export interface Course {
   levels: Level[];
 }
 
-export type LevelStage = 'teaching-game' | 'learn' | 'videos' | 'quiz' | 'practice-game' | 'complete';
+export type LevelStage = 'narrative' | 'teaching-game' | 'learn' | 'quiz' | 'ai-videos' | 'practice-game' | 'complete';
 
 export interface GameConfig {
   id: string;
-  type: 'loop-arena' | 'recursion-maze' | 'sorting-conveyor' | 'pattern-builder' | 'search-challenge' | 'backtracking-puzzle';
+  type: 'loop-arena' | 'recursion-maze' | 'sorting-conveyor' | 'pattern-builder' | 'search-challenge' | 'backtracking-puzzle' | 'markup-forge' | 'style-spectrum' | 'script-circuit' | 'component-link' | 'service-runner' | 'data-bridge' | 'deploy-orbit';
   title: string;
   description: string;
   objective: string;
   controls: string;
   timeLimit?: number;
   passingScore: number;
+  importanceWhy?: string;
 }
 
 export interface Level {
@@ -26,6 +27,7 @@ export interface Level {
   title: string;
   description: string;
   story: string;
+  narrative?: string;
   xpReward: number;
   challengeType: 'coding' | 'quiz' | 'interactive';
   difficulty: 'beginner' | 'intermediate' | 'advanced' | 'expert';
@@ -33,6 +35,8 @@ export interface Level {
   completed: boolean;
   currentStage?: LevelStage;
   gameConfig?: GameConfig;
+  quizPassScore?: number;
+  teachingContent?: string;
 }
 
 export interface GameProgress {

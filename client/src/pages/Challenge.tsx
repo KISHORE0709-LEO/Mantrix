@@ -33,8 +33,12 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
     return null;
   }
 
-  const currentStage = currentLevel.currentStage || 'teaching-game';
+  const currentStage = currentLevel.currentStage || 'narrative';
   const hasGame = !!currentLevel.gameConfig;
+
+  const handleNarrativeComplete = () => {
+    advanceStage(currentLevel.id, 'teaching-game');
+  };
 
   const handleTeachingGameComplete = () => {
     advanceStage(currentLevel.id, 'learn');
@@ -52,26 +56,32 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
       
       if (currentStage === 'learn') {
         setTimeout(() => {
-          advanceStage(currentLevel.id, 'videos');
+          advanceStage(currentLevel.id, 'quiz');
         }, 1000);
       } else if (currentStage === 'quiz') {
-        if (hasGame) {
+        const passScore = currentLevel.quizPassScore || 70;
+        if (correct) {
           setTimeout(() => {
-            advanceStage(currentLevel.id, 'complete');
-            onNavigate('courses');
-          }, 2000);
-        } else {
-          setTimeout(() => {
-            advanceStage(currentLevel.id, 'complete');
-            onNavigate('courses');
-          }, 2000);
+            advanceStage(currentLevel.id, 'ai-videos');
+          }, 1500);
         }
       }
     }
   };
 
   const handleVideosComplete = () => {
-    advanceStage(currentLevel.id, 'quiz');
+    if (hasGame) {
+      advanceStage(currentLevel.id, 'practice-game');
+      const success = startGame(currentLevel.id);
+      if (success) {
+        onNavigate('game-arena');
+      } else {
+        console.error('Failed to start game after videos');
+      }
+    } else {
+      advanceStage(currentLevel.id, 'complete');
+      onNavigate('courses');
+    }
   };
 
   const handleStartGame = () => {
@@ -128,6 +138,54 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
     return hints[levelId] || 'Keep thinking! You can do this!';
   };
 
+  if (currentStage === 'narrative') {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900 pt-20 pb-12 px-4">
+        <div className="max-w-4xl mx-auto">
+          <button
+            onClick={() => onNavigate('courses')}
+            className="mb-6 flex items-center gap-2 text-indigo-300 hover:text-indigo-200 transition-colors"
+          >
+            <ArrowLeft size={20} />
+            Back to Courses
+          </button>
+
+          <div className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 rounded-2xl p-8 border-4 border-indigo-500/30 mb-8">
+            <h1 className="font-game text-3xl text-indigo-300 glow-text mb-6">{currentLevel.title}</h1>
+            
+            <div className="space-y-6">
+              <div className="bg-slate-700/50 rounded-xl p-6 border-2 border-indigo-400/30">
+                <h2 className="font-orbitron text-xl text-white mb-4">📖 The Story</h2>
+                <p className="text-gray-300 leading-relaxed">{currentLevel.story}</p>
+              </div>
+
+              {currentLevel.narrative && (
+                <div className="bg-slate-700/50 rounded-xl p-6 border-2 border-purple-400/30">
+                  <h2 className="font-orbitron text-xl text-white mb-4">🎯 What You'll Learn</h2>
+                  <p className="text-gray-300 leading-relaxed">{currentLevel.narrative}</p>
+                </div>
+              )}
+
+              {currentLevel.teachingContent && (
+                <div className="bg-slate-700/50 rounded-xl p-6 border-2 border-blue-400/30">
+                  <h2 className="font-orbitron text-xl text-white mb-4">💡 Key Concepts</h2>
+                  <p className="text-gray-300 leading-relaxed">{currentLevel.teachingContent}</p>
+                </div>
+              )}
+            </div>
+
+            <button
+              onClick={handleNarrativeComplete}
+              className="mt-8 w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold py-4 px-8 rounded-xl font-orbitron text-lg transition-all glow"
+            >
+              Begin Learning →
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (currentStage === 'teaching-game') {
     return (
       <TeachingGame
@@ -144,7 +202,7 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
     );
   }
 
-  if (currentStage === 'videos') {
+  if (currentStage === 'ai-videos') {
     return (
       <VideoRecommendations
         topic={currentLevel.title}

@@ -65,45 +65,191 @@ const initialCourses: Course[] = [
   {
     id: 'webdev',
     name: 'Web Development',
-    description: 'Build modern web applications',
+    description: 'Build the Matrix - Your AI Gamified Full Stack Journey',
     icon: '🌐',
     color: '#8b5cf6',
     levels: [
       {
         id: 'web-1',
         courseId: 'webdev',
-        title: 'HTML Basics',
-        description: 'Structure your first webpage',
-        story: 'Welcome to the HTML Kingdom! Learn to build the foundation of all web pages.',
-        xpReward: 100,
+        title: 'Enter the Matrix (HTML Basics)',
+        description: 'Build the world using HTML blocks',
+        story: 'You awaken in the Matrix — the world is blank; you must build it.',
+        narrative: 'The Matrix world needs structure. Every website begins with HTML - the skeleton that holds everything together. You will learn to create headings, paragraphs, links, images, lists, tables, and semantic tags that give meaning to your content.',
+        teachingContent: 'HTML (HyperText Markup Language) is the foundation of all web pages. Think of it as the blueprint of a building - it defines what goes where. Tags like <h1>, <p>, <img>, and <a> are your building blocks.',
+        xpReward: 150,
         challengeType: 'interactive',
         difficulty: 'beginner',
         unlocked: true,
         completed: false,
+        currentStage: 'narrative',
+        quizPassScore: 70,
+        gameConfig: {
+          id: 'markup-forge-1',
+          type: 'markup-forge',
+          title: 'The Builder\'s Origin',
+          description: 'Construct the digital city using HTML blocks',
+          objective: 'Build structures by placing correct HTML elements',
+          controls: 'Click to place elements, WASD to move',
+          passingScore: 80,
+          importanceWhy: 'This game teaches you how HTML elements work together to create structure. Just like building blocks, each HTML tag has a specific purpose. Understanding this foundation is crucial because every website you\'ll ever build starts with HTML structure.'
+        }
       },
       {
         id: 'web-2',
         courseId: 'webdev',
-        title: 'CSS Styling',
-        description: 'Make your pages beautiful',
-        story: 'Enter the CSS Castle where colors and styles bring life to your creations.',
-        xpReward: 150,
+        title: 'The Stylist\'s Realm (CSS)',
+        description: 'Color the Matrix with CSS styling',
+        story: 'You\'ve built the structure, now bring color and beauty to the Matrix.',
+        narrative: 'The Matrix city exists but it\'s gray and lifeless. CSS (Cascading Style Sheets) is your tool to paint this world - colors, layouts, animations, and responsive designs that adapt to any screen.',
+        teachingContent: 'CSS controls how HTML elements look. Selectors target elements, properties define styles. The box model (margin, padding, border) controls spacing. Flexbox and Grid create layouts. Animations bring life to static pages.',
+        xpReward: 180,
         challengeType: 'interactive',
         difficulty: 'beginner',
         unlocked: false,
         completed: false,
+        currentStage: 'narrative',
+        quizPassScore: 75,
+        gameConfig: {
+          id: 'style-spectrum-2',
+          type: 'style-spectrum',
+          title: 'Design the City',
+          description: 'Transform the grayscale city with CSS styling',
+          objective: 'Apply correct styles to restore color and layout',
+          controls: 'Select elements and apply CSS properties',
+          passingScore: 85,
+          importanceWhy: 'Styling is what separates amateur websites from professional ones. This game shows you how CSS properties work together - colors, layouts, spacing, and responsive design. Mastering CSS means you can bring any design vision to life.'
+        }
       },
       {
         id: 'web-3',
         courseId: 'webdev',
-        title: 'JavaScript Fundamentals',
-        description: 'Add interactivity to your sites',
-        story: 'The JavaScript Jungle holds the key to dynamic and interactive web experiences.',
-        xpReward: 200,
-        challengeType: 'coding',
+        title: 'The Logic Chamber (JavaScript)',
+        description: 'Give life to the Matrix with JavaScript logic',
+        story: 'The city is beautiful but static. JavaScript brings intelligence and interactivity.',
+        narrative: 'Now the Matrix needs a brain. JavaScript makes websites interactive - responding to clicks, processing data, updating content dynamically. You\'ll learn variables, functions, loops, events, and how to manipulate the DOM.',
+        teachingContent: 'JavaScript is the programming language of the web. Variables store data, functions perform actions, loops repeat tasks, and events respond to user interactions. The DOM (Document Object Model) lets you change HTML and CSS on the fly.',
+        xpReward: 220,
+        challengeType: 'interactive',
         difficulty: 'intermediate',
         unlocked: false,
         completed: false,
+        currentStage: 'narrative',
+        quizPassScore: 75,
+        gameConfig: {
+          id: 'script-circuit-3',
+          type: 'script-circuit',
+          title: 'The Code Core',
+          description: 'Fix broken bots using JavaScript commands',
+          objective: 'Write JavaScript logic to activate circuit nodes',
+          controls: 'Type code, click to execute',
+          passingScore: 80,
+          importanceWhy: 'JavaScript is where web development becomes powerful. This game demonstrates core programming concepts - variables, functions, loops - in a visual way. Every interactive feature you\'ve ever used on a website uses JavaScript.'
+        }
+      },
+      {
+        id: 'web-4',
+        courseId: 'webdev',
+        title: 'The Portal of Components (React.js)',
+        description: 'Master component-based architecture',
+        story: 'You can now manipulate the Matrix using reusable components.',
+        narrative: 'Building complex interfaces one element at a time is inefficient. React teaches you to think in components - reusable, composable pieces that manage their own state and can be combined to build sophisticated applications.',
+        teachingContent: 'React is a JavaScript library for building user interfaces. Components are like custom HTML tags you create. Props pass data down, State manages data within. Hooks like useState and useEffect add functionality. React makes complex UIs manageable.',
+        xpReward: 280,
+        challengeType: 'interactive',
+        difficulty: 'intermediate',
+        unlocked: false,
+        completed: false,
+        currentStage: 'narrative',
+        quizPassScore: 80,
+        gameConfig: {
+          id: 'component-link-4',
+          type: 'component-link',
+          title: 'Build the Resistance Network',
+          description: 'Create a dashboard by connecting React components',
+          objective: 'Link components with correct props and state',
+          controls: 'Drag to connect, click to configure',
+          passingScore: 85,
+          importanceWhy: 'React revolutionized web development by introducing component thinking. This game shows how components communicate through props, manage internal state, and compose into complex interfaces. Understanding this pattern is essential for modern web development.'
+        }
+      },
+      {
+        id: 'web-5',
+        courseId: 'webdev',
+        title: 'The Underworld of Servers (Node.js + Express)',
+        description: 'Build the backend infrastructure',
+        story: 'The Matrix backend is corrupted — rebuild it with server logic.',
+        narrative: 'Every website needs a server - something that stores data, processes requests, and sends responses. Node.js lets you write server code in JavaScript. Express makes it easy to create APIs that your frontend can talk to.',
+        teachingContent: 'Node.js runs JavaScript outside the browser. Express is a framework for building web servers. REST APIs use HTTP methods (GET, POST, PUT, DELETE) to perform operations. Routing directs requests, middleware processes them, and responses send data back.',
+        xpReward: 320,
+        challengeType: 'interactive',
+        difficulty: 'advanced',
+        unlocked: false,
+        completed: false,
+        currentStage: 'narrative',
+        quizPassScore: 80,
+        gameConfig: {
+          id: 'service-runner-5',
+          type: 'service-runner',
+          title: 'Server Reboot Protocol',
+          description: 'Repair server nodes through API routing puzzles',
+          objective: 'Connect routes to correct handlers and middleware',
+          controls: 'Click to route requests, configure endpoints',
+          passingScore: 85,
+          importanceWhy: 'Backend development is where data lives. This game visualizes how HTTP requests flow through routes and middleware to endpoints. Understanding the server-side is crucial - without it, your frontend has nowhere to save or fetch data.'
+        }
+      },
+      {
+        id: 'web-6',
+        courseId: 'webdev',
+        title: 'The Memory Grid (Database)',
+        description: 'Restore the world\'s data and memory',
+        story: 'Data fragments are lost — restore the Matrix\'s memory with database operations.',
+        narrative: 'Your application needs to remember things - user accounts, posts, settings. Databases store this information permanently. You\'ll learn about SQL vs NoSQL, creating schemas, relationships between data, and performing CRUD operations.',
+        teachingContent: 'Databases persist data beyond page refreshes. SQL databases (PostgreSQL, MySQL) use structured tables with relationships. NoSQL databases (MongoDB) use flexible documents. Schemas define data structure. CRUD means Create, Read, Update, Delete - the four basic operations.',
+        xpReward: 350,
+        challengeType: 'interactive',
+        difficulty: 'advanced',
+        unlocked: false,
+        completed: false,
+        currentStage: 'narrative',
+        quizPassScore: 80,
+        gameConfig: {
+          id: 'data-bridge-6',
+          type: 'data-bridge',
+          title: 'Data Reconstruction',
+          description: 'Collect and connect data shards into meaningful relationships',
+          objective: 'Build database schema and establish relationships',
+          controls: 'Drag tables, connect relationships',
+          passingScore: 85,
+          importanceWhy: 'Databases are the foundation of data-driven applications. This game shows how data relates - users have posts, posts have comments. Understanding relationships and schema design determines how well your application scales and performs.'
+        }
+      },
+      {
+        id: 'web-7',
+        courseId: 'webdev',
+        title: 'The Final Layer (Deployment & Integration)',
+        description: 'Release your creation to the real world',
+        story: 'It\'s time to release the Matrix to the world beyond.',
+        narrative: 'You\'ve built a complete application - frontend, backend, and database. Now you need to deploy it so anyone can access it. Learn about environment variables, version control with Git, CI/CD pipelines, and deployment platforms.',
+        teachingContent: 'Deployment means making your app accessible on the internet. Git tracks code changes. Environment variables store secrets securely. CI/CD automates testing and deployment. Platforms like Render, Vercel, and Replit host your application. HTTPS encrypts connections.',
+        xpReward: 400,
+        challengeType: 'interactive',
+        difficulty: 'advanced',
+        unlocked: false,
+        completed: false,
+        currentStage: 'narrative',
+        quizPassScore: 85,
+        gameConfig: {
+          id: 'deploy-orbit-7',
+          type: 'deploy-orbit',
+          title: 'The Great Launch',
+          description: 'Deploy your project and launch it to production',
+          objective: 'Configure deployment pipeline and fix environment issues',
+          controls: 'Click to configure, solve deployment puzzles',
+          passingScore: 90,
+          importanceWhy: 'Building something amazing means nothing if no one can use it. This game simulates real deployment challenges - environment variables, build errors, DNS configuration. Mastering deployment means you can ship your ideas to real users.'
+        }
       }
     ]
   },
@@ -305,7 +451,7 @@ export const useLearning = create<LearningState>()(
       })),
       
       advanceStage: (levelId, newStage) => {
-        const stageOrder: LevelStage[] = ['teaching-game', 'learn', 'videos', 'quiz', 'practice-game', 'complete'];
+        const stageOrder: LevelStage[] = ['narrative', 'teaching-game', 'learn', 'quiz', 'ai-videos', 'practice-game', 'complete'];
         
         const state = get();
         const level = state.courses
@@ -365,8 +511,8 @@ export const useLearning = create<LearningState>()(
         }
         
         const currentStage = level.currentStage || 'learn';
-        if (currentStage !== 'quiz') {
-          console.error(`Cannot start game from stage ${currentStage}. Must complete quiz first.`);
+        if (currentStage !== 'practice-game') {
+          console.error(`Cannot start game from stage ${currentStage}. Must be in practice-game stage.`);
           return false;
         }
         
@@ -387,8 +533,7 @@ export const useLearning = create<LearningState>()(
           }
         }));
         
-        const advanced = get().advanceStage(levelId, 'practice-game');
-        return advanced;
+        return true;
       },
       
       completeGame: async (levelId, result) => {

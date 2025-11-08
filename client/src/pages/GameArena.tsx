@@ -187,6 +187,15 @@ export function GameArena({ onNavigate }: GameArenaProps) {
           </div>
 
           <div className="space-y-4 mb-8">
+            {currentLevel.gameConfig.importanceWhy && (
+              <div className="p-4 bg-gradient-to-r from-yellow-900/50 to-orange-900/50 rounded-lg border-2 border-yellow-500/50">
+                <h2 className="text-lg font-semibold text-yellow-300 mb-2 flex items-center gap-2">
+                  💡 Why This Matters
+                </h2>
+                <p className="text-slate-100 leading-relaxed">{currentLevel.gameConfig.importanceWhy}</p>
+              </div>
+            )}
+
             <div className="p-4 bg-slate-700/50 rounded-lg border border-purple-500/30">
               <h2 className="text-lg font-semibold text-purple-300 mb-2">Objective</h2>
               <p className="text-slate-200">{currentLevel.gameConfig.objective}</p>
