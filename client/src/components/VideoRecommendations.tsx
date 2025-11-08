@@ -75,23 +75,26 @@ export default function VideoRecommendations({ topic, difficulty, onComplete }: 
           Watch these curated tutorials to deepen your understanding
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
           {videos.map((video) => (
-            <Card key={video.id} className="bg-gray-800 border-purple-500 hover:border-purple-400 transition-all overflow-hidden">
-              <a href={video.videoUrl} target="_blank" rel="noopener noreferrer">
+            <Card key={video.id} className="bg-gray-800 border-2 border-purple-500 hover:border-purple-400 hover:scale-105 transition-all overflow-hidden shadow-2xl">
+              <a href={video.videoUrl} target="_blank" rel="noopener noreferrer" className="block">
                 {video.thumbnailUrl && (
-                  <img
-                    src={video.thumbnailUrl}
-                    alt={video.title}
-                    className="w-full h-48 object-cover"
-                  />
+                  <div className="relative">
+                    <img
+                      src={video.thumbnailUrl}
+                      alt={video.title}
+                      className="w-full h-64 object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <h3 className="text-white font-bold text-xl mb-1 drop-shadow-lg">
+                        {video.title}
+                      </h3>
+                      <p className="text-gray-200 text-sm drop-shadow-md">{video.channelTitle}</p>
+                    </div>
+                  </div>
                 )}
-                <div className="p-4">
-                  <h3 className="text-white font-bold text-lg mb-2 line-clamp-2">
-                    {video.title}
-                  </h3>
-                  <p className="text-gray-400 text-sm">{video.channelTitle}</p>
-                </div>
               </a>
             </Card>
           ))}

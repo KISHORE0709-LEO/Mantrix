@@ -55,6 +55,15 @@ export default function TeachingGame({ topic, concept, interactive, onComplete }
               <p className="text-xl text-gray-300 font-orbitron">{concept}</p>
             </div>
             
+            <div className="bg-gradient-to-br from-yellow-900/30 to-orange-900/30 rounded-xl p-6 mb-6 border-2 border-yellow-500">
+              <h2 className="text-2xl font-game text-yellow-300 mb-3 flex items-center gap-2">
+                <span>🎮</span> Why This Game?
+              </h2>
+              <p className="text-gray-200 font-orbitron leading-relaxed text-lg">
+                This interactive game will help you understand <span className="text-purple-300 font-bold">{topic}</span> by letting you practice in a fun way. You'll see how the concept works step-by-step, making it easier to remember when solving coding problems later!
+              </p>
+            </div>
+            
             <div className="bg-slate-900 rounded-xl p-6 mb-8 border-2 border-purple-500">
               <h2 className="text-2xl font-game text-purple-300 mb-4">What You'll Discover</h2>
               <p className="text-gray-300 font-orbitron leading-relaxed">
