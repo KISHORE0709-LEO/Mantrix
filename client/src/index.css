@@ -97,3 +97,11 @@
 .animate-pulse-glow {
   animation: pulse-glow 2s ease-in-out infinite;
 }
+@keyframes breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+@keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
+@keyframes glow { 0%, 100% { text-shadow: 0 0 20px rgba(34, 197, 94, 0.5); } 50% { text-shadow: 0 0 30px rgba(34, 197, 94, 0.8), 0 0 40px rgba(59, 130, 246, 0.5); } }
+@keyframes pulse-button { 0%, 100% { box-shadow: 0 0 20px rgba(34, 197, 94, 0.3); } 50% { box-shadow: 0 0 30px rgba(34, 197, 94, 0.6); } }
+.animate-breathe { animation: breathe 8s ease-in-out infinite; }
+.animate-float { animation: float 6s ease-in-out infinite; }
+.animate-glow { animation: glow 3s ease-in-out infinite; }
+.animate-pulse-button { animation: pulse-button 2s ease-in-out infinite; }

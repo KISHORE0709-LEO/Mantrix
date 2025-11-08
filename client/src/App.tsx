@@ -9,10 +9,12 @@ import Profile from "./pages/Profile";
 import Challenge from "./pages/Challenge";
 import Leaderboard from "./pages/Leaderboard";
 import Auth from "./pages/Auth";
+import Intro from "./pages/intro";
 import { GameArena } from "./pages/GameArena";
 
 function App() {
-  const [currentPage, setCurrentPage] = useState<string>('home');
+  const [currentPage, setCurrentPage] = useState<string>('intro');
+  const [showIntro, setShowIntro] = useState(true);
   const { setBackgroundMusic, setHitSound, setSuccessSound, isMuted } = useAudio();
   const { user } = useLearning();
 
@@ -36,6 +38,13 @@ function App() {
       bgMusic.pause();
     };
   }, [setBackgroundMusic, setHitSound, setSuccessSound, isMuted]);
+
+  if (showIntro) {
+    return <Intro onNavigate={(page) => {
+      setShowIntro(false);
+      setCurrentPage(page);
+    }} />;
+  }
 
   if (!user) {
     return <Auth onNavigate={setCurrentPage} />;
