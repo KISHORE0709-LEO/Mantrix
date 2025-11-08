@@ -47,10 +47,12 @@ export function AssessmentHub({ level, onComplete, onAIHelp }: AssessmentHubProp
 
   const handleRequestQuizHint = (question: QuizQuestion) => {
     if (onAIHelp) {
+      const content = `🎯 DIRECT ANSWER:\n\nQuestion: ${question.question}\n\nCorrect Answer: ${question.correctAnswer}\n\nExplanation: ${question.explanation}\n\n✨ This is the exact answer that will be marked as correct. Study the explanation to understand why this is the right choice.`;
+      
       onAIHelp({
         type: 'quiz',
         title: question.question,
-        description: question.options?.join(', ') || '',
+        description: content,
         attempts: quizAttempts
       });
     }
@@ -60,11 +62,12 @@ export function AssessmentHub({ level, onComplete, onAIHelp }: AssessmentHubProp
 
   const handleRequestCodingHint = () => {
     if (onAIHelp && currentProblem) {
-      // Always provide the direct answer for coding problems
+      const content = `🎯 COMPLETE SOLUTION:\n\nProblem: ${currentProblem.title}\n\nSolution:\n${currentProblem.solution}\n\nExplanation: ${currentProblem.hints?.join('. ') || 'This solution implements the required functionality correctly.'} This solution passes all test cases.\n\n✨ Copy this exact code to solve the problem. Make sure you understand each part before using it.`;
+      
       onAIHelp({
         type: 'coding',
         title: currentProblem.title,
-        description: `Here's the complete solution for "${currentProblem.title}":\n\n${currentProblem.solution}\n\nThis solution passes all test cases. Study it carefully and try to understand each part before using it.`,
+        description: content,
         userCode: currentCode,
         testResults: testResults
           ? `Passed ${testResults.passed}/${testResults.total} tests. Output: ${codeOutput.join('; ')}`
@@ -131,31 +134,34 @@ export function AssessmentHub({ level, onComplete, onAIHelp }: AssessmentHubProp
               onClick={() => {
                 if (onAIHelp) {
                   const quizAnswers = level.quizQuestions?.map((q, idx) => 
-                    `${idx + 1}. ${q.question} - ${q.correctAnswer}`
+                    `${idx + 1}. ${q.question}\nAnswer: ${q.correctAnswer}\nExplanation: ${q.explanation}`
                   ) || [];
                   
                   const codingAnswers = level.codingProblems?.map((p, idx) => 
-                    `Problem ${idx + 1}: ${p.title}\n${p.solution}`
+                    `Problem ${idx + 1}: ${p.title}\n\nSolution:\n${p.solution}\n\nExplanation: This solution ${p.hints?.join('. ') || 'implements the required functionality'}.`
                   ) || [];
 
-                  let content = `Here's the complete solution for "${level.title}":\n\n`;
+                  let content = `🎯 COMPLETE SOLUTIONS FOR "${level.title.toUpperCase()}"\n\n`;
 
                   if (quizAnswers.length > 0) {
-                    content += `📝 QUIZ ANSWERS:\n`;
-                    quizAnswers.forEach((answer) => {
-                      content += `${answer}\n`;
+                    content += `📝 QUIZ ANSWERS:\n\n`;
+                    quizAnswers.forEach((answer, idx) => {
+                      content += `${answer}\n\n`;
                     });
-                    content += `\n`;
                   }
 
                   if (codingAnswers.length > 0) {
-                    content += `💻 CODING SOLUTIONS:\n`;
+                    content += `💻 CODING SOLUTIONS:\n\n`;
                     codingAnswers.forEach((solution) => {
                       content += `${solution}\n\n`;
                     });
                   }
 
-                  content += `Study these solutions carefully and try to understand each part before using them.`;
+                  if (quizAnswers.length === 0 && codingAnswers.length === 0) {
+                    content += `No quiz or coding problems found for this level.`;
+                  } else {
+                    content += `✨ Study these solutions carefully and try to understand each part before using them. These are the exact answers that will be marked as correct.`;
+                  }
 
                   onAIHelp({
                     type: 'quiz',
@@ -239,6 +245,18 @@ export function AssessmentHub({ level, onComplete, onAIHelp }: AssessmentHubProp
                     </div>
                   )}
                   
+                  {!quizSubmitted && (
+                    <div className="mt-4">
+                      <button
+                        onClick={() => handleRequestQuizHint(question)}
+                        className="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 font-orbitron text-xs text-white transition-all flex items-center gap-2"
+                      >
+                        <Lightbulb className="w-3 h-3" />
+                        Get Answer
+                      </button>
+                    </div>
+                  )}
+                  
 
 
                   {quizSubmitted && (
@@ -313,13 +331,22 @@ export function AssessmentHub({ level, onComplete, onAIHelp }: AssessmentHubProp
                 placeholder="Write your solution here..."
               />
 
-              <button
-                onClick={handleRunCode}
-                className="w-full px-6 py-3 rounded-lg bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 font-game text-white transition-all flex items-center justify-center gap-2"
-              >
-                <Play className="w-4 h-4" />
-                Run Tests
-              </button>
+              <div className="flex gap-3">
+                <button
+                  onClick={handleRunCode}
+                  className="flex-1 px-6 py-3 rounded-lg bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 font-game text-white transition-all flex items-center justify-center gap-2"
+                >
+                  <Play className="w-4 h-4" />
+                  Run Tests
+                </button>
+                <button
+                  onClick={handleRequestCodingHint}
+                  className="px-6 py-3 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 font-orbitron text-white transition-all flex items-center gap-2"
+                >
+                  <Lightbulb className="w-4 h-4" />
+                  Get Solution
+                </button>
+              </div>
 
               {codeOutput.length > 0 && (
                 <div className="bg-slate-900 rounded-lg p-6 border border-slate-700">

@@ -82,11 +82,18 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
     console.log('Game config:', currentLevel.gameConfig);
     
     if (hasGame) {
+      // For DSA levels, go to practice-game stage to show the game launch screen
+      if (currentLevel.id.startsWith('dsa-')) {
+        console.log('Advancing DSA level to practice-game stage');
+        advanceStage(currentLevel.id, 'practice-game');
+      }
       // For DevOps levels, go directly to practice-game stage
-      if (currentLevel.id.startsWith('cloud-')) {
+      else if (currentLevel.id.startsWith('cloud-')) {
         console.log('Advancing DevOps level to practice-game stage');
         advanceStage(currentLevel.id, 'practice-game');
-      } else {
+      } 
+      // For other levels with games, go to teaching-game first
+      else {
         console.log('Advancing to teaching-game stage');
         advanceStage(currentLevel.id, 'teaching-game');
       }
@@ -124,6 +131,12 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
   };
 
   const handleAIHelp = (context?: { type: 'quiz' | 'coding'; title?: string; description?: string; userCode?: string; testResults?: string; attempts?: number; }) => {
+    // If context is provided with description, use that directly (from AssessmentHub)
+    if (context?.description) {
+      alert(context.description);
+      return;
+    }
+
     const quizAnswers = getQuizAnswers(currentLevel.id);
     const codingAnswers = getCodingAnswers(currentLevel.id);
 
@@ -245,13 +258,15 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
         'Functions in JavaScript are declared with the "function" keyword'
       ],
       'dsa-1': [
-        'The loop will print 10 numbers (1 through 10)'
+        '1. What will this code print? for (let i = 1; i <= 5; i++) { console.log(i); } - 1 2 3 4 5',
+        '2. What keyword do you use to declare a variable that can be reassigned? - Both let and var'
       ],
       'dsa-2': [
-        'The array containing numbers 1 through 5 is: [1, 2, 3, 4, 5]'
+        '1. How do you access the first element of an array named arr? - arr[0]'
       ],
       'dsa-3': [
-        'Binary search takes 3 steps for 8 elements'
+        '1. What is the time complexity of binary search? - O(log n)',
+        '2. What condition must be met to use binary search? - Array must be sorted'
       ],
       'ai-1': [
         'Machine learning is how AI systems improve through experience'
@@ -311,35 +326,37 @@ export default function Challenge({ onNavigate }: ChallengeProps) {
 }`
       ],
       'dsa-1': [
-        `for (let i = 1; i <= 10; i++) {
-  console.log(i);
-}`,
-        `let count = 0;
-for (let i = 1; i <= 10; i++) {
-  count++;
-}
-console.log(count);`
+        `function sumNumbers(n) {
+  let sum = 0;
+  for (let i = 1; i <= n; i++) {
+    sum += i;
+  }
+  return sum;
+}`
       ],
       'dsa-2': [
-        `const numbers = [1, 2, 3, 4, 5];`,
-        `function createArray() {
-  return [1, 2, 3, 4, 5];
+        `function findMax(arr) {
+  let max = arr[0];
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] > max) max = arr[i];
+  }
+  return max;
 }`
       ],
       'dsa-3': [
         `function binarySearch(arr, target) {
   let left = 0;
   let right = arr.length - 1;
-  let steps = 0;
   
   while (left <= right) {
-    steps++;
-    const mid = Math.floor((left + right) / 2);
-    if (arr[mid] === target) return steps;
+    let mid = Math.floor((left + right) / 2);
+    
+    if (arr[mid] === target) return mid;
     if (arr[mid] < target) left = mid + 1;
     else right = mid - 1;
   }
-  return steps;
+  
+  return -1;
 }`
       ],
       'ai-1': [
@@ -638,6 +655,8 @@ jobs:
               <p className="font-orbitron text-gray-300 mb-8">
                 {currentLevel.id.startsWith('cloud-') 
                   ? 'Time to deploy! Put your DevOps skills to the test in the deployment game.' 
+                  : currentLevel.id.startsWith('dsa-')
+                  ? 'You\'ve learned the theory! Now practice your DSA skills in an interactive game.'
                   : 'You\'ve completed the videos! Now put your skills to the test in the practice game.'}
               </p>
               <div className="mb-6">

@@ -2347,6 +2347,7 @@ export const useLearning = create<LearningState>()(
           (newIndex === stageOrder.indexOf('complete') && !hasResources && currentStage === 'practice-game') ||
           (newIndex === 0 && currentStage !== 'teaching-game') ||
           (currentStage === 'ai-videos' && newStage === 'teaching-game') ||
+          (currentStage === 'ai-videos' && newStage === 'practice-game') ||
           (currentStage === 'practice-game' && newStage === 'assessment');
 
         if (!isValidTransition) {
