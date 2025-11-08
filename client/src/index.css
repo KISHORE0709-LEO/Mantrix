@@ -4,31 +4,31 @@
 
 @layer base {
   :root {
-    --game-primary: #6366f1;
-    --game-secondary: #8b5cf6;
-    --game-accent: #ec4899;
-    --game-success: #10b981;
-    --game-warning: #f59e0b;
-    --game-danger: #ef4444;
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
+    --game-primary: #39ff14;
+    --game-secondary: #00ff99;
+    --game-accent: #39ff14;
+    --game-success: #39ff14;
+    --game-warning: #00ff99;
+    --game-danger: #ff1439;
+    --background: #101820;
+    --foreground: #e0ffe0;
+    --card: #101820;
+    --card-foreground: #e0ffe0;
+    --popover: #101820;
+    --popover-foreground: #e0ffe0;
+    --primary: #39ff14;
+    --primary-foreground: #101820;
+    --secondary: #00ff99;
+    --secondary-foreground: #101820;
+    --muted: rgba(16, 24, 32, 0.7);
+    --muted-foreground: #e0ffe0;
+    --accent: #39ff14;
+    --accent-foreground: #101820;
+    --destructive: #ff1439;
+    --destructive-foreground: #e0ffe0;
+    --border: #39ff14;
+    --input: rgba(16, 24, 32, 0.7);
+    --ring: #39ff14;
   }
 
   * {
@@ -36,13 +36,15 @@
   }
 
   body {
-    @apply antialiased bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-foreground;
+    @apply antialiased text-foreground;
+    background: #101820;
     margin: 0;
     padding: 0;
     overflow-x: hidden;
     width: 100vw;
     min-height: 100vh;
     font-family: 'Orbitron', sans-serif;
+    color: #e0ffe0;
   }
 }
 
@@ -73,11 +75,11 @@
 }
 
 .glow {
-  box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+  box-shadow: 0 0 20px rgba(57, 255, 20, 0.5), 0 0 40px rgba(57, 255, 20, 0.3);
 }
 
 .glow-text {
-  text-shadow: 0 0 10px rgba(99, 102, 241, 0.8), 0 0 20px rgba(99, 102, 241, 0.5);
+  text-shadow: 0 0 10px rgba(57, 255, 20, 0.8), 0 0 20px rgba(57, 255, 20, 0.5);
 }
 
 @keyframes float {
@@ -86,8 +88,8 @@
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.5); }
-  50% { box-shadow: 0 0 30px rgba(99, 102, 241, 0.8); }
+  0%, 100% { box-shadow: 0 0 20px rgba(57, 255, 20, 0.5); }
+  50% { box-shadow: 0 0 30px rgba(57, 255, 20, 0.8); }
 }
 
 .animate-float {
@@ -99,8 +101,8 @@
 }
 @keyframes breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
-@keyframes glow { 0%, 100% { text-shadow: 0 0 20px rgba(34, 197, 94, 0.5); } 50% { text-shadow: 0 0 30px rgba(34, 197, 94, 0.8), 0 0 40px rgba(59, 130, 246, 0.5); } }
-@keyframes pulse-button { 0%, 100% { box-shadow: 0 0 20px rgba(34, 197, 94, 0.3); } 50% { box-shadow: 0 0 30px rgba(34, 197, 94, 0.6); } }
+@keyframes glow { 0%, 100% { text-shadow: 0 0 20px rgba(57, 255, 20, 0.5); } 50% { text-shadow: 0 0 30px rgba(57, 255, 20, 0.8), 0 0 40px rgba(0, 255, 153, 0.5); } }
+@keyframes pulse-button { 0%, 100% { box-shadow: 0 0 20px rgba(57, 255, 20, 0.3); } 50% { box-shadow: 0 0 30px rgba(57, 255, 20, 0.6); } }
 .animate-breathe { animation: breathe 8s ease-in-out infinite; }
 .animate-float { animation: float 6s ease-in-out infinite; }
 .animate-glow { animation: glow 3s ease-in-out infinite; }

@@ -667,7 +667,7 @@ jobs:
                 onClick={handleStartGame}
                 className="px-8 py-4 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 font-game text-xl text-white transition-all glow"
               >
-                🎮 Launch Game
+⚡ Launch Game
               </button>
             </div>
             <button
