@@ -2,7 +2,28 @@
 
 ## Overview
 
-SkillQuest is a 2D gamified skill-learning platform where students embark on story-driven educational journeys. Users select courses (DSA, AI/ML, Web Development, etc.) and progress through interactive levels designed as game-like challenges. The platform features an AI-powered learning companion that provides personalized hints, generates adaptive challenges, offers explanations, and delivers motivational messages based on user performance.
+SkillQuest is a 2D gamified skill-learning platform where students embark on story-driven educational journeys. Users select courses (DSA, AI/ML, Web Development, Cloud & DevOps, etc.) and progress through interactive levels designed as game-like challenges. The platform features an AI-powered learning companion that provides personalized hints, generates adaptive challenges, offers explanations, and delivers motivational messages based on user performance.
+
+## Recent Changes (November 2025)
+
+### MATRIX: Cloud & DevOps Odyssey
+Implemented a comprehensive 9-level Cloud & DevOps course following the "Skyforge Realm" narrative theme:
+1. **The Genesis Cloud** - Cloud Computing fundamentals (IaaS, PaaS, SaaS, AWS/Azure/GCP)
+2. **The Forge of Infrastructure** - Networking & Compute (VPC, EC2, S3, Load Balancers)
+3. **The Chamber of Automation** - DevOps Foundations (CI/CD, Git, GitHub Actions)
+4. **The Terraform Plains** - Infrastructure as Code (Terraform basics and provisioning)
+5. **The Docker Depths** - Containerization (Docker, images, volumes, networking)
+6. **The Kubernetes Peaks** - Container Orchestration (K8s pods, deployments, services)
+7. **The CI/CD Citadel** - Pipeline Automation (Jenkins, GitHub Actions, GitLab CI)
+8. **The Realm of Observability** - Monitoring & Logging (Prometheus, Grafana, ELK Stack)
+9. **The DevOps Devas** - Full Integration (DevSecOps, cost optimization, production best practices)
+
+Each level includes:
+- Engaging narrative following the Skyforge Realm storyline
+- 3 AI-curated YouTube video tutorials
+- 3 quiz questions with detailed explanations
+- External practice resources (AWS docs, Azure tutorials, hands-on labs)
+- Interactive game component using existing game engines (ComponentLink, DataBridge, ScriptCircuit, PatternBuilder, DeployOrbit, SearchChallenge)
 
 ## User Preferences
 
