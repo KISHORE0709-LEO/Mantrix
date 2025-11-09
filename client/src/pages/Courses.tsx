@@ -1,4 +1,4 @@
-import { useLearning } from "@/lib/stores/useLearning";
+import { useLearning } from "../lib/stores/useLearning";
 import { Lock, CheckCircle, Circle, ArrowRight } from "lucide-react";
 import { useState } from "react";
 

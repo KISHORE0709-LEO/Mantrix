@@ -32,11 +32,11 @@
   }
 
   * {
-    @apply border-border;
+    @apply border-solid;
   }
 
   body {
-    @apply antialiased text-foreground;
+    @apply antialiased;
     background: #0a0f0a;
     margin: 0;
     padding: 0;

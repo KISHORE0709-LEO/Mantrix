@@ -1,4 +1,4 @@
-import { useLearning } from "@/lib/stores/useLearning";
+import { useLearning } from "../lib/stores/useLearning";
 import { Trophy, Star, Award, TrendingUp } from "lucide-react";
 
 export default function Progress() {

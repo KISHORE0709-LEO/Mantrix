@@ -1,4 +1,4 @@
-import { useLearning } from "@/lib/stores/useLearning";
+import { useLearning } from "../lib/stores/useLearning";
 import { User, Calendar, Trophy, Star, LogOut } from "lucide-react";
 
 export default function Profile() {

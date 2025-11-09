@@ -1,12 +1,12 @@
-import { useLearning } from "@/lib/stores/useLearning";
+import { useLearning } from "../lib/stores/useLearning";
 import { useState, useEffect } from "react";
 import { ArrowLeft, Lightbulb, Send, CheckCircle } from "lucide-react";
-import { useAudio } from "@/lib/stores/useAudio";
-import VideoRecommendations from "@/components/VideoRecommendations";
-import TeachingGame from "@/components/TeachingGame";
-import { AssessmentHub } from "@/components/AssessmentHub";
-import { ResourcesPanel } from "@/components/ResourcesPanel";
-import { MarkupForge } from "@/games/MarkupForge";
+import { useAudio } from "../lib/stores/useAudio";
+import VideoRecommendations from "../components/VideoRecommendations";
+import TeachingGame from "../components/TeachingGame";
+import { AssessmentHub } from "../components/AssessmentHub";
+import { ResourcesPanel } from "../components/ResourcesPanel";
+import { MarkupForge } from "../games/MarkupForge";
 
 interface ChallengeProps {
   onNavigate: (page: string) => void;

@@ -3,7 +3,7 @@ import { useLearning } from "../lib/stores/useLearning";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
-import Spline from '@splinetool/react-spline';
+
 // import CursorTrail from '../components/CursorTrail';
 
 interface AuthProps {
@@ -56,10 +56,12 @@ export default function Auth({ onNavigate }: AuthProps) {
       />
       
       <div className="flex min-h-screen">
-        {/* Left Side - Spline Robot */}
+        {/* Left Side - Matrix Logo */}
         <div className="flex-1 flex items-center justify-center relative">
-          <div className="w-full h-full max-w-2xl">
-            <Spline scene="https://prod.spline.design/rU2-Ks0SC0T5od9B/scene.splinecode" />
+          <div className="text-center">
+            <div className="text-9xl font-bold text-[#39ff14] mb-4 matrix-glow animate-pulse">M</div>
+            <div className="text-3xl text-[#00ff99] font-mono mb-2">MANTRIX</div>
+            <div className="text-lg text-[#e0ffe0] opacity-70">Enter the Matrix</div>
           </div>
         </div>
         

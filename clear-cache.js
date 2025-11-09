@@ -1,5 +1,7 @@
 // Clear browser storage script
 console.log('Clearing browser storage...');
-localStorage.removeItem('skillquest-learning');
-sessionStorage.clear();
-console.log('Storage cleared! Please refresh the page.');
+console.log('This script should be run in the browser console, not Node.js.');
+console.log('To clear storage, run this in your browser console:');
+console.log('localStorage.removeItem("mantrix-learning");');
+console.log('sessionStorage.clear();');
+console.log('Then refresh the page.');

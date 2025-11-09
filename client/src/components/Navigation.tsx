@@ -1,5 +1,5 @@
 import { Home, BookOpen, Trophy, User, Award } from "lucide-react";
-import { useLearning } from "@/lib/stores/useLearning";
+import { useLearning } from "../lib/stores/useLearning";
 
 interface NavigationProps {
   currentPage: string;

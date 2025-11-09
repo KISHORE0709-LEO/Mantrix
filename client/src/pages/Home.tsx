@@ -1,4 +1,4 @@
-import { useLearning } from "@/lib/stores/useLearning";
+import { useLearning } from "../lib/stores/useLearning";
 import { Sparkles, Star, Zap } from "lucide-react";
 import { useEffect } from "react";
 

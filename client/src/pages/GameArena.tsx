@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react';
-import { useLearning } from '@/lib/stores/useLearning';
-import { getGameComponent } from '@/games/registry';
-import type { GameResult } from '@shared/types';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
+import { useLearning } from '../lib/stores/useLearning';
 import { Trophy, XCircle, Lightbulb } from 'lucide-react';
+
+// Simplified GameArena without complex imports
+type GameResult = {
+  success: boolean;
+  score: number;
+  timeSpent: number;
+  xpEarned?: number;
+};
 
 interface GameArenaProps {
   onNavigate: (page: string) => void;
@@ -43,11 +47,10 @@ export function GameArena({ onNavigate }: GameArenaProps) {
     setGameResult(finalResult);
     if (currentGame) {
       await completeGame(currentGame.levelId, finalResult);
-      // Auto-navigate to challenge page after successful completion
       if (finalResult.success) {
         setTimeout(() => {
           onNavigate('challenge');
-        }, 3000); // 3 second delay to show results
+        }, 3000);
       }
     }
   };
@@ -86,215 +89,60 @@ export function GameArena({ onNavigate }: GameArenaProps) {
     }
   };
 
-  if (gameResult && currentLevel?.gameConfig) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 pt-24 flex items-center justify-center p-4">
-        <Card className="max-w-2xl p-8 bg-slate-800/50 border-purple-500/30">
-          <div className="text-center mb-6">
-            {gameResult.success ? (
-              <>
-                <Trophy className="w-20 h-20 text-yellow-400 mx-auto mb-4" />
-                <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400 mb-2">
-                  Victory!
-                </h1>
-                <p className="text-xl text-green-300">You passed the challenge!</p>
-              </>
-            ) : (
-              <>
-                <XCircle className="w-20 h-20 text-red-400 mx-auto mb-4" />
-                <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-pink-400 mb-2">
-                  Try Again!
-                </h1>
-                <p className="text-xl text-red-300">You didn't reach the passing score</p>
-              </>
-            )}
-          </div>
-
-          <div className="space-y-4 mb-8">
-            <div className="p-4 bg-slate-700/50 rounded-lg border border-purple-500/30">
-              <div className="flex justify-between items-center">
-                <span className="text-purple-300 font-semibold">Your Score:</span>
-                <span className="text-white text-2xl font-bold">{gameResult.score}</span>
-              </div>
-            </div>
-
-            <div className="p-4 bg-slate-700/50 rounded-lg border border-purple-500/30">
-              <div className="flex justify-between items-center">
-                <span className="text-purple-300 font-semibold">Passing Score:</span>
-                <span className="text-white text-xl">{currentLevel.gameConfig.passingScore}</span>
-              </div>
-            </div>
-
-            {gameResult.success && (
-              <div className="p-4 bg-green-900/30 rounded-lg border border-green-500/30">
-                <div className="flex justify-between items-center">
-                  <span className="text-green-300 font-semibold">XP Earned:</span>
-                  <span className="text-yellow-400 text-2xl font-bold">+{gameResult.xpEarned}</span>
-                </div>
-              </div>
-            )}
-
-            <div className="p-4 bg-slate-700/50 rounded-lg border border-purple-500/30">
-              <div className="flex justify-between items-center">
-                <span className="text-purple-300 font-semibold">Time Spent:</span>
-                <span className="text-white">{gameResult.timeSpent}s</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex gap-4">
-            {gameResult.success ? (
-              <Button
-                onClick={() => {
-                  onNavigate('challenge');
-                }}
-                className="flex-1 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-3"
-              >
-                Continue to Assessment
-              </Button>
-            ) : (
-              <>
-                <Button
-                  onClick={() => {
-                    setGameResult(null);
-                    setShowBriefing(true);
-                    setStartTime(Date.now());
-                  }}
-                  className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-3"
-                >
-                  Try Again
-                </Button>
-                <Button
-                  onClick={handleReturnToCourses}
-                  variant="outline"
-                  className="px-6 border-purple-500/50 text-purple-300 hover:bg-purple-500/20"
-                >
-                  Exit
-                </Button>
-              </>
-            )}
-          </div>
-        </Card>
-      </div>
-    );
-  }
-
   if (!currentLevel || !currentLevel.gameConfig) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 pt-24 flex items-center justify-center p-4">
-        <Card className="p-8 bg-slate-800/50 border-purple-500/30">
+        <div className="p-8 bg-slate-800/50 border border-purple-500/30 rounded-lg">
           <h1 className="text-2xl font-bold text-white mb-4">No Active Game</h1>
           <p className="text-slate-300 mb-4">Please select a level and complete the quiz first.</p>
-          <Button onClick={() => onNavigate('courses')}>
+          <button 
+            onClick={() => onNavigate('courses')}
+            className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700"
+          >
             Back to Courses
-          </Button>
-        </Card>
-      </div>
-    );
-  }
-
-  const GameComponent = getGameComponent(currentLevel.gameConfig.type);
-
-  if (!GameComponent) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 pt-24 flex items-center justify-center p-4">
-        <Card className="p-8 bg-slate-800/50 border-purple-500/30">
-          <h1 className="text-2xl font-bold text-white mb-4">Game Not Found</h1>
-          <p className="text-slate-300 mb-4">Game type: {currentLevel.gameConfig.type}</p>
-          <Button onClick={() => onNavigate('courses')}>
-            Back to Courses
-          </Button>
-        </Card>
-      </div>
-    );
-  }
-
-  if (showBriefing) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 pt-24 flex items-center justify-center p-4">
-        <Card className="max-w-2xl p-8 bg-slate-800/50 border-purple-500/30">
-          <div className="mb-6">
-            <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400 mb-2">
-              {currentLevel.gameConfig.title}
-            </h1>
-            <p className="text-xl text-slate-300">{currentLevel.gameConfig.description}</p>
-          </div>
-
-          <div className="space-y-4 mb-8">
-            {currentLevel.gameConfig.importanceWhy && (
-              <div className="p-4 bg-gradient-to-r from-yellow-900/50 to-orange-900/50 rounded-lg border-2 border-yellow-500/50">
-                <h2 className="text-lg font-semibold text-yellow-300 mb-2 flex items-center gap-2">
-                  💡 Why This Matters
-                </h2>
-                <p className="text-slate-100 leading-relaxed">{currentLevel.gameConfig.importanceWhy}</p>
-              </div>
-            )}
-
-            <div className="p-4 bg-slate-700/50 rounded-lg border border-purple-500/30">
-              <h2 className="text-lg font-semibold text-purple-300 mb-2">Objective</h2>
-              <p className="text-slate-200">{currentLevel.gameConfig.objective}</p>
-            </div>
-
-            <div className="p-4 bg-slate-700/50 rounded-lg border border-purple-500/30">
-              <h2 className="text-lg font-semibold text-purple-300 mb-2">Controls</h2>
-              <p className="text-slate-200">{currentLevel.gameConfig.controls}</p>
-            </div>
-
-            {currentLevel.gameConfig.timeLimit && (
-              <div className="p-4 bg-slate-700/50 rounded-lg border border-purple-500/30">
-                <h2 className="text-lg font-semibold text-purple-300 mb-2">Time Limit</h2>
-                <p className="text-slate-200">{currentLevel.gameConfig.timeLimit} seconds</p>
-              </div>
-            )}
-
-            <div className="p-4 bg-slate-700/50 rounded-lg border border-purple-500/30">
-              <h2 className="text-lg font-semibold text-purple-300 mb-2">Victory Condition</h2>
-              <p className="text-slate-200">Score {currentLevel.gameConfig.passingScore} or more to pass!</p>
-            </div>
-          </div>
-
-          <div className="flex gap-4">
-            <Button
-              onClick={() => setShowBriefing(false)}
-              className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-3"
-            >
-              Start Game
-            </Button>
-            <Button
-              onClick={handleExit}
-              variant="outline"
-              className="px-6 border-purple-500/50 text-purple-300 hover:bg-purple-500/20"
-            >
-              Exit
-            </Button>
-          </div>
-
-          {currentGame && currentGame.attempts > 0 && (
-            <div className="mt-6 p-4 bg-purple-900/30 rounded-lg border border-purple-500/30">
-              <p className="text-sm text-purple-200">
-                Attempt #{currentGame.attempts + 1} | Best Score: {currentGame.bestScore}
-              </p>
-            </div>
-          )}
-        </Card>
+          </button>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 pt-20 relative">
-      <button
-        onClick={handleAIHelpInGame}
-        className="absolute top-4 right-4 px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-500 font-orbitron text-sm text-white transition-colors flex items-center gap-2 z-50"
-      >
-        <Lightbulb className="w-4 h-4" />
-        AI Help
-      </button>
-      <GameComponent
-        config={currentLevel.gameConfig}
-        onComplete={handleComplete}
-        onExit={handleExit}
-      />
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 pt-24 flex items-center justify-center p-4">
+      <div className="max-w-2xl p-8 bg-slate-800/50 border border-purple-500/30 rounded-lg">
+        <div className="text-center mb-6">
+          <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400 mb-2">
+            Game Coming Soon
+          </h1>
+          <p className="text-xl text-slate-300">Interactive games will be available in the next update!</p>
+        </div>
+
+        <div className="space-y-4 mb-8">
+          <div className="p-4 bg-slate-700/50 rounded-lg border border-purple-500/30">
+            <h2 className="text-lg font-semibold text-purple-300 mb-2">Game: {currentLevel.gameConfig.title}</h2>
+            <p className="text-slate-200">{currentLevel.gameConfig.description}</p>
+          </div>
+
+          <div className="p-4 bg-slate-700/50 rounded-lg border border-purple-500/30">
+            <h2 className="text-lg font-semibold text-purple-300 mb-2">Objective</h2>
+            <p className="text-slate-200">{currentLevel.gameConfig.objective}</p>
+          </div>
+        </div>
+
+        <div className="flex gap-4">
+          <button
+            onClick={() => onNavigate('challenge')}
+            className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-3 rounded"
+          >
+            Continue to Assessment
+          </button>
+          <button
+            onClick={() => onNavigate('courses')}
+            className="px-6 border border-purple-500/50 text-purple-300 hover:bg-purple-500/20 rounded"
+          >
+            Back to Courses
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
