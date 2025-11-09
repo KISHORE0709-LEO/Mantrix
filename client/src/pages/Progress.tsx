@@ -24,67 +24,67 @@ export default function Progress() {
   return (
     <div className="min-h-screen pt-24 pb-12 px-4">
       <div className="max-w-7xl mx-auto">
-        <h1 className="font-game text-2xl sm:text-3xl text-center mb-12 text-indigo-300 glow-text">
+        <h1 className="font-game text-2xl sm:text-3xl text-center mb-12 text-green-300 glow-text">
           Your Progress
         </h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
-          <div className="bg-gradient-to-br from-indigo-900/50 to-indigo-800/50 rounded-2xl p-6 border-4 border-indigo-500 glow">
+          <div className="bg-gradient-to-br from-green-900/50 to-green-800/50 rounded-2xl p-6 border-4 border-green-500 glow">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-indigo-600 rounded-lg flex items-center justify-center">
+                <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center">
                   <Star className="w-6 h-6 text-yellow-400" />
                 </div>
                 <div>
-                  <p className="font-orbitron text-xs text-indigo-200">Current Level</p>
+                  <p className="font-orbitron text-xs text-green-200">Current Level</p>
                   <p className="font-game text-2xl text-white">{userProgress.level}</p>
                 </div>
               </div>
             </div>
             <div className="mt-4">
               <div className="flex justify-between items-center mb-2">
-                <span className="font-orbitron text-xs text-indigo-200">Next Level</span>
-                <span className="font-game text-xs text-indigo-400">{xpToNextLevel} XP</span>
+                <span className="font-orbitron text-xs text-green-200">Next Level</span>
+                <span className="font-game text-xs text-green-400">{xpToNextLevel} XP</span>
               </div>
-              <div className="w-full h-3 bg-indigo-950 rounded-full overflow-hidden">
+              <div className="w-full h-3 bg-green-950 rounded-full overflow-hidden">
                 <div 
-                  className="h-full bg-gradient-to-r from-indigo-500 to-purple-500"
+                  className="h-full bg-gradient-to-r from-green-500 to-emerald-500"
                   style={{ width: `${((userProgress.totalXP % 500) / 500) * 100}%` }}
                 />
               </div>
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-purple-900/50 to-purple-800/50 rounded-2xl p-6 border-4 border-purple-500">
+          <div className="bg-gradient-to-br from-emerald-900/50 to-emerald-800/50 rounded-2xl p-6 border-4 border-emerald-500">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center">
+                <div className="w-12 h-12 bg-emerald-600 rounded-lg flex items-center justify-center">
                   <Trophy className="w-6 h-6 text-yellow-400" />
                 </div>
                 <div>
-                  <p className="font-orbitron text-xs text-purple-200">Total XP</p>
+                  <p className="font-orbitron text-xs text-emerald-200">Total XP</p>
                   <p className="font-game text-2xl text-white">{userProgress.totalXP}</p>
                 </div>
               </div>
             </div>
-            <p className="font-orbitron text-xs text-purple-300 mt-4">
+            <p className="font-orbitron text-xs text-emerald-300 mt-4">
               Keep grinding to level up!
             </p>
           </div>
 
-          <div className="bg-gradient-to-br from-pink-900/50 to-pink-800/50 rounded-2xl p-6 border-4 border-pink-500">
+          <div className="bg-gradient-to-br from-teal-900/50 to-teal-800/50 rounded-2xl p-6 border-4 border-teal-500">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-pink-600 rounded-lg flex items-center justify-center">
+                <div className="w-12 h-12 bg-teal-600 rounded-lg flex items-center justify-center">
                   <TrendingUp className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <p className="font-orbitron text-xs text-pink-200">Completion</p>
+                  <p className="font-orbitron text-xs text-teal-200">Completion</p>
                   <p className="font-game text-2xl text-white">{Math.round(progressPercent)}%</p>
                 </div>
               </div>
             </div>
-            <p className="font-orbitron text-xs text-pink-300 mt-4">
+            <p className="font-orbitron text-xs text-teal-300 mt-4">
               {completedLevels} of {totalLevels} levels complete
             </p>
           </div>
@@ -92,7 +92,7 @@ export default function Progress() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div>
-            <h2 className="font-game text-xl mb-6 text-indigo-300 flex items-center gap-2">
+            <h2 className="font-game text-xl mb-6 text-green-300 flex items-center gap-2">
               <Award className="w-6 h-6" />
               Achievements Unlocked
             </h2>
@@ -163,7 +163,7 @@ export default function Progress() {
         </div>
 
         <div className="mt-12">
-          <h2 className="font-game text-xl mb-6 text-indigo-300">
+          <h2 className="font-game text-xl mb-6 text-green-300">
             Course Progress
           </h2>
           
@@ -192,7 +192,7 @@ export default function Progress() {
                   
                   <div className="w-full h-3 bg-slate-700 rounded-full overflow-hidden">
                     <div 
-                      className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-500"
+                      className="h-full bg-gradient-to-r from-green-500 to-emerald-500 transition-all duration-500"
                       style={{ 
                         width: `${courseProgress}%`,
                         backgroundColor: course.color

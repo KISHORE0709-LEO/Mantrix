@@ -12,6 +12,7 @@ import Auth from "./pages/Auth";
 import Intro from "./pages/intro";
 import { GameArena } from "./pages/GameArena";
 import CursorTrail from "./components/CursorTrail";
+import Chatbot from "./components/Chatbot";
 
 function App() {
   const [currentPage, setCurrentPage] = useState<string>('intro');
@@ -41,14 +42,24 @@ function App() {
   }, [setBackgroundMusic, setHitSound, setSuccessSound, isMuted]);
 
   if (showIntro) {
-    return <Intro onNavigate={(page) => {
-      setShowIntro(false);
-      setCurrentPage(page);
-    }} />;
+    return (
+      <div>
+        <style>{`#dots-bg { display: none !important; }`}</style>
+        <Intro onNavigate={(page) => {
+          setShowIntro(false);
+          setCurrentPage(page);
+        }} />
+      </div>
+    );
   }
 
   if (!user) {
-    return <Auth onNavigate={setCurrentPage} />;
+    return (
+      <div>
+        <style>{`#dots-bg { display: none !important; }`}</style>
+        <Auth onNavigate={setCurrentPage} />
+      </div>
+    );
   }
 
   const renderPage = () => {
@@ -73,10 +84,12 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen" style={{zIndex: 10, position: 'relative'}}>
+      <style>{`#dots-bg { display: block !important; }`}</style>
       <CursorTrail />
       <Navigation currentPage={currentPage} onNavigate={setCurrentPage} />
       {renderPage()}
+      <Chatbot />
     </div>
   );
 }

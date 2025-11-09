@@ -37,28 +37,28 @@ export default function Leaderboard() {
   };
 
   const getRankColor = (rank: number) => {
-    if (rank === 1) return "from-yellow-500 to-amber-600";
+    if (rank === 1) return "from-green-500 to-emerald-600";
     if (rank === 2) return "from-gray-300 to-gray-400";
-    if (rank === 3) return "from-amber-600 to-amber-700";
-    return "from-indigo-500 to-purple-500";
+    if (rank === 3) return "from-emerald-600 to-teal-700";
+    return "from-green-500 to-emerald-500";
   };
 
   return (
     <div className="min-h-screen pt-20 pb-12 px-4">
       <div className="max-w-4xl mx-auto">
-        <h1 className="font-game text-2xl sm:text-3xl text-center mb-12 text-yellow-400 glow-text">
+        <h1 className="font-game text-2xl sm:text-3xl text-center mb-12 text-green-400 glow-text">
           Leaderboard
         </h1>
 
-        <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border-4 border-yellow-500 glow">
+        <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border-4 border-green-500 glow">
           <div className="flex items-center justify-center gap-3 mb-8">
-            <Trophy className="w-8 h-8 text-yellow-400" />
+            <Trophy className="w-8 h-8 text-green-400" />
             <h2 className="font-game text-xl text-white">Top Learners</h2>
           </div>
 
           {loading ? (
             <div className="text-center py-12">
-              <div className="animate-spin w-12 h-12 border-4 border-yellow-400 border-t-transparent rounded-full mx-auto mb-4"></div>
+              <div className="animate-spin w-12 h-12 border-4 border-green-400 border-t-transparent rounded-full mx-auto mb-4"></div>
               <p className="font-orbitron text-gray-400">Loading rankings...</p>
             </div>
           ) : leaderboard.length === 0 ? (
@@ -89,7 +89,7 @@ export default function Leaderboard() {
                             Level {entry.level}
                           </span>
                           <span className="text-gray-600">•</span>
-                          <span className="font-orbitron text-purple-400">
+                          <span className="font-orbitron text-green-400">
                             {entry.totalXP.toLocaleString()} XP
                           </span>
                         </div>

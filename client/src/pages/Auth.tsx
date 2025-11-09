@@ -48,8 +48,8 @@ export default function Auth({ onNavigate }: AuthProps) {
         className="absolute inset-0 opacity-30"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(20, 184, 166, 0.4) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(20, 184, 166, 0.4) 1px, transparent 1px)
+            linear-gradient(rgba(34, 197, 94, 0.4) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(34, 197, 94, 0.4) 1px, transparent 1px)
           `,
           backgroundSize: '40px 40px'
         }}
@@ -66,7 +66,7 @@ export default function Auth({ onNavigate }: AuthProps) {
         {/* Right Side - Auth Form */}
         <div className="flex-1 flex items-center justify-center p-8">
           <div className="w-full max-w-md">
-            <div className="bg-gradient-to-br from-teal-500/20 to-blue-600/20 backdrop-blur-xl border border-teal-400/30 rounded-2xl p-8 shadow-2xl">
+            <div className="bg-gradient-to-br from-green-500/20 to-emerald-600/20 backdrop-blur-xl border border-green-400/30 rounded-2xl p-8 shadow-2xl">
               <div className="text-center mb-8">
                 <h1 className="text-3xl font-bold text-white mb-2">
                   {isLogin ? 'Sign In' : 'Sign Up'}
@@ -87,7 +87,7 @@ export default function Auth({ onNavigate }: AuthProps) {
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     required
-                    className="mt-1 bg-slate-800/50 border-slate-600 text-white placeholder-gray-400 focus:border-teal-400 focus:ring-teal-400"
+                    className="mt-1 bg-slate-800/50 border-slate-600 text-white placeholder-gray-400 focus:border-green-400 focus:ring-green-400"
                     placeholder="your.username@example.com"
                   />
                 </div>
@@ -102,7 +102,7 @@ export default function Auth({ onNavigate }: AuthProps) {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    className="mt-1 bg-slate-800/50 border-slate-600 text-white placeholder-gray-400 focus:border-teal-400 focus:ring-teal-400"
+                    className="mt-1 bg-slate-800/50 border-slate-600 text-white placeholder-gray-400 focus:border-green-400 focus:ring-green-400"
                     placeholder="Enter your password"
                   />
                 </div>
@@ -117,7 +117,7 @@ export default function Auth({ onNavigate }: AuthProps) {
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="mt-1 bg-slate-800/50 border-slate-600 text-white placeholder-gray-400 focus:border-teal-400 focus:ring-teal-400"
+                      className="mt-1 bg-slate-800/50 border-slate-600 text-white placeholder-gray-400 focus:border-green-400 focus:ring-green-400"
                       placeholder="Enter your email"
                     />
                   </div>
@@ -132,7 +132,7 @@ export default function Auth({ onNavigate }: AuthProps) {
                 <Button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-gradient-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white font-semibold py-3 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl"
+                  className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-semibold py-3 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl"
                 >
                   {loading ? "Loading..." : isLogin ? "Sign In" : "Sign Up"}
                 </Button>
@@ -141,7 +141,7 @@ export default function Auth({ onNavigate }: AuthProps) {
                   <div className="text-center">
                     <button
                       type="button"
-                      className="text-teal-400 hover:text-teal-300 text-sm transition-colors"
+                      className="text-green-400 hover:text-green-300 text-sm transition-colors"
                     >
                       Forgot your password?
                     </button>
@@ -150,9 +150,9 @@ export default function Auth({ onNavigate }: AuthProps) {
 
                 <div className="text-center text-sm text-gray-400">
                   By continuing, you agree to our{' '}
-                  <span className="text-teal-400 hover:underline cursor-pointer">Terms of Service</span>
+                  <span className="text-green-400 hover:underline cursor-pointer">Terms of Service</span>
                   {' '}and{' '}
-                  <span className="text-teal-400 hover:underline cursor-pointer">Privacy Policy</span>
+                  <span className="text-green-400 hover:underline cursor-pointer">Privacy Policy</span>
                 </div>
 
                 <div className="text-center">

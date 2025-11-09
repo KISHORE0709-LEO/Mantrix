@@ -10,13 +10,13 @@ export default function Profile() {
   return (
     <div className="min-h-screen pt-24 pb-12 px-4">
       <div className="max-w-4xl mx-auto">
-        <h1 className="font-game text-2xl sm:text-3xl text-center mb-12 text-indigo-300 glow-text">
+        <h1 className="font-game text-2xl sm:text-3xl text-center mb-12 text-green-300 glow-text">
           Player Profile
         </h1>
 
-        <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-8 border-4 border-indigo-500 glow mb-8">
+        <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-8 border-4 border-green-500 glow mb-8">
           <div className="flex flex-col md:flex-row items-center gap-6">
-            <div className="w-32 h-32 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-2xl flex items-center justify-center glow animate-pulse-glow">
+            <div className="w-32 h-32 bg-gradient-to-br from-green-500 via-emerald-500 to-teal-500 rounded-2xl flex items-center justify-center glow animate-pulse-glow">
               <User className="w-16 h-16 text-white" />
             </div>
             
@@ -36,7 +36,7 @@ export default function Profile() {
                   </span>
                 </div>
                 <div className="flex items-center gap-2 bg-slate-700 px-4 py-2 rounded-lg">
-                  <Trophy className="w-5 h-5 text-indigo-400" />
+                  <Trophy className="w-5 h-5 text-green-400" />
                   <span className="font-orbitron text-sm text-white">
                     {userProgress.totalXP} XP
                   </span>
@@ -55,13 +55,13 @@ export default function Profile() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-6 border-2 border-slate-700 text-center">
             <div className="text-5xl mb-3">🎯</div>
-            <p className="font-game text-3xl text-indigo-400 mb-2">{completedLevels}</p>
+            <p className="font-game text-3xl text-green-400 mb-2">{completedLevels}</p>
             <p className="font-orbitron text-sm text-gray-400">Levels Completed</p>
           </div>
           
           <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-6 border-2 border-slate-700 text-center">
             <div className="text-5xl mb-3">📚</div>
-            <p className="font-game text-3xl text-purple-400 mb-2">
+            <p className="font-game text-3xl text-emerald-400 mb-2">
               {courses.filter(c => c.levels.some(l => l.completed)).length}
             </p>
             <p className="font-orbitron text-sm text-gray-400">Courses Started</p>
@@ -69,7 +69,7 @@ export default function Profile() {
           
           <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-6 border-2 border-slate-700 text-center">
             <div className="text-5xl mb-3">🏆</div>
-            <p className="font-game text-3xl text-pink-400 mb-2">{userProgress.badges.length}</p>
+            <p className="font-game text-3xl text-teal-400 mb-2">{userProgress.badges.length}</p>
             <p className="font-orbitron text-sm text-gray-400">Badges Earned</p>
           </div>
         </div>
@@ -81,13 +81,13 @@ export default function Profile() {
             <div>
               <div className="flex justify-between items-center mb-2">
                 <span className="font-orbitron text-sm text-gray-300">Overall Progress</span>
-                <span className="font-game text-sm text-indigo-400">
+                <span className="font-game text-sm text-green-400">
                   {Math.round((completedLevels / totalLevels) * 100)}%
                 </span>
               </div>
               <div className="w-full h-3 bg-slate-700 rounded-full overflow-hidden">
                 <div 
-                  className="h-full bg-gradient-to-r from-indigo-500 to-purple-500"
+                  className="h-full bg-gradient-to-r from-green-500 to-emerald-500"
                   style={{ width: `${(completedLevels / totalLevels) * 100}%` }}
                 />
               </div>
@@ -96,13 +96,13 @@ export default function Profile() {
             <div>
               <div className="flex justify-between items-center mb-2">
                 <span className="font-orbitron text-sm text-gray-300">XP to Next Level</span>
-                <span className="font-game text-sm text-purple-400">
+                <span className="font-game text-sm text-emerald-400">
                   {((userProgress.level) * 500) - userProgress.totalXP} XP
                 </span>
               </div>
               <div className="w-full h-3 bg-slate-700 rounded-full overflow-hidden">
                 <div 
-                  className="h-full bg-gradient-to-r from-purple-500 to-pink-500"
+                  className="h-full bg-gradient-to-r from-emerald-500 to-teal-500"
                   style={{ width: `${((userProgress.totalXP % 500) / 500) * 100}%` }}
                 />
               </div>

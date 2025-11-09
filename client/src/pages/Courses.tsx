@@ -21,7 +21,7 @@ export default function Courses({ onNavigate }: CoursesProps) {
   if (!selectedCourse) return null;
 
   return (
-    <div className="min-h-screen pt-24 pb-12 px-4 bg-dark-bg">
+    <div className="min-h-screen pt-24 pb-12 px-4 bg-dark-bg" style={{position: 'relative', zIndex: 10}}>
       <div className="max-w-7xl mx-auto">
         <div className="mb-8">
           <h1 className="font-game text-2xl sm:text-3xl text-center mb-6 text-neon-green glow-text">
