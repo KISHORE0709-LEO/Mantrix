@@ -4,7 +4,7 @@ import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import Spline from '@splinetool/react-spline';
-import CursorTrail from '../components/CursorTrail';
+// import CursorTrail from '../components/CursorTrail';
 
 interface AuthProps {
   onNavigate: (page: string) => void;
@@ -42,7 +42,7 @@ export default function Auth({ onNavigate }: AuthProps) {
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
-      <CursorTrail />
+      {/* <CursorTrail /> */}
       {/* Grid Background */}
       <div 
         className="absolute inset-0 opacity-30"

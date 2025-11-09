@@ -2279,39 +2279,31 @@ export const useLearning = create<LearningState>()(
       },
       
       login: async (username: string, password: string) => {
-        const response = await fetch('/api/auth/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username, password }),
-        });
+        // Demo mode - simulate login
+        const demoUser = { id: 1, username, email: null };
+        set({ user: demoUser });
         
-        if (!response.ok) {
-          const error = await response.json();
-          throw new Error(error.error || 'Login failed');
-        }
-        
-        const data = await response.json();
-        set({ user: data.user });
-        
-        await get().syncProgress();
+        // Simulate loading existing progress
+        set((state) => ({
+          userProgress: {
+            ...state.userProgress,
+            userId: demoUser.id.toString(),
+          }
+        }));
       },
       
       signup: async (username: string, password: string, email?: string) => {
-        const response = await fetch('/api/auth/signup', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username, password, email }),
-        });
+        // Demo mode - simulate signup
+        const demoUser = { id: 1, username, email: email || null };
+        set({ user: demoUser });
         
-        if (!response.ok) {
-          const error = await response.json();
-          throw new Error(error.error || 'Signup failed');
-        }
-        
-        const data = await response.json();
-        set({ user: data.user });
-        
-        await get().syncProgress();
+        // Initialize fresh progress
+        set((state) => ({
+          userProgress: {
+            ...state.userProgress,
+            userId: demoUser.id.toString(),
+          }
+        }));
       },
       
       logout: () => {
@@ -2330,43 +2322,8 @@ export const useLearning = create<LearningState>()(
       },
       
       syncProgress: async () => {
-        const { user } = get();
-        if (!user) return;
-        
-        try {
-          const response = await fetch(`/api/progress`);
-          if (response.ok) {
-            const data = await response.json();
-            
-            if (data.progress) {
-              set((state) => ({
-                userProgress: {
-                  userId: user.id.toString(),
-                  totalXP: data.progress.totalXP || 0,
-                  level: data.progress.level || 1,
-                  badges: data.badges || [],
-                  completedLevels: data.completedLevels?.map((cl: any) => cl.levelId) || [],
-                  currentCourse: data.progress.currentCourse,
-                  currentLevel: data.progress.currentLevel,
-                },
-                courses: state.courses.map(course => ({
-                  ...course,
-                  levels: course.levels.map((level, index) => {
-                    const isCompleted = data.completedLevels?.some((cl: any) => cl.levelId === level.id);
-                    const prevCompleted = index === 0 || data.completedLevels?.some((cl: any) => cl.levelId === course.levels[index - 1].id);
-                    return {
-                      ...level,
-                      completed: isCompleted,
-                      unlocked: index === 0 || prevCompleted,
-                    };
-                  })
-                }))
-              }));
-            }
-          }
-        } catch (error) {
-          console.error('Failed to sync progress:', error);
-        }
+        // Demo mode - no server sync needed
+        console.log('Demo mode: Progress synced locally');
       },
       
       setCourses: (courses) => set({ courses }),
